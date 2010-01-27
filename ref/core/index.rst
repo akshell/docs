@@ -10,3 +10,4 @@ Core Akshell APIs
    db
    fs
    misc
+   request
