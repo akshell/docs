@@ -18,6 +18,9 @@ storage using :mod:`ak.fs` module functions described here.
 .. _Amazon S3: http://aws.amazon.com/s3/
 .. _Nirvanix: http://www.nirvanix.com/
 
+Concepts
+========
+
 Akshell :dfn:`storage entries` are files and directories organized
 into a traditional treelike structure; entry names could contain any
 Unicode symbols except ``'\0'``, ``'\n'``, and ``'/'``. An application
@@ -38,11 +41,12 @@ http://media.akshell.com/spots/example/anton-korenyushkin/debug/dir/subdir/hello
 
 :dfn:`Temporary files` are another kind of files: they come from
 requests (see :doc:`request` for details), have no path, and disappear
-after the request was processed. :class:`~ak.TempFile` class is a
-representation of a temporary file; its objects are accepted by all
-:mod:`ak.fs` functions expecting file path parameter.
+after the request was processed. :class:`~ak.TempFile` class objects
+representing temporary files are accepted by all :mod:`ak.fs`
+functions expecting file path parameter.
 
-The following functions form the file storage API.
+Functions
+=========
 
 .. function:: read(path)
 
@@ -55,7 +59,7 @@ The following functions form the file storage API.
 
 .. function:: list(path)
 
-   Return an array of directory subentries' names in arbitrary order.
+   Return an array of names of directory subentries in arbitrary order.
 
 .. function:: exists(path)
 
@@ -86,23 +90,25 @@ The following functions form the file storage API.
 
    Create a file with path *copyPath* and contents of the original file.
 
-.. currentmodule:: ak
+Classes
+=======
 
-These classes are used in the file storage management
+.. currentmodule:: ak
 
 .. class:: Data
 
-   File contents representation.
+   A file contents representation.
 
    .. method:: toString(encoding='UTF-8')
 
-      Return a ``string`` decoded from data using *encoding*.
+      Return a ``string`` decoded from the data using *encoding*.
 
 .. class:: TempFile
 
-   Temporary file representation. Values of ``files`` request property
-   are instances of this class (see :doc:`request` for details).
+   A temporary file representation. Values of ``files`` request
+   property are instances of this class (see :doc:`request` for
+   details).
 
    .. method:: read()
 
-      Return file contents represented by a :class:`Data` object.
+      Return the file contents represented by a :class:`Data` object.

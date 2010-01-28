@@ -12,6 +12,9 @@ Glossary
 
    Identifier
       TODO
+
+   JavaScript engine
+      TODO
       
    Relation
       TODO
@@ -23,6 +26,9 @@ Glossary
       TODO
 
    Surrogate key
+      TODO
+
+   Transaction
       TODO
       
    Tuple
