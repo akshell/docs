@@ -18,6 +18,7 @@ storage using :mod:`ak.fs` module functions described here.
 .. _Amazon S3: http://aws.amazon.com/s3/
 .. _Nirvanix: http://www.nirvanix.com/
 
+
 Concepts
 ========
 
@@ -44,6 +45,7 @@ requests (see :doc:`request` for details), have no path, and disappear
 after the request was processed. :class:`~ak.TempFile` class objects
 representing temporary files are accepted by all :mod:`ak.fs`
 functions expecting file path parameter.
+
 
 Functions
 =========
@@ -90,6 +92,7 @@ Functions
 
    Create a file with path *copyPath* and contents of the original file.
 
+   
 Classes
 =======
 

@@ -16,6 +16,7 @@ Akshell database management is based on the :term:`relational
 model` which provides robust time-proved foundation for storing
 structured data in applications.
 
+
 Concepts
 --------
 
@@ -30,6 +31,7 @@ body. A :dfn:`relation header` is a tuple header; a :dfn:`relation
 body` is a set of tuples with a header matching the relation header. A
 :dfn:`relation variable` is a named relation. A :dfn:`relational
 database` is a set of relation variables with unique names.
+
 
 Example
 -------
@@ -62,6 +64,7 @@ When Ann replies him a tuple will be added to the body of
 
    <"post", number, 0>, <"author", string, "Ann">, <"text", string, "Hi, Bob!">
 
+   
 Relations as Tables
 -------------------
    
@@ -115,6 +118,7 @@ unnatural for blogs. Addition of a unique identifier attribute to
 +----+------+--------+-----------------------+
 |  3 |    0 | Ann    | Sorry for double post |
 +----+------+--------+-----------------------+
+
 
 Constraints
 -----------
@@ -360,8 +364,10 @@ Low-level database management functions are properties of :mod:`ak.db` module.
 
 .. function:: rollback()
 
-   .. todo:: TODO
+   Roll back the :term:`transaction` of the current request. See
+   :doc:`request` for details.
 
+   
 Relation Variables
 ------------------
 
@@ -617,6 +623,7 @@ The query language is an implementation of the :term:`tuple relational
 calculus`; it's designed to be a simple yet powerful database querying
 tool naturally embedded into JavaScript.
 
+
 Example
 -------
 
@@ -641,6 +648,7 @@ performed on it using :func:`db.query` function. ::
    >>> rv.Comment.insert({post: 0, author: 'Bob', text: 'Hi, Ann!'})
    >>> rv.Post.insert({author: 'Ann', text: 'Hey, Bob is onboard'})
 
+   
 Range Variables
 ---------------
    
@@ -667,6 +675,7 @@ previous examples could be rewritten::
    Post where forsome (Comment)
      Comment.post == Post.id && Comment.author == "Bob"
 
+     
 Prototype Tuples
 ----------------
 
@@ -713,6 +722,7 @@ comment texts could be retrieved by::
 
    union(Post.text, Comment.text)
 
+   
 Expressions
 -----------
    
@@ -793,6 +803,7 @@ their values. Supported operators are:
   ``-``, and unary ``+`` always return ``number``; their semantics
   mimics JavaScript.
 
+  
 Operator Precedence
 -------------------
 
@@ -808,6 +819,7 @@ Operator precedence in ascending order:
 8.  ``* / %``
 9.  unary ``+ - !``
 10. ``$ . ->``
+
 
 Full Grammar
 ------------

@@ -24,6 +24,7 @@ function which must be defined by :file:`__main__.js` file. It should
 accept :class:`Request` object as an argument and return
 :class:`Response` object.
 
+
 Request
 =======
 
@@ -80,6 +81,7 @@ Request
       The raw POST data represented by :class:`Data` object; ``null``
       if not present.
 
+      
 Response
 ========
 
