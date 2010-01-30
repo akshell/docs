@@ -67,7 +67,7 @@ Miscellaneous low-level tools.
 
       include(lib, '__init__.js')
 
-.. function:: setObjectProp(object, name, value, attributes)
+.. function:: setObjectProp(object, name, attributes, value)
 
    Set property *name* of *object* to *value* with *attributes*. There
    are four property attributes available:
@@ -90,7 +90,7 @@ Miscellaneous low-level tools.
    ``|``::
 
       >>> var object = {}
-      >>> setObjectProp(object, 'x', 42, READ_ONLY | DONT_ENUM | DONT_DELETE)
+      >>> setObjectProp(object, 'x', READ_ONLY | DONT_ENUM | DONT_DELETE, 42)
       >>> object.x
       42
       >>> object.x = 0
