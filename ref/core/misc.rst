@@ -67,6 +67,43 @@ Miscellaneous low-level tools.
 
       include(lib, '__init__.js')
 
+.. function:: setObjectProp(object, name, value, attributes)
+
+   Set property *name* of *object* to *value* with *attributes*. There
+   are four property attributes available:
+
+   ``NONE``
+      No attribute.
+
+   ``READ_ONLY``
+      Read-only attribute; value of such property could not be
+      changed.
+
+   ``DONT_ENUM``
+      Non-enumerable attribute; such property does not appear in
+      ``for..in`` loops.
+
+   ``DONT_DELETE``
+      Non-deletable attribute; such property could not be deleted.
+
+   Several attributes could be combined by the "bitwise or" operator
+   ``|``::
+
+      >>> var object = {}
+      >>> setObjectProp(object, 'x', 42, READ_ONLY | DONT_ENUM | DONT_DELETE)
+      >>> object.x
+      42
+      >>> object.x = 0
+      0
+      >>> object.x
+      42
+      >>> repr(keys(object))
+      []
+      >>> delete object.x
+      false
+      >>> object.x
+      42
+      
 .. function:: hash(value)
 
    Return an identity hash of an object if ``typeof(value)`` is either
