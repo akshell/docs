@@ -30,53 +30,53 @@ Request
 
 .. class:: Request
 
-   .. data:: method
+   .. attribute:: method
 
       A lowercase string representing the method of the request.
    
-   .. data:: user
+   .. attribute:: user
 
       A name of the user who initiated the request; an empty string if the
       user is not logged in.
       
-   .. data:: issuer
+   .. attribute:: issuer
 
       A name of the application which initiated the request; an empty
       string if the request was initiated by a client browser.
       
-   .. data:: path
+   .. attribute:: path
 
       A string representing the path of the requested resource; always
       starts with the slash.
       
-   .. data:: fullPath
+   .. attribute:: fullPath
 
       The path of the requested resource plus an appended query
       string, if applicable.
       
-   .. data:: uri
+   .. attribute:: uri
 
       The full requested URI.
       
-   .. data:: get
+   .. attribute:: get
 
       An object mapping GET parameter names to their values.
    
-   .. data:: post
+   .. attribute:: post
    
       An object mapping POST parameter names to their values; does
       **not** include file uploads, see :data:`files`.
       
-   .. data:: headers
+   .. attribute:: headers
 
       An object mapping the request header names to their values.
    
-   .. data:: files
+   .. attribute:: files
 
       An object mapping the uploaded file names to their
       :class:`TempFile` representations.
    
-   .. data:: data
+   .. attribute:: data
 
       The raw POST data represented by :class:`Data` object; ``null``
       if not present.

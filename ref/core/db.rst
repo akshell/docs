@@ -389,11 +389,11 @@ expressive.
    constructed manually; they must be obtained as :data:`rv`
    properties.
 
-   .. data:: name
+   .. attribute:: name
 
       The name of the relation variable.
 
-   .. data:: header
+   .. attribute:: header
 
       The header of the relation variable represented by an object mapping
       the attribute names to the attribute type names. ::
@@ -402,7 +402,7 @@ expressive.
          >>> repr(rv.X.header)
          {b: "bool", d: "date", n: "number", s: "string"}
 
-   .. data:: integer
+   .. attribute:: integer
 
       A sorted array of the integer attribute names. ::
 
@@ -410,7 +410,7 @@ expressive.
          >>> repr(rv.X.integer)
          ["i", "s"]
 
-   .. data:: serial
+   .. attribute:: serial
 
       A sorted array of the serial attribute names. ::
 
@@ -418,7 +418,7 @@ expressive.
          >>> repr(rv.X.serial)
          ["s"]
 
-   .. data:: unique
+   .. attribute:: unique
 
       A sorted array of the unique keys represented by name arrays. A
       set of all attributes is always a unique key. ::
@@ -429,7 +429,7 @@ expressive.
          >>> repr(rv.X.unique)
          [["a"], ["a", "b", "c"], ["b", "c"]]
 
-   .. data:: foreign
+   .. attribute:: foreign
 
       A sorted array of the foreign keys represented by three-item
       arrays: the first item of such array is itself an array of
@@ -444,7 +444,7 @@ expressive.
          >>> repr(rv.Y.foreign)
          [[["c", "d"], "X", ["a", "b"]]]
 
-   .. data:: default_
+   .. attribute:: default_
 
       An object mapping the names of the attributes with default
       values to these values. ::
@@ -503,19 +503,19 @@ expressive.
    A representation of a subset of relation variable's
    tuples. Provides methods for managing them.
 
-   .. data:: name
+   .. attribute:: name
 
       The name of the relation variable
 
-   .. data:: expr
+   .. attribute:: expr
 
       The expression the selection tuples match to.
 
-   .. data:: params
+   .. attribute:: params
 
       The parameters of the expression.
 
-   .. data:: rv
+   .. attribute:: rv
 
       The :class:`RelVar` object of the selection.
 
