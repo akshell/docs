@@ -3,8 +3,6 @@
 Database API
 ============
 
-.. currentmodule:: ak
-
 This document describes Akshell database model, an API for managing an
 application database, and a language for querying it.
 
@@ -156,7 +154,7 @@ Database Management
 Types
 -----
 
-Four Akshell database types are represented by properties of :mod:`ak`
+Four Akshell database types are represented by properties of ``ak``
 module; they are instances of :class:`Type` class.
 
 .. data:: number
@@ -242,17 +240,18 @@ module; they are instances of :class:`Type` class.
          {n: 42}
 
 
-:mod:`ak.db` Module
+:mod:`db` Module
 -------------------
 
-.. module:: ak.db
+.. module:: db
 
-Low-level database management functions are properties of :mod:`ak.db` module.
+Low-level database management functions are properties of :mod:`db` module.
 
 .. function:: create(name, header, constrs={})
 
    Create a relation variable. *header* must be an object mapping
-   attribute names to their types; *constrs* object could have fields:
+   attribute names to their types; The *constrs* object could have the
+   fields:
 
    unique
       a list of unique keys represented by lists of attribute names;
@@ -268,9 +267,9 @@ Low-level database management functions are properties of :mod:`ak.db` module.
 
    .. note::
 
-      One-attribute constraints could be specified by :class:`~ak.Type`
-      method or by *constr* parameter. The first way should be
-      preferred because it's more expressive.
+      One-attribute constraints could be specified by a
+      :class:`~ak.Type` method or by *constr* argument. The first way
+      should be preferred because it's more expressive.
 
    ::
 
@@ -311,11 +310,11 @@ Low-level database management functions are properties of :mod:`ak.db` module.
    Perform a database query; return a relation represented by an array
    of tuples, each tuple being an object mapping attribute names to
    their values. *query* is a query string, see :ref:`Query Language
-   <query_language>` for details; *options* object could have
+   <query_language>` for details; The *options* object could have the
    properties:
 
    params
-      an list of query parameters;
+      a list of query parameters;
 
    by
       an expression or a list of expressions to order resulting
@@ -371,12 +370,11 @@ Low-level database management functions are properties of :mod:`ak.db` module.
 Relation Variables
 ------------------
 
-.. currentmodule:: ak
+.. currentmodule:: None
 
 :class:`RelVar` and :class:`Selection` classes provide a convenient
 access to the database management. You should prefer this interface
-over :mod:`ak.db` module whenever possible because it's more
-expressive.
+over :mod:`db` module whenever possible because it's more expressive.
 
 .. data:: rv
 
@@ -522,8 +520,8 @@ expressive.
    .. method:: get(options={} [, byParams... ])
 
       Return an array of the tuples represented by objects mapping
-      attribute names to attribute values. *options* object could have
-      properties:
+      attribute names to attribute values. The *options* object could
+      have the properties:
 
       only
          a list of attribute names to fetch;

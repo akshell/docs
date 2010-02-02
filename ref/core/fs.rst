@@ -3,7 +3,7 @@
 File Storage API
 ================
 
-.. module:: ak.fs
+.. module:: fs
 
 .. todo:: Add an appropriate link to "Expires header"
 
@@ -13,7 +13,7 @@ for huge media collections you should use an external service like
 `Amazon S3`_ or Nirvanix_. Files are served by a web server from
 http://media.akshell.com/ with a far future ``Expires`` header; anyone
 could access them for browsing and reading. An application manages its
-storage using :mod:`ak.fs` module functions described here.
+storage using :mod:`fs` module functions described here.
 
 .. _Amazon S3: http://aws.amazon.com/s3/
 .. _Nirvanix: http://www.nirvanix.com/
@@ -43,8 +43,8 @@ http://media.akshell.com/spots/example/anton-korenyushkin/debug/dir/subdir/hello
 :dfn:`Temporary files` are another kind of files: they come from
 requests (see :doc:`request` for details), have no path, and disappear
 after the request was processed. :class:`~ak.TempFile` class objects
-representing temporary files are accepted by all :mod:`ak.fs`
-functions expecting file path parameter.
+representing temporary files are accepted by all :mod:`fs` functions
+expecting file path parameter.
 
 
 Functions
@@ -90,13 +90,14 @@ Functions
 
 .. function:: copyFile(origPath, copyPath)
 
-   Create a file with path *copyPath* and contents of the original file.
+   Create a file with a path *copyPath* and contents of the original
+   file.
 
    
 Classes
 =======
 
-.. currentmodule:: ak
+.. currentmodule:: None
 
 .. class:: Data
 

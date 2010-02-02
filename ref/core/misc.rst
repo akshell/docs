@@ -3,8 +3,6 @@
 Miscellaneous APIs
 ==================
 
-.. currentmodule:: ak
-
 Miscellaneous low-level tools.
 
 .. function:: readCode([appName,] path)
@@ -67,30 +65,35 @@ Miscellaneous low-level tools.
 
       include(lib, '__init__.js')
 
-.. function:: setObjectProp(object, name, attributes, value)
+.. function:: set(object, name, attributes, value)
 
-   Set property *name* of *object* to *value* with *attributes*. There
-   are four property attributes available:
+   Set the property *name* of *object* to *value*; if the property was
+   not defined before it's created with *attributes*. There are four
+   property attributes available:
 
-   ``NONE``
-      No attribute.
+   .. data:: COMMON
+   
+      Common: no special treatment.
 
-   ``READ_ONLY``
-      Read-only attribute; value of such property could not be
+   .. data:: READONLY
+   
+      Read-only: values of ``READONLY`` properties could not be
       changed.
 
-   ``DONT_ENUM``
-      Non-enumerable attribute; such property does not appear in
+   .. data:: HIDDEN
+   
+      Non-enumerable: ``HIDDEN`` properties do not appear in
       ``for..in`` loops.
 
-   ``DONT_DELETE``
-      Non-deletable attribute; such property could not be deleted.
+   .. data:: PERMANENT
+   
+      Non-deletable: ``PERMANENT`` properties could not be deleted.
 
    Several attributes could be combined by the "bitwise or" operator
    ``|``::
 
       >>> var object = {}
-      >>> setObjectProp(object, 'x', READ_ONLY | DONT_ENUM | DONT_DELETE, 42)
+      >>> setObjectProp(object, 'x', READONLY | HIDDEN | PERMANENT, 42)
       >>> object.x
       42
       >>> object.x = 0

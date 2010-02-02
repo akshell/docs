@@ -1,10 +1,8 @@
 .. _ak:
 
-===================================
-:mod:`ak` --- Basic Akshell library
-===================================
-
-.. module:: ak
+=====================
+Basic Akshell Library
+=====================
 
 .. toctree::
    :maxdepth: 2

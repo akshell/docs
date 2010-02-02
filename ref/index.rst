@@ -9,4 +9,3 @@ Reference
 
    core/index
    ak/index
-   log

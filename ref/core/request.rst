@@ -3,8 +3,6 @@
 Request Handling
 ================
 
-.. currentmodule:: ak
-
 Akshell application model is centered in request handling. During its
 life cycle an application waits for a request delivery, handles a
 request, or requests other application and waits for the request to be
@@ -100,8 +98,8 @@ requestApp
 .. function:: requestApp(name, request)
 
    Perform an application request; return a :class:`Response`
-   object. *name* is a name of the application being
-   requested. *request* object could contain the following fields:
+   object. *name* is a name of the application being requested. The
+   *request* object could contain the following fields:
 
       method
          the request method;
