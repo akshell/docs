@@ -8,7 +8,6 @@ Basic Akshell Library
    :maxdepth: 2
 
    base
-   debug
    iter
    dict
    stream

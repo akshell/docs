@@ -3,12 +3,12 @@
 Base
 ====
 
-The base component (:file:`base.js` file) of ``ak`` library extends
-standard JavaScript by some features borrowed mainly from Python_
-making it more suitable for creating modular server-side
-applications. The component was inspired by MochiKit_ client-side
-JavaScript library by Bob Ippolito.
+In file `base.js`_ ``ak`` library extends standard JavaScript by some
+features borrowed mainly from Python_ making it more suitable for
+creating modular server-side applications. The code was inspired by
+MochiKit_ client-side JavaScript library by Bob Ippolito.
 
+.. _base.js: http://www.akshell.com/apps/ak/code/base.js
 .. _Python: http://python.org/
 .. _MochiKit: http://mochikit.com/
 
@@ -170,9 +170,8 @@ Error Subclasses
       In Akshell the preferred style of instantiation of error classes
       is **without** ``new``.
 
-Two subclasses of :class:`BaseError` are defined in the base component
-of ``ak`` library; they are broadly used by the rest of the library;
-you should also employ them in your code.
+The following subclasses of :class:`BaseError` are broadly used by the
+rest of ``ak`` library; you should also employ them in your code.
       
 .. class:: ValueError
 
@@ -358,6 +357,32 @@ Module Class
    .. method:: toString()
 
       Return ``this.__repr__()``.
+
+
+Debug Tools
+===========
+
+.. class:: AssertionError
+
+   Assertion failed. Subclass of :class:`BaseError`.
+
+.. function:: assert(value[, message])
+
+   Throw :class:`AssertionError` if ``!value``.
+
+.. function:: assertSame(lhs, rhs[, message])
+
+   Throw :class:`AssertionError` if ``lhs !== rhs``.
+
+.. function:: assertEqual(lhs, rhs[, message])
+
+   Throw :class:`AssertionError` if ``!equal(lhs, rhs)``.
+
+.. function:: assertThrow(errorClass, func[, args...])
+
+   Evaluate ``func.apply(global, args)``; throw
+   :class:`AssertionError` if exception wasn't thrown or if the thrown
+   exception was not instance of *errorClass*.
 
 
 Array Functions
