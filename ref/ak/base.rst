@@ -354,10 +354,6 @@ Module Class
       :samp:`'<module {name}>'` for modules without a version, or
       ``'<anonymous module>'`` for modules without a name.
 
-   .. method:: toString()
-
-      Return ``this.__repr__()``.
-
 
 Debug Tools
 ===========
