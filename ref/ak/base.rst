@@ -351,8 +351,8 @@ Module Class
 
    .. method:: __repr__()
 
-      Return a string :file:`'<module {name} {version}>'`, or
-      :file:`'<module {name}>'` for modules without a version, or
+      Return a string :samp:`'<module {name} {version}>'`, or
+      :samp:`'<module {name}>'` for modules without a version, or
       ``'<anonymous module>'`` for modules without a name.
 
    .. method:: toString()
