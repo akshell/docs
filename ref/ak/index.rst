@@ -8,9 +8,6 @@ Basic Akshell Library
    :maxdepth: 2
 
    base
-   iter
-   dict
-   stream
    utils
    aspect
    unittest
