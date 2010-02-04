@@ -52,12 +52,12 @@ known as a :term:`surrogate key`). The header of the relation of
    body the header and the body of the value of the relation variable.
 
 Initially both relation variables will have an empty body. When user
-Bob writes his first post a tuple will be added to the body of
+Bob writes his first post, the tuple will be added to the body of
 ``Post``::
 
    <"id", number, 0>, <"author", string, "Bob">, <"text", string, "Hello, world!">
 
-When Ann replies him a tuple will be added to the body of
+When Ann replies him, the tuple will be added to the body of
 ``Comment``::
 
    <"post", number, 0>, <"author", string, "Ann">, <"text", string, "Hi, Bob!">
@@ -69,7 +69,7 @@ Relations as Tables
 A relation can be imagined as a table with a header matching the
 relation header and rows containing the tuple attribute values. If Bob
 replies Ann: "Hi, Ann!" and she writes in her blog: "Hey, Bob is
-onboard", ``Post`` relation variable will have the following
+onboard," ``Post`` relation variable will have the following
 representation:
 
 +----+--------+---------------------+
@@ -211,8 +211,8 @@ module; they are instances of :class:`Type` class.
 
    .. method:: foreign(refRelVarName, refAttrName)
 
-      Return a type with a foreign key constraint, i.e. a reference to
-      a unique attribute in another or the same relation variable.
+      Return a type with a foreign key constraint, i.e., a reference
+      to a unique attribute in another or the same relation variable.
 
          >>> db.create('X', {u: number}) // u is unique because it's lonely
          >>> db.create('Y', {f: number.foreign('X', 'u')})
@@ -223,7 +223,7 @@ module; they are instances of :class:`Type` class.
 
    .. method:: check(expr)
 
-      Return a type with a check constraint, i.e. *expr* must
+      Return a type with a check constraint, i.e., *expr* must
       evaluate to ``true`` for each tuple of a relation with an
       attribute of this type. ::
 
@@ -332,7 +332,7 @@ Low-level database management functions are properties of :mod:`db` module.
 
    .. note::
 
-      If *by* option is not specified the order of returned tuples is
+      If *by* option is not specified, the order of returned tuples is
       undefined. Using *start* or *length* without *by* is discouraged
       because there is no guarantee which tuples would be returned.
 
@@ -527,7 +527,7 @@ over :mod:`db` module whenever possible because it's more expressive.
          a list of attribute names to fetch;
 
       attr
-         a name of an attribute to fetch, if *attr* option is used
+         a name of an attribute to fetch, if *attr* option is used,
          ``get()`` returns an array of attribute values;
          
       by
@@ -651,9 +651,9 @@ Range Variables
 ---------------
    
 The basic concept of the language is a :dfn:`range variable`. It's a
-named variable ranging over a relation, i.e. its values are the tuples
-of the relation. Range variables are declared by ``for`` construction
-and by ``forsome`` and ``forall`` expressions.
+named variable ranging over a relation, i.e., its values are the
+tuples of the relation. Range variables are declared by ``for``
+construction and by ``forsome`` and ``forall`` expressions.
 
 The relations of Bob's posts and posts commented by Bob could be
 retrieved by the queries::
@@ -679,7 +679,7 @@ Prototype Tuples
 
 Range variables form a :dfn:`prototype tuple` describing resulting
 relation tuples as a whole. In the previous example ``Post`` was a
-prototype tuple, i.e. all ``Post`` attributes were included in the
+prototype tuple, i.e., all ``Post`` attributes were included in the
 result. There are two classes of prototype tuples: simple and complex.
 
 * :dfn:`Simple` prototype tuples are formed by one range variable.
@@ -714,7 +714,7 @@ result. There are two classes of prototype tuples: simple and complex.
      {n: 42, s: "the answer"}
 
 Relations with the same header could form a :dfn:`union` relation,
-i.e. a relation consisting of all their tuples. In the query language
+i.e., a relation consisting of all their tuples. In the query language
 this operation is performed by ``union`` construction. All post and
 comment texts could be retrieved by::
 
@@ -745,10 +745,9 @@ their values. Supported operators are:
      Post where forall (Comment)
        Comment.post != Post.id || Comment.text
 
-* :dfn:`Attribute operator` ``.`` returns a value of a range
-  variable attribute. If there is only one range variable in the
-  prototype its name and a dot could be omitted. These queries are
-  equivalent::
+* :dfn:`Attribute operator` ``.`` returns a value of a range variable
+  attribute. If there is only one range variable in the prototype, its
+  name and a dot could be omitted. These queries are equivalent::
 
      Post where Post.author == "Bob"
      
@@ -776,7 +775,7 @@ their values. Supported operators are:
      {postText: Comment.post->text, commentText: Comment.text}
 
 * :dfn:`Parameter operator` ``$n`` returns a value of *n*\ -th
-  parameter where *n* is a positive integer. If *n* is not specified
+  parameter where *n* is a positive integer. If *n* is not specified,
   it defaults to 1.
 
 * :dfn:`Conditional operator` ``?:`` return type depends on types of

@@ -8,9 +8,9 @@ Miscellaneous low-level tools.
 .. function:: readCode([appName,] path)
 
    Return contents of a code file as a ``string``. If *appName* is a
-   name of the executing application search for a file in the
+   name of the executing application, search for a file in the
    executing code base; otherwise search for it in the release code
-   base of the specified application. If *appName* is omitted it
+   base of the specified application. If *appName* is omitted, it
    defaults to the name of the executing application. *path* separator
    is the slash (``'/'``).
    
@@ -19,7 +19,7 @@ Miscellaneous low-level tools.
    Include a code file; return a code evaluation result. Do not
    include the same file twice: return a cached result instead. *lib*
    must be an application name optionally followed by a path within
-   its release code. If *lib* is specified cross-application include
+   its release code. If *lib* is specified, cross-application include
    takes place; otherwise a current application code is searched for a
    file. A :dfn:`current application` is an executing application or
    an application of the latest incomplete cross-application
@@ -68,7 +68,7 @@ Miscellaneous low-level tools.
 .. function:: set(object, name, attributes, value)
 
    Set the property *name* of *object* to *value*; if the property was
-   not defined before it's created with *attributes*. There are four
+   not defined before, it's created with *attributes*. There are four
    property attributes available:
 
    .. data:: COMMON

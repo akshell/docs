@@ -50,7 +50,7 @@ Request
    .. attribute:: fullPath
 
       The path of the requested resource plus an appended query
-      string, if applicable.
+      string if applicable.
       
    .. attribute:: uri
 
@@ -86,7 +86,7 @@ Response
 .. class:: Response(content='', status=200[, headers])
 
    A response representation; an object with ``content``, ``status``,
-   and ``headers`` properties. If *headers* are not specified they
+   and ``headers`` properties. If *headers* are not specified, they
    default to::
 
       {'Content-Type': 'text/html; charset=utf-8'}

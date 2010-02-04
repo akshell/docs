@@ -108,7 +108,7 @@ Function Methods
       Return a :term:`subclass` of this :term:`class`. ``subclass()``
       is a heart of Akshell object-oriented system; it brings classes
       to the prototype-oriented world of JavaScript in a natural
-      way. Each function could be a class, i.e. could be used for
+      way. Each function could be a class, i.e., could be used for
       creating objects by the operator ``new``. A class could be
       subclassed via ``subclass()`` method; a subclass inherits
       methods and attributes of its parent class, which are specified
@@ -226,7 +226,7 @@ this shortcoming Akshell provides these comparison functions.
       
    3. if *rhs* has ``__cmp__`` method return ``-rhs.__cmp__(lhs)``;
 
-   4. the values are incomparable --- throw ``CmpError(lhs, rhs)``.
+   4. the values are incomparable -- throw ``CmpError(lhs, rhs)``.
 
    You can see that your own types could support ``cmp`` by providing
    method ``__cmp__(other)``; it should

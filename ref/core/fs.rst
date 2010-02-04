@@ -57,7 +57,7 @@ Functions
 .. function:: write(path, data)
 
    Coerce *data* to ``string`` and write it into a file; if the file
-   already exists overwrite it.
+   already exists, overwrite it.
 
 .. function:: list(path)
 
@@ -81,7 +81,7 @@ Functions
 
 .. function:: remove(path)
 
-   Remove an entry; if it's a directory remove it recursively.
+   Remove an entry; if it's a directory, remove it recursively.
 
 .. function:: rename(oldPath, newPath)
 
