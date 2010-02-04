@@ -176,7 +176,7 @@ htmlhelp_basename = 'akshell'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Akshell.tex', u'Akshell Documentation',
+  ('contents', 'akshell.tex', u'Akshell Documentation',
    u'Anton Korenyushkin', 'manual'),
 ]
 
