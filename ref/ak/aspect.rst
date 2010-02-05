@@ -31,12 +31,12 @@ advices stretching through the whole program.
 Aspect Class
 ============
 
-.. class:: Aspect(holder, func, advice)
+.. class:: Aspect(holder, name, advice)
 
    An aspect base class, subclass of ``Function``. Concrete aspect
    classes should subclass it and implement ``_apply(self, args)``
    method. *holder* is an object holding a function being advised;
-   *func* is a name of this function; *advice* is an advice
+   *name* is a name of this function; *advice* is an advice
    function.
 
    .. warning::
@@ -88,23 +88,23 @@ AspectArray Class
 weave() Function
 ================
 
-.. function:: weave(aspectClass, holder, func, advice, directly=false)
+.. function:: weave(aspectClass, holder, names, advice, directly=false)
 
    Weave *advice* to the functions of the *holder* object (if
    *directly* is ``false`` and *holder* is a ``function``, use the
    ``holder.prototype`` object instead). The behavior of ``weave()``
-   depends on the type of *func* argument; it could be:
+   depends on the type of *names* argument; it could be:
 
    ``string``
-      Interpret *func* as a name of the function to be weaved; return
-      an :class:`Aspect` object.
+      Interpret *names* argument as a name of the only function to be
+      weaved; return an :class:`Aspect` object.
       
    ``Array``
-      Interpret *func* as a list of names of the functions to be weaved;
+      Interpret *names* as a list of names of the functions to be weaved;
       return an :class:`AspectArray` object.
 
    ``RegExp``
-      Interpret *func* as a pattern which the function properties of
+      Interpret *names* as a pattern which the function properties of
       the holder object should match to to be weaved; return an
       :class:`AspectArray` object.
 
