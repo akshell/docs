@@ -7,6 +7,9 @@ Glossary
 .. glossary::
    :sorted:
 
+   Aspect
+      TODO
+
    Class
       TODO
 
