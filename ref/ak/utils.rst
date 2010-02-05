@@ -17,8 +17,7 @@ Function Utilities
    as ``this``. If *func* is a string, ``self[func]`` will be used as
    a function. ::
 
-      >>> var f = bind('join', [1, 2, 3])
-      >>> f('+')
+      >>> bind('join', [1, 2, 3])('+')
       1+2+3
 
 .. function:: partial(func[, args... ])
@@ -27,28 +26,26 @@ Function Utilities
    called will behave like *func* called with *args*. If more
    arguments are supplied to the call, they are appended to *args*. ::
 
-      >>> var f = function () { return Array.join(arguments, ', '); }
-      >>> var p = partial(f, 1, 2)
-      >>> p(3, 4)
+      >>> partial(function () { return Array.join(arguments, ', '); },
+                  1, 2)(3, 4)
       1, 2, 3, 4
 
 .. function:: giveNames(namespace)
 
    Recursively set ``__name__`` property of all functions and modules
    of the *namespace* object. ::
-   
-      >>> global.abc = new Module('abc')
-      >>> abc.foo = function () {}
-      >>> abc.submodule = new Module()
-      >>> abc.submodule.bar = function () {}
-      >>> giveNames(abc)
-      >>> repr(abc.foo)
-      <function abc.foo>
-      >>> repr(abc.submodule)
-      <module abc.submodule>
-      >>> repr(abc.submodule.bar)
-      <function abc.submodule.bar>
-   
+
+      (function ()
+      {
+        global.abc = new Module('abc');
+        abc.foo = function () {};
+        abc.submodule = new Module();
+        abc.submodule.bar = function () {};
+        giveNames(abc);
+        assertSame(repr(abc.foo), '<function abc.foo>');
+        assertSame(repr(abc.submodule), '<module abc.submodule>');
+        assertSame(repr(abc.submodule.bar), '<function abc.submodule.bar>');
+      })()
 
 .. function:: abstract()
 
@@ -141,17 +138,16 @@ Stream
 
    ::
 
-      >>> var s = new Stream()
-      >>> s.write(1, 2, 3, '\n')
-      >>> s.write('Hello', ', ', 'world!')
-      >>> s.read()
-      123
-      Hello, world!
-      >>> s.read().length
-      0
-      >>> s.write('Buy!')
-      >>> s.read()
-      Buy!
+      (function ()
+      {
+        var s = new Stream();
+        s.write(1, 2, 3, '\n');
+        s.write('Hello', ', ', 'world!');
+        assertSame(s.read(), '123\nHello, world!');
+        assertSame(s.read(), '');
+        s.write('Buy!');
+        assertSame(s.read(), 'Buy!');
+      })()
 
 .. data:: out
 
@@ -213,12 +209,14 @@ Dict
       Return an array of the results of applying *func* to the items
       of the dictionary; pass *self* to *func* as ``this``. ::
 
-         >>> var d = new Dict()
-         >>> d.set({x: 0}, 'zero')
-         >>> d.set({x: 1}, 'one')
-         >>> var f = function (key, value) { return key.x + ':' + value; }
-         >>> repr(d.map(f))
-         ["1:one", "0:zero"]
+         (function ()
+         {
+           var d = new Dict();
+           d.set({x: 0}, 'zero');
+           d.set({x: 1}, 'one');
+           var f = function (key, value) { return key.x + ':' + value; };
+           assertEqual(d.map(f).sort(), ['0:zero', '1:one']);
+         })()
          
    .. method:: items()
 
@@ -243,8 +241,10 @@ Dict
       Return the representation of the dictionary; called by
       :func:`repr`. ::
 
-         >>> var d = new Dict()
-         >>> d.set(ak, 42)
-         >>> d.set(ak.Dict, 'Dict class!')
-         >>> repr(d)
+         >>> (function () {
+                var d = new Dict();
+                d.set(ak, 42);
+                d.set(ak.Dict, 'Dict class!');
+                return repr(d);
+              })()
          {<module ak 0.1>: 42, <function ak.Dict>: "Dict class!"}

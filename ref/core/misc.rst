@@ -92,20 +92,17 @@ Miscellaneous low-level tools.
    Several attributes could be combined by the "bitwise or" operator
    ``|``::
 
-      >>> var object = {}
-      >>> setObjectProp(object, 'x', READONLY | HIDDEN | PERMANENT, 42)
-      >>> object.x
-      42
-      >>> object.x = 0
-      0
-      >>> object.x
-      42
-      >>> repr(keys(object))
-      []
-      >>> delete object.x
-      false
-      >>> object.x
-      42
+      (function ()
+      {
+        var object = {};
+        set(object, 'x', READONLY | HIDDEN | PERMANENT, 42);
+        assertSame(object.x, 42);
+        object.x = 0;
+        assertSame(object.x, 42);
+        assertEqual(keys(object), []);
+        assert(!delete object.x);
+        assertSame(object.x, 42);
+      })()
       
 .. function:: hash(value)
 

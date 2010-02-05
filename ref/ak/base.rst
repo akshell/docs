@@ -238,30 +238,26 @@ this shortcoming Akshell provides these comparison functions.
      incomparable.
      
    ::
-   
-      >>> cmp(null, null)
-      0
-      >>> var C = Object.subclass(
-            function (n) {
-              this._n = n;
-            },
-            {
-              __cmp__: function (other) {
-                if (!(other instanceof C))
-                  throw CmpError(this, other);
-                return cmp(this._n, other._n);
-              }
-            });
-      >>> cmp(new C(0), new C(0))
-      0
-      >>> cmp(new C(1), new C(0))
-      1
-      >>> cmp(new C(0), new C(1))
-      -1
-      >>> cmp(new C(0), 42)
-      ak.CmpError: ...
-      >>> cmp(undefined, {__cmp__: function () { return 0; }})
-      0
+
+      (function ()
+      {
+        assertSame(cmp(null, null), 0);
+        var C = Object.subclass(
+          function (n) {
+            this._n = n;
+          },
+          {
+            __cmp__: function (other) {
+              if (!(other instanceof C))
+                throw CmpError(this, other);
+              return cmp(this._n, other._n);
+            }
+          });
+        assertSame(cmp(new C(0), new C(0)), 0);
+        assertSame(cmp(new C(1), new C(0)), 1);
+        assertSame(cmp(new C(0), new C(1)), -1);
+        assertThrow(CmpError, cmp, new C(0), 42);
+      })()
 
    ``__cmp__(other)`` method of ``Number``, ``String``, ``Boolean``,
    and ``Date`` throws :class:`CmpError` if *other* is not a
@@ -439,8 +435,7 @@ RegExp Escaping
 
    >>> RegExp.escape('.*')
    \.\*
-   >>> var re = RegExp('^' + RegExp.escape('.*') + '$')
-   >>> re.test('some string')
+   >>> RegExp('^' + RegExp.escape('.*') + '$').test('some string')
    false
-   >>> re.test('.*')
+   >>> RegExp('^' + RegExp.escape('.*') + '$').test('.*')
    true
