@@ -326,7 +326,7 @@ this shortcoming Akshell provides these comparison functions.
    
 .. class:: CmpError(lhs, rhs)
 
-   Values *lhs* and *rhs* are incomparable. Subclass of ``TypeError``.
+   Values *lhs* and *rhs* are incomparable.
 
 
 Module
