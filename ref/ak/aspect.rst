@@ -28,8 +28,8 @@ advices stretching through the whole program.
    specially target this task.
 
 
-Aspect Class
-============
+Aspect
+======
 
 .. class:: Aspect(holder, name, advice)
 
@@ -64,8 +64,8 @@ Aspect Class
       from the aspect chain and return the top aspect of the chain.
       
       
-AspectArray Class
-=================
+AspectArray
+===========
 
 .. class:: AspectArray
 
@@ -85,8 +85,8 @@ AspectArray Class
       Disable all aspects of the array.
    
 
-weave() Function
-================
+weave()
+=======
 
 .. function:: weave(aspectClass, holder, names, advice, directly=false)
 

@@ -13,6 +13,9 @@ Glossary
    Class
       TODO
 
+   Class method
+      TODO
+
    Database
       TODO
 

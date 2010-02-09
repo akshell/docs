@@ -63,7 +63,7 @@ Request
    .. attribute:: post
    
       An object mapping POST parameter names to their values; does
-      **not** include file uploads, see :data:`files`.
+      **not** include file uploads, see :attr:`files`.
       
    .. attribute:: headers
 

@@ -6,7 +6,7 @@ Base
 In file `base.js`_ ``ak`` library extends standard JavaScript by some
 features borrowed mainly from Python_ making it more suitable for
 creating modular server-side applications. The code was inspired by
-MochiKit_ client-side JavaScript library by Bob Ippolito.
+MochiKit_ client-side JavaScript library, by Bob Ippolito.
 
 .. _base.js: http://www.akshell.com/apps/ak/code/base.js
 .. _Python: http://python.org/
@@ -328,8 +328,8 @@ this shortcoming Akshell provides these comparison functions.
    Values *lhs* and *rhs* are incomparable. Subclass of ``TypeError``.
 
 
-Module Class
-============
+Module
+======
 
 .. class:: Module([name[, version]])
 
@@ -351,6 +351,8 @@ Module Class
       ``'<anonymous module>'`` for modules without a name.
 
 
+.. _debug_tools:
+      
 Debug Tools
 ===========
 
