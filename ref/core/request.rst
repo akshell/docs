@@ -15,18 +15,22 @@ Akshell protects application database by wrapping each request
 handling and expression evaluation by a :term:`transaction`: database
 changes either all occur or nothing occurs. Cancellation of changes
 happens if request/expression processing throws an exception or calls
-:func:`db.rollback` function.
+the :func:`db.rollback` function.
 
-The request handling entry point of an application is ``__main__``
-function which must be defined by :file:`__main__.js` file. It should
-accept :class:`Request` object as an argument and return
-:class:`Response` object.
+The request handling entry point of an application is the
+``__main__()`` function which must be defined by the
+:file:`__main__.js` file. It should accept a :class:`Request` object
+as an argument and return a :class:`Response` object.
 
 
 Request
 =======
 
 .. class:: Request
+
+   A ``Request`` object stores data passed with an application
+   request. The ``__main__()`` function receives a ``Request`` object
+   whenever the application is requested.
 
    .. attribute:: method
 
@@ -76,8 +80,8 @@ Request
    
    .. attribute:: data
 
-      The raw POST data represented by :class:`Data` object; ``null``
-      if not present.
+      The raw POST data represented by a :class:`Data` object;
+      ``null`` if not present.
 
       
 Response
@@ -85,9 +89,12 @@ Response
 
 .. class:: Response(content='', status=200[, headers])
 
-   A response representation; an object with ``content``, ``status``,
-   and ``headers`` properties. If *headers* are not specified, they
-   default to::
+   A ``Response`` object represents an application response; it has
+   ``content``, ``status``, and ``headers`` properties. ``__main__()``
+   function should return a ``Response`` object.
+
+   If the *headers* constructor argument is not specified, it defaults
+   to::
 
       {'Content-Type': 'text/html; charset=utf-8'}
 

@@ -33,16 +33,17 @@ version of the application and
 :file:`spots/{appName}/{ownerName}/{spotName}` for a spot one
 (:file:`{ownerName}` is lower cased with spaces replaced by hyphens).
 
-For example, file :file:`hello.txt` in subdirectory :file:`subdir` of
-directory :file:`dir` has a path :file:`'dir/subdir/hello.txt'`. In
-the release version of ``example`` application it has an URL
+For example, the file :file:`hello.txt` in the subdirectory
+:file:`subdir` of the directory :file:`dir` has a path
+:file:`'dir/subdir/hello.txt'`. In the release version of the
+``example`` application it has an URL
 http://media.akshell.com/release/example/dir/subdir/hello.txt, in
 Anton Korenyushkin's (mine) spot ``debug`` it has an URL
 http://media.akshell.com/spots/example/anton-korenyushkin/debug/dir/subdir/hello.txt.
 
 :dfn:`Temporary files` are another kind of files: they come from
 requests (see :doc:`request` for details), have no path, and disappear
-after the request was processed. :class:`~ak.TempFile` class objects
+after the request was processed. :class:`~ak.TempFile` objects
 representing temporary files are accepted by all :mod:`fs` functions
 expecting file path parameter.
 
@@ -101,7 +102,7 @@ Classes
 
 .. class:: Data
 
-   A file contents representation.
+   A ``Data`` object represents file contents.
 
    .. method:: toString(encoding='UTF-8')
 
@@ -109,9 +110,9 @@ Classes
 
 .. class:: TempFile
 
-   A temporary file representation. Values of ``files`` request
-   property are instances of this class (see :doc:`request` for
-   details).
+   A ``TempFile`` object represents a temporary file passed to the
+   application through the values of the ``files`` request property
+   (see :doc:`request` for details).
 
    .. method:: read()
 

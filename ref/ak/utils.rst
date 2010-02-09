@@ -3,7 +3,8 @@
 Utilities
 =========
 
-In file `utils.js`_ various utility functions and classes are defined.
+In the `utils.js`_ file various utility functions and classes are
+defined.
 
 .. _utils.js: http://www.akshell.com/apps/ak/code/utils.js
 
@@ -32,8 +33,8 @@ Function Utilities
 
 .. function:: giveNames(namespace)
 
-   Recursively set ``__name__`` property of all functions and modules
-   of the *namespace* object. ::
+   Recursively set the ``__name__`` property of all functions and
+   modules of the *namespace* object. ::
 
       (function ()
       {
@@ -49,7 +50,7 @@ Function Utilities
 
 .. function:: abstract()
 
-   Throw :class:`NotImplementedError`. Useful for declaring methods
+   Throw a :class:`NotImplementedError`. Useful for declaring methods
    which should be defined by subclasses.
 
 
@@ -151,13 +152,12 @@ Stream
 
 .. data:: out
 
-   A standard debug output stream. Used by :func:`dump` and
-   :func:`runTestSuite`.
-
+   The standard debug output stream.
+   
 .. function:: dump(values...)
 
-   Dump representations of *values* to stream :data:`out` separated by
-   ``'\n'``.
+   Dump representations of *values* to the stream :data:`out`
+   separated by ``'\n'``.
 
 
 Dict
@@ -166,8 +166,8 @@ Dict
 .. class:: Dict
 
    A dictionary designed for mapping objects to arbitrary
-   values. Dictionary keys are distinguished by identity (operator
-   ``===``) . Implemented as a hash map via :func:`hash`
+   values. Dictionary keys are distinguished by identity (the operator
+   ``===``) . Implemented as a hash map via the :func:`hash`
    function. Should not be used for storing non-objects because their
    handling by ``Dict`` is ineffective -- use plain ``Object``
    instances instead.

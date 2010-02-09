@@ -38,12 +38,13 @@ Let me sweeten this definition soup by an example. Suppose you are
 writing a blog application; you'll need to define a data model for
 it. As users of your application will write posts and comment posts of
 each other, you'll need to have two relation variables: ``Post`` and
-``Comment``. The header of the relation of ``Post`` variable will
-consist of ``<"id", number>``, ``<"author", string>``, and ``<"text",
-string>`` attributes (``id`` is a unique identifier of a post also
-known as a :term:`surrogate key`). The header of the relation of
-``Comment`` variable will consist of ``<"post", number>``,
-``<"author", string>``, and ``<"text", string>`` attributes.
+``Comment``. The header of the relation of the ``Post`` variable will
+consist of the ``<"id", number>``, ``<"author", string>``, and
+``<"text", string>`` attributes (``id`` is a unique identifier of a
+post also known as a :term:`surrogate key`). The header of the
+relation of the ``Comment`` variable will consist of the ``<"post",
+number>``, ``<"author", string>``, and ``<"text", string>``
+attributes.
 
 .. note::
 
@@ -69,7 +70,7 @@ Relations as Tables
 A relation can be imagined as a table with a header matching the
 relation header and rows containing the tuple attribute values. If Bob
 replies Ann: "Hi, Ann!" and she writes in her blog: "Hey, Bob is
-onboard," ``Post`` relation variable will have the following
+onboard," the ``Post`` relation variable will have the following
 representation:
 
 +----+--------+---------------------+
@@ -128,8 +129,8 @@ consistent; in a relational database consistency is maintained using
 
 Unique constraint
    a set of attributes which must have unique values across all tuples
-   of the relation variable body. ``[id]`` or ``[author, text]``
-   attributes could be unique constraints of ``Post`` variable.
+   of the relation variable body. The ``[id]`` or ``[author, text]``
+   attributes could be unique constraints of the ``Post`` variable.
 
 Foreign key constraint
    a reference from the relation variable to a unique key in another or
@@ -138,14 +139,15 @@ Foreign key constraint
    its unique key such that for all tuples in the referencing variable
    body projected over the referencing attributes, there must exist an
    equal tuple in the referenced variable body projected over the
-   referenced attributes. ``post`` is a reference from ``Comment``
-   relation variable to ``id`` key of ``Post`` relation variable.
+   referenced attributes. ``post`` is a reference from the ``Comment``
+   relation variable to the ``id`` key of the ``Post`` relation
+   variable.
 
 Check constraint
    an expression which must evaluate to ``true`` for each tuple of the
    relation variable body. ``text`` (``text`` is not empty) or ``id
    % 1 == 0`` (``id`` is integer) could be check constraints of
-   ``Post`` variable.
+   the ``Post`` variable.
 
    
 Database Management
@@ -154,29 +156,30 @@ Database Management
 Types
 -----
 
-Four Akshell database types are represented by properties of ``ak``
-module; they are instances of :class:`Type` class.
+Four Akshell database types are represented by properties of the
+``ak`` module; they are instances of the :class:`Type` class.
 
 .. data:: number
 
-   A double precision number type. Could be constrained to
-   :meth:`integer<Type.integer>` values or made :meth:`serial<Type.serial>`.
+   The double precision number type. Could be constrained to
+   :meth:`integer<Type.integer>` values or made
+   :meth:`serial<Type.serial>`.
 
 .. data:: string
 
-   A string type.
+   The string type.
 
 .. data:: bool
 
-   A boolean type.
+   The boolean type.
 
 .. data:: date
 
-   A date type storing JavaScript ``Date`` objects.
+   The date type storing JavaScript ``Date`` objects.
 
 .. class:: Type
 
-   A class of type objects. Provides methods returning modified
+   The class of type objects. Provides methods returning modified
    type. Could not be instantiated manually, use predefined type
    objects instead.
 
@@ -245,7 +248,8 @@ module; they are instances of :class:`Type` class.
 
 .. module:: db
 
-Low-level database management functions are properties of :mod:`db` module.
+Low-level database management functions are properties of the
+:mod:`db` module.
 
 .. function:: create(name, header, constrs={})
 
@@ -372,9 +376,10 @@ Relation Variables
 
 .. currentmodule:: None
 
-:class:`RelVar` and :class:`Selection` classes provide a convenient
-access to the database management. You should prefer this interface
-over :mod:`db` module whenever possible because it's more expressive.
+The :class:`RelVar` and :class:`Selection` classes provide a
+convenient access to the database management. You should prefer this
+interface over the :mod:`db` module whenever possible because it's
+more expressive.
 
 .. data:: rv
 
@@ -383,9 +388,9 @@ over :mod:`db` module whenever possible because it's more expressive.
 
 .. class:: RelVar
 
-   A relation variable representation. Its objects could not be
-   constructed manually; they must be obtained as :data:`rv`
-   properties.
+   A ``RelVar`` object represents a relation variable. It could not be
+   constructed manually, but should be obtained as a property of the
+   :data:`rv` object.
 
    .. attribute:: name
 
@@ -498,8 +503,8 @@ over :mod:`db` module whenever possible because it's more expressive.
 
 .. class:: Selection
 
-   A representation of a subset of relation variable's
-   tuples. Provides methods for managing them.
+   A ``Selection`` object represents a subset of relation variable
+   tuples and provides methods for managing them.
 
    .. attribute:: name
 
@@ -626,7 +631,7 @@ Example
 -------
 
 Let me define a familiar blog database. All example queries could be
-performed on it using :func:`db.query` function. ::
+performed on it using the :func:`db.query` function. ::
 
    >>> db.create('Post',
                  {
@@ -650,10 +655,11 @@ performed on it using :func:`db.query` function. ::
 Range Variables
 ---------------
    
-The basic concept of the language is a :dfn:`range variable`. It's a
-named variable ranging over a relation, i.e., its values are the
-tuples of the relation. Range variables are declared by ``for``
-construction and by ``forsome`` and ``forall`` expressions.
+The basic concept of the language is :dfn:`range variable`. A range
+variable is a named variable ranging over a relation, i.e., its values
+are the tuples of the relation. Range variables are declared by the
+``for`` construction and by the ``forsome`` and ``forall``
+expressions.
 
 The relations of Bob's posts and posts commented by Bob could be
 retrieved by the queries::
@@ -700,7 +706,7 @@ result. There are two classes of prototype tuples: simple and complex.
 * :dfn:`Complex` prototype tuples are formed by any number of range
   variables and represented by a prototype list enclosed by the curly
   brackets. Each prototype could be a simple prototype or a named
-  expression. The latter has a form ``name: expr``. The following
+  expression. The latter has the form ``name: expr``. The following
   query returns the relation of name pairs such that for each pair
   there exists a post written by ``author`` and commented by
   ``commenter``::
@@ -715,8 +721,8 @@ result. There are two classes of prototype tuples: simple and complex.
 
 Relations with the same header could form a :dfn:`union` relation,
 i.e., a relation consisting of all their tuples. In the query language
-this operation is performed by ``union`` construction. All post and
-comment texts could be retrieved by::
+this operation is performed by the ``union`` construction. All post
+and comment texts could be retrieved by::
 
    union(Post.text, Comment.text)
 
@@ -724,18 +730,18 @@ comment texts could be retrieved by::
 Expressions
 -----------
    
-Tuple selection expression is specified in optional ``where``
+Tuple selection expression is specified in the optional ``where``
 construction after a prototype tuple. The expression syntax and
 semantics mimics JavaScript whenever possible but the static nature of
 the database makes the strict correspondence impossible: query
 language operator return type must depend only on operand types, not
 their values. Supported operators are:
 
-* :dfn:`Quantifier operators` ``forsome`` and ``forall`` have boolean
-  values based on results of subqueries: ``forsome`` returns ``true``
-  if and only if a tuple matching its expression exists in its
-  relation; ``forall`` returns true if and only if all tuples of its
-  relation match its expression. The following queries return the
+* The :dfn:`quantifier operators` ``forsome`` and ``forall`` have
+  boolean values based on results of subqueries: ``forsome`` returns
+  ``true`` if and only if a tuple matching its expression exists in
+  its relation; ``forall`` returns true if and only if all tuples of
+  its relation match its expression. The following queries return the
   posts commented by the post author and the posts without empty
   comments respectively::
 
@@ -745,9 +751,10 @@ their values. Supported operators are:
      Post where forall (Comment)
        Comment.post != Post.id || Comment.text
 
-* :dfn:`Attribute operator` ``.`` returns a value of a range variable
-  attribute. If there is only one range variable in the prototype, its
-  name and a dot could be omitted. These queries are equivalent::
+* The :dfn:`attribute operator` ``.`` returns a value of a range
+  variable attribute. If there is only one range variable in the
+  prototype, its name and a dot could be omitted. These queries are
+  equivalent::
 
      Post where Post.author == "Bob"
      
@@ -763,7 +770,7 @@ their values. Supported operators are:
      Post where forall (Comment)
        post != Post.id || text
 
-* :dfn:`Reference operator` ``->`` provides a convenient access to
+* The :dfn:`reference operator` ``->`` provides a convenient access to
   attributes of a referenced relation variable. It could be used only
   on referencing attribute(s) of a relation variable. Multiple
   attributes are specified using square bracket syntax. The following
@@ -774,37 +781,37 @@ their values. Supported operators are:
      
      {postText: Comment.post->text, commentText: Comment.text}
 
-* :dfn:`Parameter operator` ``$n`` returns a value of *n*\ -th
+* The :dfn:`parameter operator` ``$n`` returns a value of *n*\ -th
   parameter where *n* is a positive integer. If *n* is not specified,
   it defaults to 1.
 
-* :dfn:`Conditional operator` ``?:`` return type depends on types of
-  the second and the  third operands, it is
+* The :dfn:`conditional operator` ``?:`` return type depends on types
+  of the second and the third operands, it is
 
   - the type of the second and the third operands if they are the same,
   - ``string`` if the second or the third operand is a ``string``,
   - ``number`` otherwise.
 
-* :dfn:`Logical operators` ``||``, ``&&``, and ``!`` always return
+* The :dfn:`logical operators` ``||``, ``&&``, and ``!`` always return
   ``bool``.
 
-* :dfn:`Comparison operators` ``==``, ``!=``, ``<=``, ``>=``, ``<``,
-  and ``>`` always return ``bool``; operands are coerced to ``number``
-  if they have different types.
+* The :dfn:`comparison operators` ``==``, ``!=``, ``<=``, ``>=``,
+  ``<``, and ``>`` always return ``bool``; operands are coerced to
+  ``number`` if they have different types.
 
-* :dfn:`Addition operator` ``+`` performs the string concatenation if
-  at least one of its arguments is a ``string`` and the numerical
+* The :dfn:`addition operator` ``+`` performs the string concatenation
+  if at least one of its arguments is a ``string`` and the numerical
   addition otherwise.
 
-* :dfn:`Arithmetic operators` ``*``, ``/``, ``%``, binary ``-``, unary
-  ``-``, and unary ``+`` always return ``number``; their semantics
-  mimics JavaScript.
+* The :dfn:`arithmetic operators` ``*``, ``/``, ``%``, binary ``-``,
+  unary ``-``, and unary ``+`` always return ``number``; their
+  semantics mimics JavaScript.
 
   
 Operator Precedence
 -------------------
 
-Operator precedence in ascending order:
+The operator precedence in ascending order:
 
 1.  ``forsome forall``
 2.  ``?:``
@@ -821,7 +828,7 @@ Operator precedence in ascending order:
 Full Grammar
 ------------
 
-Full grammar of the query language in `EBNF`__ form:
+The full grammar of the query language in the `EBNF`__ form:
 
 __ http://en.wikipedia.org/wiki/Ebnf
 

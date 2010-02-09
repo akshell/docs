@@ -31,36 +31,37 @@ Miscellaneous low-level tools.
    directory specified in the latest incomplete cross-application
    include.
 
-   For example, if application ``app1`` has this lines in its
+   For example, if the application ``app1`` has this lines in its
    :file:`__main__.js` file::
 
       include('app2/0.1', 'feature/__init__.js')
       include('utils/useful.js')
 
-   ... they will include file :file:`utils/useful.js` of ``app1``
-   application and file :file:`0.1/feature/__init__.js` of ``app2``
-   application. Suppose :file:`utils/useful.js` has the lines::
+   ... they will include the file :file:`utils/useful.js` of the
+   ``app1`` application and the file :file:`0.1/feature/__init__.js`
+   of the ``app2`` application. Suppose :file:`utils/useful.js` has
+   the lines::
 
       include('very-useful.js')
       include('/base.js')
 
-   ... these lines will include files :file:`utils/very-useful.js` and
-   :file:`base.js` of ``app1`` application because the first include
-   was relative and the second one was absolute. Finally if
-   :file:`0.1/feature/__init__.js` file of ``app2`` application has
-   the lines::
+   ... these lines will include the files :file:`utils/very-useful.js`
+   and :file:`base.js` of the ``app1`` application because the first
+   include was relative and the second one was absolute. Finally if
+   the :file:`0.1/feature/__init__.js` file of the ``app2``
+   application has the lines::
 
       include('impl.js')
       include('/base.js')
 
-   ... they will include files :file:`0.1/feature/impl.js` and
-   :file:`0.1/base.js` of ``app2`` application because a base
+   ... they will include the files :file:`0.1/feature/impl.js` and
+   :file:`0.1/base.js` of the ``app2`` application because a base
    directory for absolute includes was set by the cross-application
    include to :file:`0.1`.
    
 .. function:: use(lib)
 
-   Include :file:`__init__.js` file from a library; it's a common
+   Include the :file:`__init__.js` file from a library; it's a common
    library interface file. This function is equivalent to::
 
       include(lib, '__init__.js')

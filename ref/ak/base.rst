@@ -3,10 +3,10 @@
 Base
 ====
 
-In file `base.js`_ ``ak`` library extends standard JavaScript by some
+In the `base.js`_ file the library extends standard JavaScript by some
 features borrowed mainly from Python_ making it more suitable for
 creating modular server-side applications. The code was inspired by
-MochiKit_ client-side JavaScript library, by Bob Ippolito.
+the MochiKit_ client-side JavaScript library, by Bob Ippolito.
 
 .. _base.js: http://www.akshell.com/apps/ak/code/base.js
 .. _Python: http://python.org/
@@ -16,8 +16,8 @@ The only module-level object defined here is
 
 .. data:: global
 
-   A global object reference; an analog of ``window`` property in
-   client-side JavaScript.
+   The global object reference; an analog of the ``window`` property
+   in client-side JavaScript.
    
 
 Object Functions and Methods
@@ -33,23 +33,23 @@ should be preferred because of their expressiveness.
    Mutate the object *self* by setting its key:value pairs to those
    from *objects* (key:value pairs from later objects will overwrite
    those from earlier ones); return *self*. Property setting is done
-   via :func:`set` function called with *attributes*; if *attributes*
-   are not specified they default to :data:`COMMON`.
+   via the :func:`set` function called with *attributes*; if
+   *attributes* are not specified they default to :data:`COMMON`.
 
 .. function:: items(object)
 
    Return an array of ``[propertyName, propertyValue]`` pairs for
-   *object* in the order determined by ``for..in`` loop.
+   *object* in the order determined by the ``for..in`` loop.
 
 .. function:: keys(object)
 
    Return an array of the *object* property names in the order
-   determined by ``for..in`` loop.
+   determined by the ``for..in`` loop.
 
 .. function:: values(object)
 
    Return an array of the *object* property values in the order
-   determined by ``for..in`` loop.
+   determined by the ``for..in`` loop.
 
 .. class:: Object
 
@@ -99,8 +99,8 @@ Function Methods
    
    .. method:: wraps(func)
 
-      Borrow ``prototype``, ``__proto__``, and ``__name__`` properties
-      from *func*; return ``this``. Useful for writing
+      Borrow the ``prototype``, ``__proto__``, and ``__name__``
+      properties from *func*; return ``this``. Useful for writing
       :term:`decorators<decorator>`.
    
    .. method:: subclass([constructor,] prototype={})
@@ -110,11 +110,11 @@ Function Methods
       to the prototype-oriented world of JavaScript in a natural
       way. Each function could be a class, i.e., could be used for
       creating objects by the operator ``new``. A class could be
-      subclassed via ``subclass()`` method; a subclass inherits
+      subclassed via the ``subclass()`` method; a subclass inherits
       methods and attributes of its parent class, which are specified
-      in ``prototype`` property of the parent class; so objects of the
-      subclass could be used wherever objects of the parent class are
-      required.
+      in the ``prototype`` property of the parent class; so objects of
+      the subclass could be used wherever objects of the parent class
+      are required.
 
       *constructor* defaults to a function simply calling this
       function if this function is not ``Object``; otherwise it
@@ -139,11 +139,11 @@ Function Methods
              Rectangle.call(this, a, a);
            });
 
-      ``Function`` is a class of classes, so-called
+      ``Function`` is a class of classes, a so-called
       :term:`metaclass`. By subclassing ``Function`` one could produce
-      other metaclasses; ``subclass()`` method could be redefined in
-      them to alter the behavior of the class machinery. This is for
-      advanced use only; do **not** use metaclasses unless you
+      other metaclasses; the ``subclass()`` method could be redefined
+      in them to alter the behavior of the class machinery. This is
+      for advanced use only; do **not** use metaclasses unless you
       understand what you are doing and failed to find a simpler
       approach!
    
@@ -159,11 +159,12 @@ Error Subclasses
 
    The standard JavaScript exception classes could be instantiated
    without the operator ``new``. To guarantee that all user defined
-   exception classes follow this rule Akshell sets :term:`metaclass`
-   of base exception class ``Error`` to ``ErrorMeta``. ``ErrorMeta``
-   redefines :meth:`~Function.subclass` method to provide exception
-   classes with the instantiation without ``new``, the initialization
-   of stack trace, and a sensible ``name`` property.
+   exception classes follow this rule Akshell sets the
+   :term:`metaclass` of the base exception class ``Error`` to
+   ``ErrorMeta``. ``ErrorMeta`` redefines the
+   :meth:`~Function.subclass` method to provide exception classes with
+   the instantiation without ``new``, the initialization of stack
+   trace, and a sensible ``name`` property.
 
    .. note::
 
@@ -171,7 +172,7 @@ Error Subclasses
       is **without** ``new``.
 
 The following subclasses of :class:`BaseError` are broadly used by the
-rest of ``ak`` library; you should also employ them in your code.
+rest of the ``ak`` library; you should also employ them in your code.
       
 .. class:: ValueError
 
@@ -189,7 +190,7 @@ Value Representation
 
    Return a *value* representation. This function is targeted on
    debugging. One could add ``repr()`` support to his own class by
-   adding ``__repr__()`` method to it. ::
+   adding the ``__repr__()`` method to it. ::
    
       >>> repr(42)
       42
@@ -217,19 +218,19 @@ this shortcoming Akshell provides these comparison functions.
 .. function:: cmp(lhs, rhs)
 
    Return -1 if *lhs* is less than *rhs*, 0 if they are equal, +1 if
-   *lhs* is greater than *rhs*; throw :class:`CmpError` if these
+   *lhs* is greater than *rhs*; throw a :class:`CmpError` if these
    values are incomparable. The comparison algorithm is:
 
    1. if the values are equivalent (``lhs === rhs``) return ``0``;
 
-   2. if *lhs* has ``__cmp__`` method return ``lhs.__cmp__(rhs)``;
+   2. if *lhs* has a ``__cmp__`` method return ``lhs.__cmp__(rhs)``;
       
-   3. if *rhs* has ``__cmp__`` method return ``-rhs.__cmp__(lhs)``;
+   3. if *rhs* has a ``__cmp__`` method return ``-rhs.__cmp__(lhs)``;
 
    4. the values are incomparable -- throw ``CmpError(lhs, rhs)``.
 
    You can see that your own types could support ``cmp`` by providing
-   method ``__cmp__(other)``; it should
+   a method ``__cmp__(other)``; it should
 
    * return -1 if *this* is less than *other*;
    * return  0 if *this* is equal to *other*;
@@ -259,10 +260,10 @@ this shortcoming Akshell provides these comparison functions.
         assertThrow(CmpError, cmp, new C(0), 42);
       })()
 
-   ``__cmp__(other)`` method of ``Number``, ``String``, ``Boolean``,
-   and ``Date`` throws :class:`CmpError` if *other* is not a
-   value/object of the same type/class; if follows common comparison
-   semantics otherwise::
+   The ``__cmp__(other)`` method of ``Number``, ``String``,
+   ``Boolean``, and ``Date`` throws a :class:`CmpError` if *other* is
+   not a value/object of the same type/class; if follows common
+   comparison semantics otherwise::
 
       >>> cmp(true, false)
       1
@@ -279,7 +280,7 @@ this shortcoming Akshell provides these comparison functions.
       >>> cmp(false, null)
       ak.CmpError: ...
       
-   ``__cmp__(other)`` method of ``Array`` perform a lexicographic
+   The ``__cmp__(other)`` method of ``Array`` perform a lexicographic
    comparison of array-like objects: it iterates over the objects and
    returns
 
@@ -296,19 +297,19 @@ this shortcoming Akshell provides these comparison functions.
 
    1. if the values are equivalent (``lhs === rhs``) return ``true``;
 
-   2. if *lhs* has ``__eq__`` method return ``lhs.__eq__(rhs)``;
+   2. if *lhs* has an ``__eq__`` method return ``lhs.__eq__(rhs)``;
       
-   3. if *rhs* has ``__eq__`` method return ``rhs.__eq__(lhs)``;
+   3. if *rhs* has an ``__eq__`` method return ``rhs.__eq__(lhs)``;
    
    4. return ``true`` if ``cmp(lhs, rhs) == 0``, ``false`` if it's
-      non-zero or :class:`CmpError` was thrown.
+      non-zero or a :class:`CmpError` was thrown.
 
-   If your class has ``__cmp__`` method it already supports
-   ``equal``. Classes which have equality semantics but don't
-   have order semantics should define ``__eq__(other)`` method
-   returning ``true`` if *this* and *other* are equal and ``false``
-   otherwise. ``__eq__`` method could also be added for optimization
-   reasons. ::
+   If your class has a ``__cmp__`` method it already supports
+   ``equal``. Classes which have equality semantics but don't have
+   order semantics should define a ``__eq__(other)`` method returning
+   ``true`` if *this* and *other* are equal and ``false``
+   otherwise. The ``__eq__`` method could also be added for
+   optimization reasons. ::
 
       >>> equal(42, 42)
       true
@@ -362,19 +363,19 @@ Debug Tools
 
 .. function:: assert(value[, message])
 
-   Throw :class:`AssertionError` if ``!value``.
+   Throw an :class:`AssertionError` if ``!value``.
 
 .. function:: assertSame(lhs, rhs[, message])
 
-   Throw :class:`AssertionError` if ``lhs !== rhs``.
+   Throw an :class:`AssertionError` if ``lhs !== rhs``.
 
 .. function:: assertEqual(lhs, rhs[, message])
 
-   Throw :class:`AssertionError` if ``!equal(lhs, rhs)``.
+   Throw an :class:`AssertionError` if ``!equal(lhs, rhs)``.
 
 .. function:: assertThrow(errorClass, func[, args...])
 
-   Evaluate ``func.apply(global, args)``; throw
+   Evaluate ``func.apply(global, args)``; throw an
    :class:`AssertionError` if exception wasn't thrown or if the thrown
    exception was not instance of *errorClass*.
 
@@ -417,7 +418,7 @@ String Methods
 
 .. class:: String
 
-   Akshell adds two useful methods to ``String`` class.
+   Akshell adds two useful methods to the ``String`` class.
 
    .. method:: startsWith(prefix)
 

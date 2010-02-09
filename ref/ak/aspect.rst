@@ -3,7 +3,7 @@
 Aspect-Oriented Programming
 ===========================
 
-`aspect.js`_ file provides simple means of `Aspect-Oriented
+The `aspect.js`_ file provides simple means of the `Aspect-Oriented
 Programming`__ (AOP). They are designed to modify a behavior of an
 application on the fly by weaving :dfn:`advices` to functions and
 methods. An advice is a piece of code altering a function by adding
@@ -34,10 +34,9 @@ Aspect
 .. class:: Aspect(holder, name, advice)
 
    An aspect base class, subclass of ``Function``. Concrete aspect
-   classes should subclass it and implement ``_apply(self, args)``
+   classes should subclass it and implement an ``_apply(self, args)``
    method. *holder* is an object holding a function being advised;
-   *name* is a name of this function; *advice* is an advice
-   function.
+   *name* is a name of this function; *advice* is an advice function.
 
    .. warning::
 
@@ -140,7 +139,7 @@ Aspect Subclasses
 =================
 
 Concrete :class:`Aspect` subclasses implement various kinds of
-aspects. They should be instantiated only via :func:`weave`
+aspects. They should be instantiated only via the :func:`weave`
 function.
    
 .. class:: Before
