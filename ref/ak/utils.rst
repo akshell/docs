@@ -21,7 +21,7 @@ Function Utilities
       >>> bind('join', [1, 2, 3])('+')
       1+2+3
 
-.. function:: partial(func[, args... ])
+.. function:: partial(func[, args...])
 
    Return a :dfn:`partial function`, i.e., a function which when
    called will behave like *func* called with *args*. If more

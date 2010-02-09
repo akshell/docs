@@ -119,6 +119,8 @@ unnatural for blogs. Addition of a unique identifier attribute to
 +----+------+--------+-----------------------+
 
 
+.. _constraints:
+
 Constraints
 -----------
 
@@ -152,6 +154,8 @@ Check constraint
    
 Database Management
 ===================
+
+.. _types:
 
 Types
 -----
@@ -269,12 +273,16 @@ Low-level database management functions are properties of the
    check
       a list of check expressions.
 
+   One-attribute constraints could be specified either by a
+   :class:`~ak.Type` method or by the *constr* argument. The first way
+   is more expressive.
+      
    .. note::
 
-      One-attribute constraints could be specified by a
-      :class:`~ak.Type` method or by *constr* argument. The first way
-      should be preferred because it's more expressive.
-
+      The ``ak`` library alters ``create()`` function to have an
+      :doc:`alternative human-friendly interface<../ak/db>`, which
+      should be preferred for defining relation variables by hand.
+      
    ::
 
       >>> db.create('Post',
@@ -353,7 +361,7 @@ Low-level database management functions are properties of the
       >>> repr(db.query('X', {by: ['n % $', 'n'], byParams: [3]}))
       [{n: 0}, {n: 3}, {n: 1}, {n: 4}, {n: 2}, {n: 5}]
 
-.. function:: count(query[, params... ])
+.. function:: count(query[, params...])
 
    Return a number of tuples matching *query* not loading them. Useful
    for big relations. ::
@@ -474,7 +482,7 @@ more expressive.
          >>> repr(rv.X.insert({}))
          {d: 42, s: 1}
 
-   .. method:: where(expr[, params... ])
+   .. method:: where(expr[, params...])
                where(values)
 
       Return a :class:`Selection` of tuples of the relation variable
@@ -522,7 +530,7 @@ more expressive.
 
       The :class:`RelVar` object of the selection.
 
-   .. method:: get(options={} [, byParams... ])
+   .. method:: get(options={} [, byParams...])
 
       Return an array of the tuples represented by objects mapping
       attribute names to attribute values. The *options* object could
@@ -585,7 +593,7 @@ more expressive.
          >>> repr(rv.X.all().get({attr: 'n', by: 'n'}))
          [1, 3, 5, 7, 9]
 
-   .. method:: update(exprs[, exprParams... ])
+   .. method:: update(exprs[, exprParams...])
 
       Update the selection tuples calculating new attribute values
       using *exprs*; return a number of the updated tuples. *exprs* is
