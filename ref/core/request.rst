@@ -87,16 +87,17 @@ Request
 Response
 ========
 
-.. class:: Response(content='', status=200[, headers])
+.. class:: Response(content='', status=http.OK[, headers])
 
    A ``Response`` object represents an application response; it has
-   ``content``, ``status``, and ``headers`` properties. ``__main__()``
-   function should return a ``Response`` object.
-
-   If the *headers* constructor argument is not specified, it defaults
-   to::
+   ``content``, ``status``, and ``headers`` properties. *content* is a
+   text of the response; *status* is a HTTP status code (the ``ak``
+   library defines :ref:`constants for status codes<status_codes>`);
+   *headers* are HTTP headers, which default to::
 
       {'Content-Type': 'text/html; charset=utf-8'}
+      
+   ``__main__()`` function should return a ``Response`` object.
 
 
 requestApp
