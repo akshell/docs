@@ -9,6 +9,5 @@ Documentation contents
 
    tutorial
    guide/index
-   faq
    ref/index
    glossary

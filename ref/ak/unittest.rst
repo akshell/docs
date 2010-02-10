@@ -1,7 +1,7 @@
 
-============
-Unit Testing
-============
+=======
+Testing
+=======
 
 To make your application reliable you should provide it with an
 extensive set of tests. The Akshell unit testing framework (file
