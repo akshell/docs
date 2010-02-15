@@ -13,6 +13,6 @@ Basic Akshell Library
    http
    url
    rest
-   template
+   template/index
    unittest
    aspect

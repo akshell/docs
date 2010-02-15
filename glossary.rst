@@ -16,6 +16,9 @@ Glossary
    Class method
       TODO
 
+   Cross-site scripting
+      TODO
+
    Database
       TODO
 

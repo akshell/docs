@@ -247,8 +247,8 @@ Four Akshell database types are represented by properties of the
          {n: 42}
 
 
-:mod:`db` Module
--------------------
+db
+--
 
 .. module:: db
 
@@ -277,7 +277,7 @@ Low-level database management functions are properties of the
    :class:`~ak.Type` method or by the *constr* argument. The first way
    is more expressive.
       
-   .. note::
+   .. seealso::
 
       The ``ak`` library alters ``create()`` function to have an
       :doc:`alternative human-friendly interface<../ak/db>`, which
@@ -342,7 +342,7 @@ Low-level database management functions are properties of the
    length
       a maximum number of tuples to return.
 
-   .. note::
+   .. warning::
 
       If *by* option is not specified, the order of returned tuples is
       undefined. Using *start* or *length* without *by* is discouraged

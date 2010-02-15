@@ -10,5 +10,5 @@ User Guide
    using
    request
    db
-   templates
+   template
    testing

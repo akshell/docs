@@ -86,41 +86,6 @@ List Utilities
       [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 
 
-Parsing Utility
-===============
-
-.. function:: nextMatch(re, string, errorClass=SyntaxError)
-
-   Try to match *string* against the regular expression *re*; return a
-   match object if parsing succeeded or ``null`` if the whole *string*
-   was parsed (``re.lastIndex == string.length``). Throw an error of
-   *errorClass* on parse failure. This function is extremely useful
-   for creating parsers of domain-specific languages; see `db.js`_ and
-   `template.js`_ for examples.
-
-   .. _db.js: http://www.akshell.com/apps/ak/code/db.js
-   .. _template.js: http://www.akshell.com/apps/ak/code/template.js
-
-
-Time Utilities
-==============
-
-.. function:: timeSince(date, now=new Date())
-
-   Format *date* as the time since that date, e.g., ``'4 days, 6
-   hours'``.  *now* is the date to use as the comparison point
-   (defaults to now). Seconds is the smallest unit used, and ``'0
-   seconds'`` will be returned for any date that is in the future
-   relative to the comparison point.
-
-.. function:: timeUntil(date, now=new Date())
-
-   Format *date* as the time from *now* until that date. *now* is the
-   date to use as the comparison point (defaults to now). Seconds is
-   the smallest unit used, and ``'0 seconds'`` will be returned for
-   any date that is in the past relative to the comparison point.
-
-
 Stream
 ======
 
@@ -248,3 +213,46 @@ Dict
                 return repr(d);
               })()
          {<module ak 0.1>: 42, <function ak.Dict>: "Dict class!"}
+
+         
+Miscellaneous Utilities
+=======================
+
+.. function:: nextMatch(re, string, errorClass=SyntaxError)
+
+   Try to match *string* against the regular expression *re*; return a
+   match object if parsing succeeded or ``null`` if the whole *string*
+   was parsed (``re.lastIndex == string.length``). Throw an error of
+   *errorClass* on parse failure. This function is extremely useful
+   for creating parsers of domain-specific languages; see `db.js`_ and
+   `template.js`_ for examples.
+
+   .. _db.js: http://www.akshell.com/apps/ak/code/db.js
+   .. _template.js: http://www.akshell.com/apps/ak/code/template.js
+
+
+.. function:: timeSince(date, now=new Date())
+
+   Format *date* as the time since that date, e.g., ``'4 days, 6
+   hours'``.  *now* is the date to use as the comparison point
+   (defaults to now). Seconds is the smallest unit used, and ``'0
+   seconds'`` will be returned for any date that is in the future
+   relative to the comparison point.
+
+.. function:: timeUntil(date, now=new Date())
+
+   Format *date* as the time from *now* until that date. *now* is the
+   date to use as the comparison point (defaults to now). Seconds is
+   the smallest unit used, and ``'0 seconds'`` will be returned for
+   any date that is in the past relative to the comparison point.
+
+.. function:: escapeHTML(string)
+
+   Escape *string's* HTML. Specifically, make these replacements:
+   
+   * ``<`` is converted to ``&lt;``
+   * ``>`` is converted to ``&gt;``
+   * ``'`` (single quote) is converted to ``&#39;``
+   * ``"`` (double quote) is converted to ``&quot;``
+   * ``&`` is converted to ``&amp;``
+   
