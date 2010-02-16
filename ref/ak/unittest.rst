@@ -63,8 +63,8 @@ A test runner is a function that accepts a ``TestCase`` or
 ``TestSuite`` object as a parameter and returns a result object. The
 class :class:`TestResult` is provided for use as the result object. It
 counts tests has been run and collects :dfn:`errors` (unexpected
-exceptions) and :dfn:`failures` (:class:`AssertionError` exceptions
-has been thrown by ``assert*`` functions). ``unittest.js`` provides
+exceptions) and :dfn:`failures` (:exc:`AssertionError` exceptions has
+been thrown by ``assert*`` functions). ``unittest.js`` provides
 :func:`runTestViaStream` as an example test runner which reports test
 results on a :class:`stream<Stream>`.
 
@@ -201,7 +201,7 @@ TestResult
       An array containing 2-item arrays of :class:`TestCase` instances
       and exceptions representing a test where a failure was
       explicitly signaled using the ``assert*()`` functions (an
-      :class:`AssertionError` was thrown).
+      :exc:`AssertionError` was thrown).
       
    .. attribute:: testsRun
 
@@ -238,7 +238,7 @@ TestResult
    .. method:: addFailure(test, failure)
 
       Called when the test case *test* signals a failure (throws an
-      :class:`AssertionError`). The default implementation pushes a
+      :exc:`AssertionError`). The default implementation pushes a
       pair ``[test, failure]`` to the instance's ``failures``
       attribute.
    

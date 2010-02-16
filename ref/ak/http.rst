@@ -12,7 +12,7 @@ are defined.
 Error Classes
 =============
 
-.. class:: HttpError(message, status=http.BAD_REQUEST)
+.. exception:: HttpError(message, status=http.BAD_REQUEST)
 
    A base class of errors which should be reported to the user by a
    HTTP response with the status code *status* and *message* in the
@@ -21,10 +21,10 @@ Error Classes
    :func:`serve.catchingHttpError` decorator will catch the error and
    convert it to a :class:`Response` object.
    
-.. class:: NotFoundError(message='Not found')
+.. exception:: NotFoundError(message='Not found')
 
    A resource was not found. Should be reported to the user by a 404
-   HTTP response. Subclass of :class:`HttpError`.
+   HTTP response. Subclass of :exc:`HttpError`.
 
 
 redirect()

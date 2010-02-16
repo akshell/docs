@@ -171,14 +171,14 @@ Error Subclasses
       In Akshell the preferred style of instantiation of error classes
       is **without** ``new``.
 
-The following subclasses of :class:`BaseError` are broadly used by the
+The following subclasses of :exc:`BaseError` are broadly used by the
 rest of the ``ak`` library; you should also employ them in your code.
       
-.. class:: ValueError
+.. exception:: ValueError
 
    Inappropriate argument value (of correct type).
 
-.. class:: NotImplementedError
+.. exception:: NotImplementedError
 
    Method or function hasn't been implemented yet.
 
@@ -218,7 +218,7 @@ this shortcoming Akshell provides these comparison functions.
 .. function:: cmp(lhs, rhs)
 
    Return -1 if *lhs* is less than *rhs*, 0 if they are equal, +1 if
-   *lhs* is greater than *rhs*; throw a :class:`CmpError` if these
+   *lhs* is greater than *rhs*; throw a :exc:`CmpError` if these
    values are incomparable. The comparison algorithm is:
 
    1. if the values are equivalent (``lhs === rhs``) return ``0``;
@@ -261,7 +261,7 @@ this shortcoming Akshell provides these comparison functions.
       })()
 
    The ``__cmp__(other)`` method of ``Number``, ``String``,
-   ``Boolean``, and ``Date`` throws a :class:`CmpError` if *other* is
+   ``Boolean``, and ``Date`` throws a :exc:`CmpError` if *other* is
    not a value/object of the same type/class; if follows common
    comparison semantics otherwise::
 
@@ -302,7 +302,7 @@ this shortcoming Akshell provides these comparison functions.
    3. if *rhs* has an ``__eq__`` method return ``rhs.__eq__(lhs)``;
    
    4. return ``true`` if ``cmp(lhs, rhs) == 0``, ``false`` if it's
-      non-zero or a :class:`CmpError` was thrown.
+      non-zero or a :exc:`CmpError` was thrown.
 
    If your class has a ``__cmp__`` method it already supports
    ``equal``. Classes which have equality semantics but don't have
@@ -324,7 +324,7 @@ this shortcoming Akshell provides these comparison functions.
       >>> equal({__eq__: function () { return true; }}, null)
       true
    
-.. class:: CmpError(lhs, rhs)
+.. exception:: CmpError(lhs, rhs)
 
    Values *lhs* and *rhs* are incomparable.
 
@@ -357,26 +357,26 @@ Module
 Debug Tools
 ===========
 
-.. class:: AssertionError
+.. exception:: AssertionError
 
-   Assertion failed. Subclass of :class:`BaseError`.
+   Assertion failed. Subclass of :exc:`BaseError`.
 
 .. function:: assert(value[, message])
 
-   Throw an :class:`AssertionError` if ``!value``.
+   Throw an :exc:`AssertionError` if ``!value``.
 
 .. function:: assertSame(lhs, rhs[, message])
 
-   Throw an :class:`AssertionError` if ``lhs !== rhs``.
+   Throw an :exc:`AssertionError` if ``lhs !== rhs``.
 
 .. function:: assertEqual(lhs, rhs[, message])
 
-   Throw an :class:`AssertionError` if ``!equal(lhs, rhs)``.
+   Throw an :exc:`AssertionError` if ``!equal(lhs, rhs)``.
 
 .. function:: assertThrow(errorClass, func[, args...])
 
    Evaluate ``func.apply(global, args)``; throw an
-   :class:`AssertionError` if exception wasn't thrown or if the thrown
+   :exc:`AssertionError` if exception wasn't thrown or if the thrown
    exception was not instance of *errorClass*.
 
 

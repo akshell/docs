@@ -135,10 +135,10 @@ Error Classes
 .. exception:: ResolveError
 
    Failed to find a controller of a resource with the given
-   path. Subclass of :class:`NotFoundError`. Thrown by the
+   path. Subclass of :exc:`NotFoundError`. Thrown by the
    :func:`resolve` function.
 
 .. exception:: ReverseError
 
    Failed to reconstruct a request path. Subclass of
-   :class:`BaseError`. Thrown by the :func:`reverse` function.
+   :exc:`BaseError`. Thrown by the :func:`reverse` function.

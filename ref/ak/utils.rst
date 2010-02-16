@@ -50,7 +50,7 @@ Function Utilities
 
 .. function:: abstract()
 
-   Throw a :class:`NotImplementedError`. Useful for declaring methods
+   Throw a :exc:`NotImplementedError`. Useful for declaring methods
    which should be defined by subclasses.
 
 
