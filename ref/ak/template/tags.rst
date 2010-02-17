@@ -23,10 +23,8 @@ Define a block that can be overridden by child templates. See
 csrfToken
 =========
 
-.. todo::
-
-   Describe it somewhere and add a link here.
-
+   Output a hidden ``<input>`` tag with the value of the CSRF
+   token. See :ref:`csrf` for details.
    
 .. tag:: cycle
 

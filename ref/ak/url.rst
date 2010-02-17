@@ -13,21 +13,20 @@ functions and error classes.
 URLMap
 ======
 
-.. class:: URLMap([controller, [name,]] children...)
+.. class:: URLMap([handler, [name,]] children...)
 
    An ``URLMap`` object defines a mapping from URL patterns to
-   controllers handling these URLs. An URL mapping of an application
+   handlers responsible these URLs. An URL mapping of an application
    is a tree-like structure with nodes represented by ``URLMap``
    objects and the root node stored in the ``__root__`` global
    variable.
 
-   The *controller* argument is a controller constructor associated
-   with the root of this map; *name* is a ``string`` name of the map;
-   *children* are definitions of the maps included by this map. Each
-   child definition consist of a ``string`` or ``RegExp`` pattern and
-   an ``URLMap`` object, which could be defined by the arguments of
-   the ``URLMap`` constructor (this way is both concise and
-   expressive).
+   The *handler* argument is a function associated with the root of
+   this map; *name* is a ``string`` name of the map; *children* are
+   definitions of the maps included by this map. Each child definition
+   consist of a ``string`` or ``RegExp`` pattern and an ``URLMap``
+   object, which could be defined by the arguments of the ``URLMap``
+   constructor (this way is both concise and expressive).
 
    ``URLMap`` considers ``string`` patterns as constant parts of URLs
    and ``RegExp`` patterns as templates for variable parts of
@@ -35,7 +34,7 @@ URLMap
    ``/day\/(\d\d)\//`` pattern defines pages with addresses
    ``day/01/``, ``day/02/``, ... , ``day/99/``. The value of the match
    group (``'01'``, ``'02'``, ... , ``'99'`` in the example) is passed
-   to the controller as an argument.
+   to the handler as an argument.
 
    The empty pattern ``''`` designates a common variable pattern
    ``/([^\/]*)\//``. It's the most straightforward way of defining
@@ -46,22 +45,22 @@ URLMap
    Example::
 
       __root__ = new URLMap(
-        MainController, 'home'
+        MainHandler, 'home'
         ['users/',
-         ['', UserController, 'user',
-          ['posts/', PostsController, 'posts',
-           ['', PostController, 'post']
+         ['', UserHandler, 'user',
+          ['posts/', PostsHandler, 'posts',
+           ['', PostHandler, 'post']
           ]
          ]
         ]);
 
    This maps:
 
-   * ``/`` to ``MainController``;
-   * :samp:`/users/{userName}/` to ``UserController``;
-   * :samp:`/users/{userName}/posts/` to ``PostsController``;
+   * ``/`` to ``MainHandler``;
+   * :samp:`/users/{userName}/` to ``UserHandler``;
+   * :samp:`/users/{userName}/posts/` to ``PostsHandler``;
    * :samp:`/users/{userName}/posts/{postName}/` to
-     ``PostController``.
+     ``PostHandler``.
 
    It is common for complex applications to be separated into modules,
    each module being responsible for a particular functionality. In
@@ -73,17 +72,17 @@ URLMap
    module::
 
       var postMap = new URLMap(
-        PostsController, 'posts',
-        ['', PostController, 'post']);
+        PostsHandler, 'posts',
+        ['', PostHandler, 'post']);
 
    In the ``__main__.js`` file::
 
       include('post.js');
       ...
       __root__ = new URLMap(
-        MainController, 'home'
+        MainHandler, 'home'
         ['users/',
-         ['', UserController, 'user',
+         ['', UserHandler, 'user',
           ['posts/', postMap]
          ]
         ]);
@@ -95,16 +94,16 @@ Functions
 .. function:: resolve(path)
 
    Resolve the absolute path *path* against the application URL
-   mapping; return the ``[controller, args]`` pair where ``args`` is
-   an array of positional arguments retrieved from the ``RegExp``
-   pattern match groups. Throw a :exc:`ResolveError` on failure.
+   mapping; return the ``[handler, args]`` pair where ``args`` is an
+   array of positional arguments retrieved from the ``RegExp`` pattern
+   match groups. Throw a :exc:`ResolveError` on failure.
 
    Example usage (for :ref:`this<urlmap_example>` URL mapping)::
 
       >>> repr(resolve('/'))
-      [<function MainController>, []]
+      [<function MainHandler>, []]
       >>> repr(resolve('/users/Anton/posts/first'))
-      [<function PostController>, ["Anton", "first"]]
+      [<function PostHandler>, ["Anton", "first"]]
       >>> resolve('/invalid/path/')
       ak.ResolveError: ...
       >>> resolve('relative/path/')
@@ -134,7 +133,7 @@ Error Classes
 
 .. exception:: ResolveError
 
-   Failed to find a controller of a resource with the given
+   Failed to find a handler of a resource with the given
    path. Subclass of :exc:`NotFoundError`. Thrown by the
    :func:`resolve` function.
 

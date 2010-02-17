@@ -3,8 +3,8 @@
 HTTP Goodies
 ============
 
-In the `http.js`_ file HTTP error classes, utilities, and status codes
-are defined.
+In the `http.js`_ file HTTP error classes, utility functions, and
+status codes are defined.
 
 .. _http.js: http://www.akshell.com/apps/ak/code/http.js
 
@@ -27,13 +27,20 @@ Error Classes
    HTTP response. Subclass of :exc:`HttpError`.
 
 
-redirect()
-==========
+
+Functions
+=========
 
 .. function:: redirect(location)
 
    Return a :class:`Response` object with the :data:`http.FOUND`
    status code redirecting to the *location* URL.
+
+.. function:: loggingIn(handler)
+
+   Decorate *handler* to redirect anonymous users to the Akshell login
+   page. After the login Akshell redirects the user back to the page
+   he came from.
 
 
 .. _status_codes:

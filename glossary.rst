@@ -33,7 +33,10 @@ Glossary
 
    Metaclass
       TODO
-      
+
+   MVC
+      TODO
+
    Relation
       TODO
    
@@ -43,6 +46,9 @@ Glossary
    Relational model
       TODO
 
+   REST
+      TODO
+      
    Subclass
       TODO
       

@@ -280,8 +280,9 @@ Low-level database management functions are properties of the
    .. seealso::
 
       The ``ak`` library alters ``create()`` function to have an
-      :doc:`alternative human-friendly interface<../ak/db>`, which
-      should be preferred for defining relation variables by hand.
+      :ref:`alternative human-friendly interface
+      <human_friendly_db_create>`, which should be preferred for
+      defining relation variables by hand.
       
    ::
 

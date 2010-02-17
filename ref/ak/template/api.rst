@@ -140,6 +140,16 @@ loading:
    directory). The default behavior could be overridden by a template
    environment.
 
+The most common template use case is rendering HTML and returning it
+to the user in a :class:`Response` object. The ``render()`` shortcut
+function specifically targets this use case:
+   
+.. function:: render(name, context={}, status=http.OK[, headers])
+
+   Load a template via the :func:`getTemplate` function; render it via
+   the :meth:`~Template.render` ``Template`` method; return a
+   :class:`Response` object containing the rendered template.
+
    
 Customization
 =============
