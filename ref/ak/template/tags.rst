@@ -349,59 +349,60 @@ Argument            Outputs
 url
 ===
 
-.. todo::
-
-   Refactor url.js and rewrite this section.
-
-Returns an absolute URL (i.e., an URL without the domain name)
-matching a given controller and optional parameters. This is a way to
+Return an absolute URL :func:`reversed <reverse>` from the given
+:class:`URLMap` name and positional parameters. This is a way to
 output links without violating the DRY principle by having to
 hard-code URLs in your templates::
 
-   {% url someContoller#SomePage arg1 arg2 "string arg3" %}
+   {% url some-map-name arg1 arg2 "string arg3" %}
 
-The first argument is a controller name optionally followed by a page
-name. Additional arguments will be used as positional arguments for
-the URL dispatcher. See :doc:`../url` and :doc:`../rest` for details.
+The first argument is the name identifying the URL pattern. Additional
+arguments are used as positional arguments for the :func:`reverse`
+function.
 
-Suppose you have a ``ClientController`` class with an ``Orders`` page
-and the following url routes mapping :samp:`/clients/{id}/` to the
-main client page and :samp:`/clients/{id}/orders/` to the ``Orders``
-page::
+Suppose you have the following URL mapping::
 
-   ['clients/',
-     [
-       ClientController,
-       ['orders/', ClientController.page('Orders')]
-     ]
-   ]
+   __root__ = new URLMap(
+     MainHandler, 'home'
+     ['users/',
+      ['', UserHandler, 'user',
+       ['posts/', PostsHandler, 'posts',
+        ['', PostHandler, 'post']
+       ]
+      ]
+     ]);
 
-In a template you can create links to these pages like this::
+In a template you can create links to these URLs like this::
 
-   {% url ClientController client.id %}
-   {% url ClientController#Orders client.id %}
+   {% url home %}
+   {% url user "Anton" %}
+   {% url posts "Anton" %}
+   {% url post "Anton" "first" %}
 
-If ``client.id`` is ``123``, they will output::
+They will output::
 
-   /clients/123/
-   /clients/123/orders/
+   /
+   /users/
+   /users/Anton/
+   /users/Anton/posts/
+   /users/Anton/posts/first/
 
-Note that if the URL you're reversing doesn't exist, you'll get an
-:exc:`ReverseError` exception raised, which will cause your site to
-display an error page.
+Note, that if the URL you're reversing doesn't exist, you'll get a
+:exc:`ReverseError` exception raised, which will cause your
+application to display an error page.
    
 If you'd like to retrieve a URL without displaying it, you can use a
 slightly different call::
 
-   {% url someController arg1 arg2 as theURL %}
+   {% url some-map-name arg1 arg2 as theURL %}
 
    <a href="{{ theURL }}">I'm linking to {{ theURL }}</a>
 
 This ``{% url ... as variable %}`` syntax will *not* cause an error if
-the view is missing. In practice you'll use this to link to views that
-are optional::
+a reversing has failed. In practice you'll use this to link to
+handlers that are optional::
 
-   {% url someController as theURL %}
+   {% url some-map-name arg1 arg2 as theURL %}
    {% if theURL %}
      <a href="{{ theURL }}">Link to optional stuff</a>
    {% endif %}
