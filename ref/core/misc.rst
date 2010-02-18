@@ -123,9 +123,30 @@ Miscellaneous low-level tools.
 
 .. class:: Script(source[, origin])
 
-   A compiled JavaScript code representation. *origin* is displayed in
-   exception backtraces.
+   A ``Script`` object represents a compiled JavaScript code. *origin*
+   is displayed in exception backtraces.
 
    .. method:: run()
 
       Run the script; return the evaluation value.
+
+.. data:: app
+
+   An object describing the application being executed.
+
+   .. data:: app.name
+
+      The name of the application.
+
+   .. data:: app.spot
+
+      An object describing the current spot. In the release version of
+      the application this attribute does not exist.
+
+      .. data:: app.spot.name
+
+         The name of the current spot.
+
+      .. data:: app.spot.owner
+
+         The name of the owner of the current spot.
