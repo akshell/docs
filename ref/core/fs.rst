@@ -7,16 +7,11 @@ File Storage API
 
 .. todo:: Add an appropriate link to "Expires header"
 
-Akshell provides applications with a simple file storage. It's
-designed for common web static files like CSS, client JavaScript, etc;
-for huge media collections you should use an external service like
-`Amazon S3`_ or Nirvanix_. Files are served by a web server from
-http://media.akshell.com/ with a far future ``Expires`` header; anyone
-could access them for browsing and reading. An application manages its
-storage using :mod:`fs` module functions described here.
-
-.. _Amazon S3: http://aws.amazon.com/s3/
-.. _Nirvanix: http://www.nirvanix.com/
+Akshell provides applications with a simple file storage. Files are
+served by a web server from http://static.akshell.com/media/ with a
+far future ``Expires`` header; anyone could access them for browsing
+and reading. An application could manage its storage using the
+:mod:`fs` module functions described here.
 
 
 Concepts
@@ -27,19 +22,20 @@ into a traditional treelike structure; entry names could contain any
 Unicode symbols except ``'\0'``, ``'\n'``, and ``'/'``. An application
 identify its storage entries by :dfn:`paths`; name delimiting
 character is the slash (``'/'``). Application clients retrieve entries
-from URLs of the form :file:`http://media.akshell.com/{prefix}/{path}`
-where :file:`{prefix}` is :file:`release/{appName}` for the release
-version of the application and
-:file:`spots/{appName}/{ownerName}/{spotName}` for a spot one
-(:file:`{ownerName}` is lower cased with spaces replaced by hyphens).
+from URLs of the form
+:file:`http://static.akshell.com/media/{prefix}/{path}` where
+:file:`{prefix}` is :file:`release/{appName}` for the release version
+of the application and :file:`spots/{appName}/{ownerName}/{spotName}`
+for a spot one (:file:`{ownerName}` is lower cased with spaces
+replaced by hyphens).
 
 For example, the file :file:`hello.txt` in the subdirectory
 :file:`subdir` of the directory :file:`dir` has a path
 :file:`'dir/subdir/hello.txt'`. In the release version of the
 ``example`` application it has an URL
-http://media.akshell.com/release/example/dir/subdir/hello.txt, in
-Anton Korenyushkin's (mine) spot ``debug`` it has an URL
-http://media.akshell.com/spots/example/anton-korenyushkin/debug/dir/subdir/hello.txt.
+http://static.akshell.com/media/release/example/dir/subdir/hello.txt,
+in Anton Korenyushkin's (mine) spot ``debug`` it has an URL
+http://static.akshell.com/media/spots/example/anton-korenyushkin/debug/dir/subdir/hello.txt.
 
 :dfn:`Temporary files` are another kind of files: they come from
 requests (see :doc:`request` for details), have no path, and disappear

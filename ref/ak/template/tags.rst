@@ -18,6 +18,36 @@ Define a block that can be overridden by child templates. See
 :ref:`template_inheritance` for more information.
 
 
+.. tag:: code
+
+code
+====
+
+Return an URL of the given code file to be served by the web server as
+a static file.
+
+If the ``timestamp`` option is given, append a timestamp to the URL as
+a GET parameter. If the ``no-timestamp`` option is given, don't append
+a timestamp. By default, a timestamp is appended to ``.css`` and
+``.js`` files.
+
+For example::
+
+   {% code '__main__.js' %}
+   {% code '__main__.js' no-timestamp %}
+   {% code path %}
+   {% code path timestamp %}
+
+These tags produced the following output in the release version of the
+``ak`` application (the ``path`` variable was set to
+``'templates/home.html'``)::
+
+   http://static.akshell.com/code/release/ak/__main__.js?1266400939
+   http://static.akshell.com/code/release/ak/__main__.js
+   http://static.akshell.com/code/release/ak/templates/home.html
+   http://static.akshell.com/code/release/ak/templates/home.html?1266305202
+
+
 .. tag:: csrfToken
 
 csrfToken
@@ -285,6 +315,36 @@ John"``:
 * The ``name-snippet.html`` template::
 
      Hello, {{ person }}
+
+
+.. tag:: media
+
+media
+=====
+
+Return an URL of the given file from the :doc:`file storage
+</ref/core/fs>`.
+
+If the ``timestamp`` option is given, append a timestamp to the URL as
+a GET parameter. If the ``no-timestamp`` option is given, don't append
+a timestamp. By default, a timestamp is appended to ``.css`` and
+``.js`` files.
+
+For example::
+
+   {% media 'test.css' %}
+   {% media 'test.css' no-timestamp %}
+   {% media path %}
+   {% media path timestamp %}
+
+These tags produced the following output in the release version of the
+``ak`` application (the ``path`` variable was set to
+``'image.png'``)::
+
+   http://static.akshell.com/media/release/ak/test.css?1266512248
+   http://static.akshell.com/media/release/ak/test.css
+   http://static.akshell.com/media/release/ak/image.png
+   http://static.akshell.com/media/release/ak/image.png?1266512254
 
 
 .. tag:: spaceless
