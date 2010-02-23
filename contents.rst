@@ -1,4 +1,3 @@
-.. _contents:
 
 ======================
 Documentation contents

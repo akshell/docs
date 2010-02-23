@@ -1,11 +1,12 @@
-.. _guide:
 
 ==========
 User Guide
 ==========
 
+Introductions to all the key parts of Akshell you'll need to know:
+
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    using
    request

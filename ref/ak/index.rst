@@ -1,4 +1,3 @@
-.. _ak:
 
 =====================
 Basic Akshell Library

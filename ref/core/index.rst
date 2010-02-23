@@ -1,4 +1,3 @@
-.. _core:
 
 =================
 Core Akshell APIs
