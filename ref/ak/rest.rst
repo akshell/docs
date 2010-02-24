@@ -115,10 +115,17 @@ When using custom serve decorators, remember two things:
 
 The library provides these serve decorators:
 
+.. function:: serve.protectingFromICAR(func)
+
+   Protect the application from illegal cross-application
+   requests. This decorator blocks all cross-application request which
+   were not marked as legal, i.e., have a false ``request.legal``
+   property.
+
 .. function:: serve.protectingFromCSRF(func)
 
-   This decorator protects your application from CSRF attacks. See
-   :ref:`csrf` for details.
+   Protect the application from CSRF attacks. See :ref:`csrf` for
+   details.
 
 .. function:: serve.catchingHttpError(func)
 
@@ -137,3 +144,8 @@ The library provides these serve decorators:
    Catch a :exc:`ResolveError`; if the request path with a slash added
    resolves successfully, redirect the user to the path with the
    slash.
+   
+.. function:: serve.rollbacking(func)
+
+   :func:`Roll back <db.rollback>` the current transaction if the
+   handler has thrown an exception.
