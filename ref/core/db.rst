@@ -379,6 +379,13 @@ Low-level database management functions are properties of the
    Roll back the :term:`transaction` of the current request. See
    :doc:`request` for details.
 
+.. function:: refresh()
+
+   Refresh the database metadata (the :data:`rv` object). Useful for
+   rare cases when a :term:`transaction` which had created or dropped
+   relation variables was rolled back. In the majority of applications
+   metadata should not change during a request handling.
+
    
 Relation Variables
 ------------------
