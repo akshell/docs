@@ -47,6 +47,9 @@ Glossary
 
    REST
       TODO
+
+   Spot
+      TODO
       
    Subclass
       TODO
