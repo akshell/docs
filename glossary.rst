@@ -51,6 +51,9 @@ Glossary
    REST
       TODO
 
+   Session
+      TODO
+      
    Spot
       TODO
       

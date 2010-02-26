@@ -81,6 +81,57 @@ library provides a class facilitating development of a robust handler:
         ]);
 
 
+Utilities
+=========
+
+The following functions are useful for writing handlers:
+
+.. function:: redirect(location)
+
+   Return a :class:`Response` object with the :data:`http.FOUND`
+   status code redirecting to the *location* URL.
+
+.. function:: getLoginURL(path)
+
+   Return a login page URL. After the login on this URL Akshell
+   redirects users to the page with the path *path* of your
+   application.
+
+.. function:: getSignUpURL(path)
+
+   Return a sign up page URL. After the registration on this URL
+   Akshell redirects users to the page with the path *path* of your
+   application.
+
+.. function:: getSessionURL(path)
+
+   Return a session generator page URL. On this URL Akshell sets a
+   session cookie and redirects users to the page with the path *path*
+   of your application.
+   
+   
+Handler Decorators
+------------------
+
+Handler decorators could be used to decorate :class:`Handler`
+subclasses, RESTful methods of these subclasses, or plain JavaScript
+functions used as controllers.
+   
+.. function:: loggingIn(handler)
+
+   Decorate *handler* to redirect anonymous users to the Akshell login
+   page. After the login Akshell redirects the user back to the page
+   he came from.
+
+.. function:: obtainingSession(handler)
+
+   Decorate *handler* to redirect visitors who doesn't have a
+   :term:`session` to the session generator URL. Akshell will set a
+   session cookie and redirect the user back to the page he came
+   from. If cookies are disabled in the user's browser, he'll get an
+   error message asking to enable them.
+
+
 Serve Functions
 ===============
 
