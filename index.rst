@@ -3,5 +3,5 @@
 Documentation
 =============
 
-* :ref:`Table of Contents <contents>`
+* :doc:`Table of Contents <contents>`
 * :ref:`genindex`
