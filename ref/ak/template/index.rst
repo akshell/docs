@@ -18,7 +18,7 @@ __ http://docs.djangoproject.com/en/dev/topics/templates/
 
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
    tags
    filters
