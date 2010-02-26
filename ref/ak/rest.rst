@@ -48,7 +48,7 @@ library provides a class facilitating development of a robust handler:
 
       var UserHandler = Handler.subclass(
         function (request, userName) {
-          this._user = ...
+          this._user = ... // Retrieve the user info
         },
         {
           get: function () { /* Return user info */ }
@@ -57,8 +57,8 @@ library provides a class facilitating development of a robust handler:
       var PostsHandler = UserHandler.subclass(
         {
           // this._user is available in the methods
-          get:  function () { /* Return a post list */ }
-          post: function () { /* Create a new post */ }
+          get:  function () { /* Return a post list */ },
+          post: function () { /* Create a new post  */ }
         });
 
       var PostHandler = PostsHandler.subclass(
@@ -101,19 +101,25 @@ abstraction.
    decorators described below. It should suite most use cases.
 
 
-Serve Decorators
-================
+Middleware
+==========
 
-A serve decorator is :dfn:`application middleware`, i.e., logic common
-for all application handlers. You could write your own serve
-decorators or import them from other libraries.
+:func:`serve` decorators are :dfn:`application middleware`, i.e.,
+logic common for all application handlers. You could write your own
+serve decorators or import them from other libraries.
 
 When using custom serve decorators, remember two things:
 
 * the entire application is affected;
 * the order of decorators **does** matter.
 
-The library provides these serve decorators:
+
+.. _default_middleware:
+
+Default Middleware
+------------------
+
+The library provides these middleware:
 
 .. function:: serve.protectingFromICAR(func)
 

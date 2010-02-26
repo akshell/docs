@@ -165,8 +165,8 @@ operation systems. Here the zest of Akshell emerge: you could
 :func:`include <include>` code of other applications into your
 application, :func:`use <use>` them as libraries. `ak`_ is the basic
 Akshell library; it provides general JavaScript goodies and a
-:term:`Model-View-Control <MVC>` framework. You should always use it
-unless you really understand what you are doing.
+:term:`Model-View-Controller <MVC>` framework. You should always use
+it unless you really understand what you are doing.
 
 .. _ak: http://www.akshell.com/apps/ak/
 

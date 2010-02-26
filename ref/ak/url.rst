@@ -45,22 +45,44 @@ URLMap
    Example::
 
       __root__ = new URLMap(
-        MainHandler, 'home'
+        IndexHandler, 'index'
         ['users/',
-         ['', UserHandler, 'user',
+         ['',
+          ['profile/', ProfileHandler, 'profile'],
           ['posts/', PostsHandler, 'posts',
-           ['', PostHandler, 'post']
+           ['add/', AddPostHandler, 'add-post'],
+           [/(\d+)\//, PostHandler, 'post']
           ]
          ]
         ]);
 
-   This maps:
+   It maps:
 
-   * ``/`` to ``MainHandler``;
-   * :samp:`/users/{userName}/` to ``UserHandler``;
+   * ``/`` to ``IndexHandler``;
+   * :samp:`/users/{userName}/profile/` to ``ProfileHandler``;
    * :samp:`/users/{userName}/posts/` to ``PostsHandler``;
-   * :samp:`/users/{userName}/posts/{postName}/` to
-     ``PostHandler``.
+   * :samp:`/users/{userName}/posts/add/` to ``AddPostHandler``;
+   * :samp:`/users/{userName}/posts/{postId}/` to ``PostHandler``.
+
+   The pattern tree is the following:
+
+   .. graphviz::
+
+      digraph {
+         rankdir = LR;
+         node [
+            shape = box,
+            fontname = monospace,
+            fontsize = 10,
+            height = .25,
+            width = .8,
+            fixedsize = true
+         ];
+
+         "/" -> "users/" -> "([^/]*)/" -> "profile/";
+         "([^/]*)/" -> "posts/" -> "add/";
+         "posts/" -> "(\\d+)/";
+      }
 
    It is common for complex applications to be separated into modules,
    each module being responsible for a particular functionality. In
@@ -73,16 +95,18 @@ URLMap
 
       var postMap = new URLMap(
         PostsHandler, 'posts',
-        ['', PostHandler, 'post']);
+        ['add/', AddPostHandler, 'add-post'],
+        [/(\d+)\//, PostHandler, 'post']);
 
    In the ``__main__.js`` file::
 
       include('post.js');
       ...
       __root__ = new URLMap(
-        MainHandler, 'home'
+        IndexHandler, 'index'
         ['users/',
-         ['', UserHandler, 'user',
+         ['',
+          ['profile/', ProfileHandler, 'profile'],
           ['posts/', postMap]
          ]
         ]);
@@ -101,9 +125,9 @@ Functions
    Example usage (for :ref:`this<urlmap_example>` URL mapping)::
 
       >>> repr(resolve('/'))
-      [<function MainHandler>, []]
-      >>> repr(resolve('/users/Anton/posts/first'))
-      [<function PostHandler>, ["Anton", "first"]]
+      [<function IndexHandler>, []]
+      >>> repr(resolve('/users/Anton/posts/42/'))
+      [<function PostHandler>, ["Anton", "42"]]
       >>> resolve('/invalid/path/')
       ak.ResolveError: ...
       >>> resolve('relative/path/')
@@ -118,10 +142,10 @@ Functions
 
    Example usage (for :ref:`this<urlmap_example>` URL mapping)::
 
-      >>> reverse('home')
+      >>> reverse('index')
       /
-      >>> reverse('post', 'Anton', 'first')
-      /users/Anton/posts/first/
+      >>> reverse('post', 'Anton', 42)
+      /users/Anton/posts/42/
       >>> reverse('no-such-name')
       ak.ReverseError: ...
       >>> reverse('post', 'too', 'many', 'arguments')

@@ -41,3 +41,7 @@ filters. For example::
    >>> (new Template('{{ value|safe }}')).render({value: '<>\'"&'})
    <>'"&
 
+.. _csrf:
+
+CSRF Protection
+===============

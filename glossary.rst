@@ -24,6 +24,9 @@ Glossary
    Decorator
       TODO
 
+   DRY
+      TODO
+
    Identifier
       TODO
 
