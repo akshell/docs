@@ -48,6 +48,14 @@ These tags produced the following output in the release version of the
    http://static.akshell.com/code/release/ak/templates/home.html?1266305202
 
 
+.. tag:: comment
+
+comment
+=======
+
+Ignore everything between ``{% comment %}`` and ``{% endcomment %}``.
+   
+
 .. tag:: csrfToken
 
 csrfToken
