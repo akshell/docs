@@ -4,9 +4,9 @@ Database Goodies
 ================
 
 The `db.js`_ file alters the :func:`db.create` function to support a
-human-friendly syntax and adds the :meth:`~Selection.getOne`
-:class:`Selection` method. Facilitation of database management is the
-goal of this module.
+human-friendly syntax and adds the :meth:`getOne` :class:`Selection`
+method. Facilitation of database management is the goal of this
+module.
 
 
 .. _human_friendly_db_create:

@@ -10,6 +10,6 @@ Introductions to all the key parts of Akshell you'll need to know:
 
    using
    request
-   db
+   db-and-fs
    template
    testing

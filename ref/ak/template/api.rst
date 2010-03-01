@@ -53,9 +53,9 @@ Usage
 
 Usage of the template system is a two-step process:
 
-* First, you compile the raw template code into a ``Template`` object.
+* first, you compile the raw template code into a ``Template`` object;
 
-* Then, you call the ``render()`` method of the ``Template`` object
+* then, you call the ``render()`` method of the ``Template`` object
   with a given context.
 
 .. class:: Template(string, env=template.env)

@@ -742,6 +742,8 @@ and comment texts could be retrieved by::
 
    union(Post.text, Comment.text)
 
+
+.. _expressions:
    
 Expressions
 -----------
