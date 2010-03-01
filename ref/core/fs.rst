@@ -72,7 +72,7 @@ Functions
 
    Test whether an entry exists and is a file.
 
-.. function:: makeDir(path)
+.. function:: createDir(path)
 
    Create a directory; fail if the parent directory does not exist.
 
