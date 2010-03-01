@@ -85,11 +85,6 @@ Functions
    Change a path of an entry; fail if *newPath* already exists or its
    parent directory does not exist.
 
-.. function:: copyFile(origPath, copyPath)
-
-   Create a file with a path *copyPath* and contents of the original
-   file.
-
    
 Classes
 =======
