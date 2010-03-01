@@ -150,6 +150,8 @@ function specifically targets this use case:
    the :meth:`~Template.render` ``Template`` method; return a
    :class:`Response` object containing the rendered template.
 
+
+.. _template_customization:
    
 Customization
 =============
@@ -197,6 +199,8 @@ The default template engine configuration is represented by:
    :class:`Template` constructor and the :func:`getTemplate` function
    if the *env* argument is omitted.
 
+
+.. _custom_filters:
 
 Custom Filters
 --------------
@@ -332,6 +336,8 @@ example, the multiplication filter could be published as::
    >>> (new Template('{{ x|mul:y }}')).render({x: 3, y: 5})
    15
 
+
+.. _custom_tags:
       
 Custom Tags
 -----------

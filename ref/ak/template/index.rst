@@ -11,7 +11,7 @@ understanding of HTML; no knowledge of JavaScript is required.
 
 .. _template.js: http://www.akshell.com/apps/ak/code/template.js
 
-The engine is a JavaScript port of the `Django template engine`__.  A
+The engine is a JavaScript port of the `Django template engine`__. A
 major part of this text is borrowed from the Django documentation.
 
 __ http://docs.djangoproject.com/en/dev/topics/templates/
