@@ -71,7 +71,7 @@ library provides a class facilitating development of a robust handler:
           // PostsHandler.prototype.post won't interfere with PostHandler
         });
 
-      __root__ = new URLMap(
+      var __root__ = new URLMap(
         ['users/',
          ['', UserHandler,
           ['posts/', PostsHandler,

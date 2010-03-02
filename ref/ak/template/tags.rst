@@ -430,7 +430,7 @@ function.
 
 Suppose you have the following URL mapping::
 
-   __root__ = new URLMap(
+   var __root__ = new URLMap(
      MainHandler, 'home'
      ['users/',
       ['', UserHandler, 'user',

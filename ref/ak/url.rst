@@ -44,7 +44,7 @@ URLMap
 
    Example::
 
-      __root__ = new URLMap(
+      var __root__ = new URLMap(
         IndexHandler, 'index'
         ['users/',
          ['',
@@ -102,7 +102,7 @@ URLMap
 
       include('post.js');
       ...
-      __root__ = new URLMap(
+      var __root__ = new URLMap(
         IndexHandler, 'index'
         ['users/',
          ['',

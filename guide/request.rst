@@ -46,14 +46,14 @@ provides a simple and robust way of request handling. The
 ``__main__`` to it to enable the framework (this is already done in
 the application skeleton)::
 
-   __main__ = defaultServe;
+   var __main__ = defaultServe;
 
 The MVC framework splits an application into three parts:
 
 Models
    are the representation of the data upon which the application
    operates. In Akshell the database and the files store the data;
-   they are described in the :doc:`next chapter <db>`.
+   they are described in the :doc:`next chapter <db-and-fs>`.
 
 Views
    render models into a form suitable for interaction; for web
@@ -137,7 +137,7 @@ the tree nodes one after another until the path matches one of them.
 
 Example::
 
-   __root__ = new URLMap(
+   var __root__ = new URLMap(
      IndexHandler, 'index'
      ['users/',
       ['',
@@ -298,4 +298,4 @@ header to all responses::
 To enable it in your application decorate the ``defaultServe()``
 function::
 
-   __main__ = defaultServe.decorated(addingUselessHeader);
+   var __main__ = defaultServe.decorated(addingUselessHeader);
