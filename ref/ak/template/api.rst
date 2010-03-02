@@ -122,7 +122,21 @@ are propagated::
    template expressions. Mixing presentation and application logic
    could produce tricky bugs.
 
+Akshell performs :ref:`automatic HTML escaping <automatic_escaping>`
+of variable values to prevent malicios users from inserting HTML code
+into your pages. Sometimes you need to disable this behavior.
 
+.. function:: safe(value)
+
+   Return an object holding *value*; the template engine won't escape
+   it.
+
+   For example::
+
+      >>> (new Template('{{ text }}')).render({text: safe('<h1>Header</h1>')})
+      <h1>Header</h1>
+
+      
 Template Loading
 ----------------
 

@@ -379,7 +379,9 @@ the hole in the *parent*. If there were two similarly-named ``{% block
 one of the blocks' content to use.
 
 
-Automatic HTML escaping
+.. _automatic_escaping:
+
+Automatic HTML Escaping
 =======================
 
 When generating HTML from templates, there's always a risk that a
@@ -401,27 +403,35 @@ escaped:
 * ``"`` (double quote) is converted to ``&quot;``
 * ``&`` is converted to ``&amp;``
 
-Generally, template authors don't need to worry about auto-escaping
-very much. Developers on the JavaScript side (people writing handlers
-and custom filters) need to think about the cases in which data
-shouldn't be escaped, and mark data appropriately, so things Just Work
-in a template.
-
 Sometimes, template variables contain data that you *intend* to be
 rendered as raw HTML, in which case you don't want their contents to
 be escaped. For example, you might store a blob of HTML in your
-database and want to embed that directly into your template. To
-disable auto-escaping, use the :filter:`safe` filter::
+database and want to embed that directly into your template.
+
+Generally, template authors don't need to worry about auto-escaping
+very much. Developers on the JavaScript side (people writing handlers
+and custom filters) need to think about the cases in which data
+shouldn't be escaped, and pass these data via the :func:`safe`
+function, so things Just Work in a template.
+
+You could also disable auto-escaping in a template via the
+:filter:`safe` filter, but the :func:`safe` function should be
+preferred, because escaping is a responsibility of the controller
+side. Think of *safe* as shorthand for *safe from further escaping* or
+*can be safely interpreted as HTML*.
+
+Suppose you have this template::
 
     This will be escaped: {{ data }}
-    This will not be escaped: {{ data|safe }}
+    This won't be escaped: {{ safeData }}
+    This won't be escaped too: {{ data|safe }}
 
-Think of *safe* as shorthand for *safe from further escaping* or *can
-be safely interpreted as HTML*. In this example, if ``data`` contains
-``'<b>'``, the output will be::
+If ``data`` contains ``'<b>'``, ``safeData`` contains ``safe('<b>')``,
+the output will be::
 
     This will be escaped: &lt;b&gt;
-    This will not be escaped: <b>
+    This won't be escaped: <b>
+    This won't be escaped too: <b>
 
 As I mentioned earlier, filter arguments can be strings::
 
