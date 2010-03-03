@@ -235,15 +235,15 @@ Miscellaneous Utilities
 
    Format *date* as the time since that date, e.g., ``'4 days, 6
    hours'``.  *now* is the date to use as the comparison point
-   (defaults to now). Seconds is the smallest unit used, and ``'0
-   seconds'`` will be returned for any date that is in the future
+   (defaults to now). Minutes is the smallest unit used, and ``'0
+   minutes'`` will be returned for any date that is in the future
    relative to the comparison point.
 
 .. function:: timeUntil(date, now=new Date())
 
    Format *date* as the time from *now* until that date. *now* is the
-   date to use as the comparison point (defaults to now). Seconds is
-   the smallest unit used, and ``'0 seconds'`` will be returned for
+   date to use as the comparison point (defaults to now). Minutes is
+   the smallest unit used, and ``'0 minutes'`` will be returned for
    any date that is in the past relative to the comparison point.
 
 .. function:: escapeHTML(string)
