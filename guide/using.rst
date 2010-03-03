@@ -189,6 +189,8 @@ create, clone, and delete spots, view code of other developers (these
 actions are covered above).
 
 
+.. _evaluate:
+
 Evaluate
 --------
 

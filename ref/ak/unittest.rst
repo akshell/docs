@@ -358,11 +358,11 @@ TestClient
 
 .. class:: TestClient(users=[], apps={})
 
-   A ``TestClient`` object emulates real application client, browser
-   or another application. Via ``TestClient`` methods one could make
-   requests and check for expected responses. A client is usually
-   created in the :meth:`~TestCase.setUp` method of a particular
-   :class:`TestCase` subclass.
+   A ``TestClient`` object emulates a real application client, a
+   browser or another application. Via ``TestClient`` methods one
+   could make requests and check for expected responses. A client is
+   usually created in the :meth:`~TestCase.setUp` method of a
+   particular :class:`TestCase` subclass.
 
    The :meth:`request` ``TestClient`` method creates a sandbox
    environment throughout a handling of a test request. It temporarily
@@ -422,19 +422,23 @@ TestClient
       
    .. method:: get(request)
 
-      A shortcut for ``get`` requests.
+      A shortcut for GET requests.
    
    .. method:: post(request)
    
-      A shortcut for ``post`` requests.
+      A shortcut for POST requests.
+      
+   .. method:: head(request)
+   
+      A shortcut for HEAD requests.
    
    .. method:: put(request)
    
-      A shortcut for ``put`` requests.
+      A shortcut for PUT requests.
    
    .. method:: del(request)
 
-      A shortcut for ``delete`` requests.
+      A shortcut for DELETE requests.
 
    ::
 
