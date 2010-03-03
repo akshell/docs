@@ -331,6 +331,22 @@ For example::
 If ``value`` is ``123456789``, the output will be ``8``.
 
 
+.. filter:: items
+
+items
+=====
+
+Return an ``Array`` of ``[key, value]`` pairs of the object ordered by
+keys.
+
+For example::
+
+   {{ value|items }}
+
+If ``value`` is the object ``{a: 1, b: 2, c: 3}``, the output will
+be ``[['a', 1], ['b', 2], ['c', 3]]``.
+   
+
 .. filter:: join
 
 join
