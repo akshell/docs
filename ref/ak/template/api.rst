@@ -122,9 +122,9 @@ are propagated::
    template expressions. Mixing presentation and application logic
    could produce tricky bugs.
 
-Akshell performs :ref:`automatic HTML escaping <automatic_escaping>`
-of variable values to prevent malicios users from inserting HTML code
-into your pages. Sometimes you need to disable this behavior.
+Akshell performs :ref:`automatic HTML escaping <escaping>` of variable
+values to prevent malicios users from inserting HTML code into your
+pages. Sometimes you need to disable this behavior.
 
 .. function:: safe(value)
 
@@ -228,7 +228,7 @@ the output.
 Wrap
 ~~~~
 
-In order to perform proper :ref:`HTML escaping<html_escaping>`, safety
+In order to perform proper :ref:`HTML escaping <escaping>`, safety
 indicator must be transferred through filters along with the value. To
 achieve this, the engine wraps each value to be inserted into a
 template by the ``Wrap`` class.

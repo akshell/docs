@@ -379,7 +379,7 @@ the hole in the *parent*. If there were two similarly-named ``{% block
 one of the blocks' content to use.
 
 
-.. _automatic_escaping:
+.. _escaping:
 
 Automatic HTML Escaping
 =======================
