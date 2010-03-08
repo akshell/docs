@@ -12,10 +12,10 @@ The `rest.js`_ file defines tools for convenient, robust, and
 Handler
 =======
 
-Handler is the C in :term:`MVC`. For each request the :doc:`URL
-mapping <url>` determines which handler to use, after that the handler
-is responsible for processing the request and producing the output to
-the user.
+A :dfn:`handler` is a controller of a particular resource. For each
+request the :doc:`URL mapping <url>` determines which handler to use,
+after that the handler is responsible for processing the request and
+producing the output to the user.
 
 A handler receives a :class:`Request` object and positional arguments
 retrieved from the request path. It should return a :class:`Response`
@@ -181,8 +181,7 @@ The library provides these middleware:
 
 .. function:: serve.protectingFromCSRF(func)
 
-   Protect the application from CSRF attacks. See :ref:`csrf` for
-   details.
+   Protect the application from :term:`CSRF` attacks.
 
 .. function:: serve.catchingHttpError(func)
 
