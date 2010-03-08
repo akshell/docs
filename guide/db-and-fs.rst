@@ -485,7 +485,7 @@ For example, this code deletes all Bob's posts::
    rv.Post.where('author == $', 'Bob').del()
 
 It will throw a :exc:`ConstraintError` if at least one of Bob's posts
-has comments, so it'd be reasonable to delete these comments
+has comments; so it'd be reasonable to delete these comments
 beforehand::
 
    rv.Comment.where('post->author == $', 'Bob').del();
@@ -497,7 +497,7 @@ File Storage
 
 A file storage is intended for storing unstructured data in files
 grouped under directories. It has the same semantics as a common file
-system on your local hard drive, so in this section you don't have to
+system on your local hard drive; so in this section you don't have to
 learn anything.
 
 File and directory names could contain any Unicode symbol except

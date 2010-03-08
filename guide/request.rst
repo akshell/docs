@@ -67,7 +67,7 @@ Controllers
 
 The MVC approach isolates domain logic (models) from input
 (controllers) and presentation (views). This permits independent
-development of each part, so the resulting application is more robust
+development of each part; so the resulting application is more robust
 and maintainable.
 
 The rest of this document describes controllers in Akshell; the next
@@ -268,7 +268,7 @@ POST request -- that's exactly what you need.
 Middleware
 ==========
 
-Some logic is common for the whole application, so it would be
+Some logic is common for the whole application; so it would be
 inconvenient to add it to every handler class. Akshell offers a
 :term:`DRY` way of implementing such logic -- :dfn:`application
 middleware`. A piece of middleware is a :term:`decorator` of the

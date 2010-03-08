@@ -136,7 +136,7 @@ Use the :meth:`~TestClient.get`, :meth:`~TestClient.post`,
 :meth:`~TestClient.login` method sets the default user of test
 requests.
 
-The template framework hacks the :class:`Handler` class on the fly, so
+The template framework hacks the :class:`Handler` class on the fly; so
 each response has a ``handler`` property referencing the handler which
 produced the response. If the response content was generated via the
 template engine, the response object also has a ``context`` property

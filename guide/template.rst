@@ -358,7 +358,7 @@ Here are some tips for working with inheritance:
 
 * More ``{% block %}`` tags in your base templates are
   better. Remember, child templates don't have to define all parent
-  blocks, so you can fill in reasonable defaults in a number of
+  blocks; so you can fill in reasonable defaults in a number of
   blocks, then only define the ones you need later. It's better to
   have more hooks than fewer hooks.
 
@@ -418,7 +418,7 @@ Generally, template authors don't need to worry about auto-escaping
 very much. Developers on the JavaScript side (people writing handlers
 and custom filters) need to think about the cases in which data
 shouldn't be escaped, and pass these data via the :func:`safe`
-function, so things Just Work in a template.
+function; so things Just Work in a template.
 
 You could also disable auto-escaping in a template via the
 :filter:`safe` filter, but the :func:`safe` function should be
@@ -446,7 +446,7 @@ As I mentioned earlier, filter arguments can be strings::
 All string literals are inserted **without** any automatic escaping
 into the template -- they act as if they were all passed through the
 :filter:`safe` filter.  The reasoning behind this is that the template
-author is in control of what goes into the string literal, so he can
+author is in control of what goes into the string literal; so he can
 make sure the text is correctly escaped when the template is written.
 
 This means you would write::

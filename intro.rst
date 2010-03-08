@@ -76,7 +76,7 @@ through the creation of a simple yet fully functional blog
 application.
 
 I've called it ``simple-blog``. Immediately after the creation each
-application receives an address on the ``akshell.com`` domain, so you
+application receives an address on the ``akshell.com`` domain; so you
 can test the example at http://simple-blog.akshell.com/.  You could
 also `browse its code`__ as well as code of other free applications.
 

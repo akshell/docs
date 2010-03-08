@@ -204,7 +204,7 @@ Mark the value to be HTML escaped before the output. The escaping
 is performed by the :func:`escapeHTML` function.
 
 Applying ``escape`` to a value that is already marked for escaping
-will do nothing, so it is safe to use this function in auto-escaping
+will do nothing; so it is safe to use this function in auto-escaping
 context. If you want multiple escaping passes to be applied, use the
 :filter:`forceEscape` filter.
 

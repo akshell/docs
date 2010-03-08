@@ -11,7 +11,7 @@ Overview
 ========
 
 Akshell is a :dfn:`web application network`. I've recently invented
-this term, so I'd better explain it.
+this term; so I'd better explain it.
 
 Akshell is a site where you could develop web applications in
 JavaScript and host them in the cloud. The development is easy and the
@@ -90,7 +90,7 @@ user identity is preserved during cross-application requests; this is
 essential for application interaction.
 
 Akshell guarantees the security of the authentication. It is
-implemented via cookies restricted to application domains, so a
+implemented via cookies restricted to application domains; so a
 malicious application could neither guess a user password nor steal an
 authentication cookie of other application.
 
@@ -103,7 +103,7 @@ development access to your applications. There are two kinds of
 developers: those with an access to the release code and those without
 it. If you do not trust a person enough, you could provide him with
 the second, limited access. He won't be able to affect the release
-code (you will have to release his work by yourself), so the users of
+code (you will have to release his work by yourself); so the users of
 your applications will be out of danger. When the guy shows he could
 be relied upon, you will give him the release access.
 
@@ -146,7 +146,7 @@ Akshell Core
 The Akshell core executes applications via the Google V8 JavaScript
 engine and provides them with a set of :doc:`core APIs
 </ref/core/index>`. The engine compiles JavaScript code into the
-native code, so the execution is utterly fast.
+native code; so the execution is utterly fast.
 
 To handle a request the Akshell core evaluates the ``__main__.js``
 file of your application and runs the ``__main__()`` function passing
@@ -180,7 +180,7 @@ Interaction
 ===========
 
 Akshell states that a browser should be the only required tool for web
-development, so all application management could be done from a
+development; so all application management could be done from a
 browser window.
 
 The major part of your interaction with Akshell will take place in the
@@ -298,7 +298,7 @@ Debian::
 IDE Integration
 ---------------
 
-The tool is a command-line Python script with a simple interface, so
+The tool is a command-line Python script with a simple interface; so
 it should be easy to integrate it into your favorite IDE. For advanced
 usage the ``akshell`` Python module is provided; you could employ it
 in your scripts.
