@@ -37,7 +37,7 @@ URLMap
    to the handler as an argument.
 
    The empty pattern ``''`` designates a common variable pattern
-   ``/([^\/]*)\//``. It's the most straightforward way of defining
+   ``/([^\/]+)\//``. It's the most straightforward way of defining
    variable parts of URLs.
 
    .. _urlmap_example:

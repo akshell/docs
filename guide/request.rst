@@ -126,7 +126,7 @@ An URL mapping of an application is defined by the value of the
 class. The mapping is a tree-like structure where each node could be
 either a constant part of a path (a ``string`` value) or a variable
 part of it (a ``RegExp`` object or an empty string ``''`` for the
-default pattern ``([^/]*)/``).
+default pattern ``([^/]+)/``).
 
 
 Dispatching
