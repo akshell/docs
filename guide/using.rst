@@ -235,6 +235,8 @@ delete the application.
 .. _reCAPTCHA: http://recaptcha.net/
 
 
+.. _tool:
+
 Tool
 ====
 

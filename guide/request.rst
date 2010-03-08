@@ -109,6 +109,8 @@ creating controllers whose operation is determined by a request verb
 (an HTTP method).
 
 
+.. _url_mapping:
+
 URL Mapping
 ===========
 

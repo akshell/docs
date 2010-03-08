@@ -61,8 +61,8 @@ Ignore everything between ``{% comment %}`` and ``{% endcomment %}``.
 csrfToken
 =========
 
-   Output a hidden ``<input>`` tag with the value of the CSRF
-   token. See :ref:`csrf` for details.
+   Output a hidden ``<input>`` tag with the value of the
+   :term:`cross-site request forgery <CSRF>` protection token.
    
 .. tag:: cycle
 

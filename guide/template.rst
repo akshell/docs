@@ -65,6 +65,8 @@ element will be explained later in this document.::
    {% endblock %}
 
 
+.. _variables:
+
 Variables
 =========
 
@@ -82,6 +84,8 @@ the ``title`` attribute of the ``section`` object.
 If you use a variable that doesn't exist, the template system will
 output an empty string ``''``.
 
+
+.. _filters:
 
 Filters
 =======
@@ -145,6 +149,8 @@ reference </ref/ak/template/filters>` for the complete list.
 You can also create your own custom template filters; see
 :ref:`custom_filters`.
 
+
+.. _tags:
 
 Tags
 ====

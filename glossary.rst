@@ -18,6 +18,9 @@ Glossary
    Cross-site scripting
       TODO
 
+   CSRF
+      TODO
+
    Database
       TODO
 

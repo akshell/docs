@@ -162,7 +162,9 @@ attributes will naturally have default values::
    {banned: false, description: "", name: "Bob"}
    >>> repr(rv.Profile.insert({name: 'Anton', description: "That's me"}))
    {banned: false, description: "That's me", name: "Anton"}
-   
+
+
+.. _serial:
 
 Serial
 ~~~~~~
@@ -193,6 +195,8 @@ Constraints are the main tool for maintaining logical consistency in a
 database. Akshell provides the :dfn:`unique`, :dfn:`foreign key`, and
 :dfn:`check` constraints.
 
+
+.. _unique:
 
 Unique
 ~~~~~~
@@ -228,7 +232,9 @@ author will never have the same title::
    >>> rv.Post.insert(
          {author: 'Bob', title: 'Greeting', text: 'Hello again!'})
    ak.ConstraintError: ...
-   
+
+
+.. _foreign_key:
          
 Foreign Key
 ~~~~~~~~~~~
