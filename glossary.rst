@@ -6,71 +6,80 @@ Glossary
 .. glossary::
    :sorted:
 
-   Aspect
-      TODO
-
+   Attribute
+      A pair of a name and a type.
+   
    Class
-      TODO
-
-   Class method
-      TODO
-
-   Cross-site scripting
-      TODO
+      A function intended for creating objects via the ``new`` operator.
 
    CSRF
-      TODO
-
-   Database
-      TODO
+      `Cross-site request forgery`_. This type of attack occurs when a
+      malicious web site contains a link, a form button, or some
+      client JavaScript that is intended to perform some action on
+      your web site, using the credentials of a logged-in user who
+      visits the malicious site in their browser.
 
    Decorator
-      TODO
+      A function accepting a function and returning another function,
+      usually used as a function transformation.
 
    DRY
-      TODO
-
-   Identifier
-      TODO
-
-   JavaScript engine
-      TODO
+      `Don't repeat yourself`_ principle of software development:
+      every piece of knowledge must have a single, unambiguous,
+      authoritative representation within a system.
 
    Metaclass
-      TODO
+      A class whose instances are classes. Just as an ordinary class
+      defines the behavior of certain objects, a metaclass defines the
+      behavior of certain classes and their instances.
 
    MVC
-      TODO
+      `Model–view–controller`_. A software architecture isolating
+      domain logic from input and presentation, permitting independent
+      development, testing, and maintenance of each.
 
    Relation
-      TODO
+      A data structure which consists of a header and a set of tuples
+      sharing the same header.
    
    Relation variable
-      TODO
+      A named variable whose value is a relation.
 
    Relational model
-      TODO
+      A database model used in the majority of modern database
+      systems. Proposed in 1969 by E.F. Codd. See the `Wikipedia
+      page`_ for details.
 
    REST
-      TODO
+      `Representational State Transfer`_. A style of software
+      architecture for distributed systems. RESTful architectures
+      consist of clients and servers. Clients initiate requests to
+      servers; servers process requests and return appropriate
+      responses. Requests and responses are built around the transfer
+      of "representations" of "resources".
 
-   Session
-      TODO
-      
    Spot
-      TODO
+      An independent version of an application owned by a developer.
       
    Subclass
-      TODO
+      A class that inherits prototype properties from its
+      superclass. If ``Derived`` is a subclass of ``Base``,
+      ``Derived.prototype.__proto__ === Base.prototype``.
       
    Surrogate key
-      TODO
+      A unique identifier of a tuple. The surrogate key is *not*
+      derived from application data. Usually implemented using the
+      ``'unique serial'`` type.
 
    Transaction
-      TODO
+      A unit of work performed against a database. It bundles multiple
+      steps into a single, all-or-nothing operation.
       
    Tuple
-      TODO
+      A set of uniquely named attributes with their values.
 
-   Tuple relational calculus
-      TODO
+.. _Cross-site request forgery: http://en.wikipedia.org/wiki/Csrf
+.. _Don't repeat yourself: http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+.. _Model–view–controller: http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
+.. _Wikipedia page: http://en.wikipedia.org/wiki/Relational_model
+.. _Representational State Transfer: http://en.wikipedia.org/wiki/REST

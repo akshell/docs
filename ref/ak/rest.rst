@@ -125,11 +125,11 @@ functions used as controllers.
 
 .. function:: obtainingSession(handler)
 
-   Decorate *handler* to redirect visitors who doesn't have a
-   :term:`session` to the session generator URL. Akshell will set a
-   session cookie and redirect the user back to the page he came
-   from. If cookies are disabled in the user's browser, he'll get an
-   error message asking to enable them.
+   Decorate *handler* to redirect visitors who doesn't have a session
+   cookie to the session generator URL. Akshell will set a session
+   cookie and redirect the user back to the page he came from. If
+   cookies are disabled in the user's browser, he'll get an error
+   message asking to enable them.
 
 
 Serve Functions

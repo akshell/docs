@@ -638,9 +638,11 @@ more expressive.
 Query Language
 ==============
 
-The query language is an implementation of the :term:`tuple relational
-calculus`; it's designed to be a simple yet powerful database querying
-tool naturally embedded into JavaScript.
+The query language is an implementation of the `tuple relational
+calculus`__; it's designed to be a simple yet powerful database
+querying tool naturally embedded into JavaScript.
+
+__ http://en.wikipedia.org/wiki/Tuple_relational_calculus
 
 
 Example

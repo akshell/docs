@@ -3,8 +3,8 @@
 Core Akshell APIs
 =================
 
-The core Akshell APIs are built into the :term:`JavaScript engine`
-running application code; they provide low-level means of environment
+The core Akshell APIs are built into the JavaScript engine running
+application code; they provide low-level means of environment
 iteraction.
 
 .. toctree::
