@@ -1,6 +1,6 @@
 
 ======================
-Documentation contents
+Documentation Contents
 ======================
 
 .. toctree::
