@@ -14,57 +14,52 @@ Miscellaneous low-level tools.
    defaults to the name of the executing application. *path* separator
    is the slash (``'/'``).
    
-.. function:: include([lib,] path)
+.. function:: include([appName,] path)
 
    Include a code file; return a code evaluation result. Do not
-   include the same file twice: return a cached result instead. *lib*
-   must be an application name optionally followed by a path within
-   its release code. If *lib* is specified, cross-application include
-   takes place; otherwise a current application code is searched for a
-   file. A :dfn:`current application` is an executing application or
-   an application of the latest incomplete cross-application
-   include. A current application include could be relative or
-   absolute. A *relative include* happens if *path* does not begin
-   with the slash; search is performed based on the directory of the
-   including file. An *absolute include* happens if *path* begins with
-   the slash; search is performed based on the root directory or the
-   directory specified in the latest incomplete cross-application
-   include.
+   include the same file twice -- return a cached result instead. If
+   *appName* is specified, a cross-application include takes place;
+   otherwise code of a current application is searched for a file. A
+   :dfn:`current application` is an executing application or an
+   application of the latest incomplete cross-application include. A
+   current application include could be relative or absolute. A
+   *relative include* happens if *path* doesn't begin with a slash;
+   search is performed based on the directory of the including
+   file. An *absolute include* happens if *path* begins with the
+   slash; search is performed based on the root directory.
 
    For example, if the application ``app1`` has this lines in its
    :file:`__main__.js` file::
 
-      include('app2/0.1', 'feature/__init__.js')
       include('utils/useful.js')
+      include('app2', 'feature/__init__.js')
 
    ... they will include the file :file:`utils/useful.js` of the
-   ``app1`` application and the file :file:`0.1/feature/__init__.js`
-   of the ``app2`` application. Suppose :file:`utils/useful.js` has
-   the lines::
+   ``app1`` application and the file :file:`feature/__init__.js` of
+   the ``app2`` application. Suppose :file:`utils/useful.js` has the
+   lines::
 
       include('very-useful.js')
       include('/base.js')
 
    ... these lines will include the files :file:`utils/very-useful.js`
    and :file:`base.js` of the ``app1`` application because the first
-   include was relative and the second one was absolute. Finally if
-   the :file:`0.1/feature/__init__.js` file of the ``app2``
-   application has the lines::
+   include is relative and the second one was absolute. Finally, if
+   the :file:`feature/__init__.js` file of the ``app2`` application
+   has the lines::
 
       include('impl.js')
       include('/base.js')
 
-   ... they will include the files :file:`0.1/feature/impl.js` and
-   :file:`0.1/base.js` of the ``app2`` application because a base
-   directory for absolute includes was set by the cross-application
-   include to :file:`0.1`.
+   ... they will include the files :file:`feature/impl.js` and
+   :file:`base.js` of the ``app2`` application.
    
-.. function:: use(lib)
+.. function:: use(appName [,path])
 
    Include the :file:`__init__.js` file from a library; it's a common
    library interface file. This function is equivalent to::
 
-      include(lib, '__init__.js')
+      include(appName, (path ? path + '/' : '') + '__init__.js')
 
 .. function:: set(object, name, attributes, value)
 
