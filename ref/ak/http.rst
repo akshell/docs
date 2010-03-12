@@ -3,8 +3,8 @@
 HTTP Goodies
 ============
 
-In the `http.js`_ file HTTP error classes and status codes are
-defined.
+In the `http.js`_ file HTTP error classes, utilities, and status codes
+are defined.
 
 .. _http.js: http://www.akshell.com/apps/ak/code/http.js
 
@@ -25,6 +25,15 @@ Error Classes
 
    A resource was not found. Should be reported to the user by a 404
    HTTP response. Subclass of :exc:`HttpError`.
+
+   
+redirect()
+==========
+
+.. function:: redirect(location)
+
+   Return a :class:`Response` object with the :data:`http.FOUND`
+   status code redirecting to the *location* URL.
 
 
 .. _status_codes:

@@ -122,7 +122,7 @@ Functions
    array of positional arguments retrieved from the ``RegExp`` pattern
    match groups. Throw a :exc:`ResolveError` on failure.
 
-   Example usage (for :ref:`this<urlmap_example>` URL mapping)::
+   Example usage (for the :ref:`example mapping <urlmap_example>`)::
 
       >>> repr(resolve('/'))
       [<function IndexHandler>, []]
@@ -140,7 +140,15 @@ Functions
    :exc:`ReverseError` if a node with this name does not exist or has
    a different number of arguments.
 
-   Example usage (for :ref:`this<urlmap_example>` URL mapping)::
+   Four names are treated specially: ``login``, ``logout``,
+   ``signup``, and ``session``. For these names ``reverse()`` returns
+   an absolute URL of a corresponding Akshell page. If the user visits
+   the page and performs the necessary action, he will be redirected
+   back to your application. The path of the redirection could be
+   specified by the second ``reverse()`` argument (to redirect the
+   user back to the current page, use ``request.fullPath``).
+
+   Example usage (for the :ref:`example mapping <urlmap_example>`)::
 
       >>> reverse('index')
       /
@@ -150,6 +158,10 @@ Functions
       ak.ReverseError: ...
       >>> reverse('post', 'too', 'many', 'arguments')
       ak.ReverseError: ...
+      >>> reverse('login')
+      http://www.akshell.com/login/?domain=example&path=%2F
+      >>> reverse('session', '/some/path/')
+      http://www.akshell.com/session/?domain=example&path=%2Fsome%2Fpath%2F
       
    
 Error Classes
