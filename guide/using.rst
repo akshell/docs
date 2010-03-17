@@ -85,13 +85,13 @@ Authentication
 --------------
 
 To enable application interoperability Akshell provides centralized
-authentication system: all applications use the Akshell login. The
-user identity is preserved during cross-application requests; this is
+authentication system: all applications use the Akshell login. User
+identity is preserved during cross-application requests; this is
 essential for application interaction.
 
 Akshell guarantees the security of the authentication. It is
 implemented via cookies restricted to application domains; so a
-malicious application can neither guess a user password nor steal an
+malicious application can neither guess a user's password nor steal an
 authentication cookie of other application.
 
 
@@ -119,8 +119,8 @@ handles requests from the
 *Show* spot menu item to view the corresponding page in your browser).
 
 The purpose of spots is to separate development and debugging from
-serving the application users. When the next stable version is ready,
-the spot containing it could be "released": it will instantly become
+serving application users. When the next stable version is ready, the
+spot containing it could be "released": it will instantly become
 available to everyone (this operation is atomic).
 
 Spots also facilitate collaboration: developers have independent spots

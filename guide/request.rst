@@ -190,7 +190,7 @@ Reversing
 Note that each pattern in the example has a string name (``'index'``,
 ``'profile'``, etc.); it's optional and intended for reconstructing a
 path of a particular resource. This task is reverse to dispatching; it
-can arise, for example, when you need to redirect the user to this
+can arise, for example, when you need to redirect a user to this
 resource.
 
 A resource path can be reconstructed in-place, but this approach is

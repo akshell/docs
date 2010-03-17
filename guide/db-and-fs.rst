@@ -431,7 +431,7 @@ For example::
 .. note::
 
    If you haven't caught a ``DoesNotExist`` error, Akshell will
-   display a 404 error page to the user, which is the desired behavior
+   display a 404 error page to a user, which is the desired behavior
    for the majority of cases.
 
    

@@ -15,7 +15,7 @@ Handler
 A :dfn:`handler` is a controller of a particular resource. For each
 request the :doc:`URL mapping <url>` determines which handler to use,
 after that the handler is responsible for processing the request and
-producing the output to the user.
+producing the output to a user.
 
 A handler receives a :class:`Request` object and positional arguments
 retrieved from the request path. It should return a :class:`Response`
@@ -91,14 +91,14 @@ controllers.
 .. function:: loggingIn(handler)
 
    Decorate *handler* to redirect anonymous users to the Akshell login
-   page. After the login Akshell redirects the user back to the page
-   he came from.
+   page. After the login Akshell redirects a user back to the page he
+   came from.
 
 .. function:: obtainingSession(handler)
 
    Decorate *handler* to redirect visitors who doesn't have a session
    cookie to the session generator URL. Akshell will set a session
-   cookie and redirect the user back to the page he came from. If
+   cookie and redirect a user back to the page he came from. If
    cookies are disabled in the user's browser, he'll get an error
    message asking to enable them.
 
@@ -169,7 +169,7 @@ The library provides these middleware:
 .. function:: serve.appendingSlash(func)
 
    Catch a :exc:`ResolveError`; if the request path with a slash added
-   resolves successfully, redirect the user to the path with the
+   resolves successfully, redirect a user to the path with the
    slash.
    
 .. function:: serve.rollbacking(func)

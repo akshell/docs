@@ -14,17 +14,17 @@ Error Classes
 
 .. exception:: HttpError(message, status=http.BAD_REQUEST)
 
-   A base class of errors which should be reported to the user by a
-   HTTP response with the status code *status* and *message* in the
+   A base class of errors which should be reported to a user by a HTTP
+   response with the status code *status* and *message* in the
    content. Whenever your application faces a problem it has to report
-   to the user, it should throw a ``HttpError``. The
+   to a user, it should throw a ``HttpError``. The
    :func:`serve.catchingHttpError` decorator will catch the error and
    convert it to a :class:`Response` object.
    
 .. exception:: NotFoundError(message='Not found')
 
-   A resource was not found. Should be reported to the user by a 404
-   HTTP response. Subclass of :exc:`HttpError`.
+   A resource was not found. Reported to a user by a 404 HTTP
+   response. Subclass of :exc:`HttpError`.
 
    
 redirect()

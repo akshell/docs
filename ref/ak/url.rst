@@ -142,11 +142,11 @@ Functions
 
    Four names are treated specially: ``login``, ``logout``,
    ``signup``, and ``session``. For these names ``reverse()`` returns
-   an absolute URL of a corresponding Akshell page. If the user visits
+   an absolute URL of a corresponding Akshell page. If a user visits
    the page and performs the necessary action, he will be redirected
    back to your application. The path of the redirection can be
-   specified by the second ``reverse()`` argument (to redirect the
-   user back to the current page, use ``request.fullPath``).
+   specified by the second ``reverse()`` argument (to redirect a user
+   back to the current page, use ``request.fullPath``).
 
    Example usage (for the :ref:`example mapping <urlmap_example>`)::
 

@@ -36,14 +36,14 @@ Example
 
 Let me sweeten this definition soup by an example. Suppose you are
 writing a blog application; you'll need to define a data model for
-it. As users of your application will write posts and comment posts of
-each other, you'll need to have two relation variables: ``Post`` and
-``Comment``. The header of the relation of the ``Post`` variable will
-consist of the ``<"id", number>``, ``<"author", string>``, and
-``<"text", string>`` attributes (``id`` is a unique identifier of a
-post also known as a :term:`surrogate key`). The header of the
-relation of the ``Comment`` variable will consist of the ``<"post",
-number>``, ``<"author", string>``, and ``<"text", string>``
+it. As the users of your application will write posts and comment
+posts of each other, you'll need to have two relation variables:
+``Post`` and ``Comment``. The header of the relation of the ``Post``
+variable will consist of the ``<"id", number>``, ``<"author",
+string>``, and ``<"text", string>`` attributes (``id`` is a unique
+identifier of a post also known as a :term:`surrogate key`). The
+header of the relation of the ``Comment`` variable will consist of the
+``<"post", number>``, ``<"author", string>``, and ``<"text", string>``
 attributes.
 
 .. note::
@@ -52,8 +52,8 @@ attributes.
    relations. For brevity I'll mean by relation variable header and
    body the header and the body of the value of the relation variable.
 
-Initially both relation variables will have an empty body. When user
-Bob writes his first post, the tuple will be added to the body of
+Initially both relation variables will have an empty body. When the
+user Bob writes his first post, the tuple will be added to the body of
 ``Post``::
 
    <"id", number, 0>, <"author", string, "Bob">, <"text", string, "Hello, world!">

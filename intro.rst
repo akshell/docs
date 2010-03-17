@@ -246,9 +246,9 @@ system. A user has to create only one account to use all Akshell
 applications. Without this feature productive application interaction
 would be impossible. Users authenticate themselves to applications via
 a :dfn:`session cookie`. The :func:`obtainingSession`
-:term:`decorator` instructs the handler to redirect users who don't
-have a session cookie to the special Akshell page which sets this
-cookie and redirects back. Use this decorator if your application
+:term:`decorator` instructs the handler to redirect the users who
+don't have a session cookie to the special Akshell page which sets
+this cookie and redirects back. Use this decorator if your application
 needs to know an identity of a user.
 
 

@@ -155,7 +155,7 @@ loading:
    environment.
 
 The most common template use case is rendering HTML and returning it
-to the user in a :class:`Response` object. The ``render()`` shortcut
+to a user in a :class:`Response` object. The ``render()`` shortcut
 function specifically targets this use case:
    
 .. function:: render(name, context={}, status=http.OK[, headers])
