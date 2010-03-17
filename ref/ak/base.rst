@@ -108,12 +108,12 @@ Function Methods
       Return a :term:`subclass` of this :term:`class`. ``subclass()``
       is a heart of Akshell object-oriented system; it brings classes
       to the prototype-oriented world of JavaScript in a natural
-      way. Each function could be a class, i.e., could be used for
-      creating objects by the operator ``new``. A class could be
+      way. Each function can be a class, i.e., could be used for
+      creating objects by the operator ``new``. A class can be
       subclassed via the ``subclass()`` method; a subclass inherits
       methods and attributes of its parent class, which are specified
       in the ``prototype`` property of the parent class; so objects of
-      the subclass could be used wherever objects of the parent class
+      the subclass can be used wherever objects of the parent class
       are required.
 
       *constructor* defaults to a function simply calling this
@@ -157,7 +157,7 @@ Error Subclasses
 
 .. class:: ErrorMeta
 
-   The standard JavaScript exception classes could be instantiated
+   The standard JavaScript exception classes can be instantiated
    without the operator ``new``. To guarantee that all user defined
    exception classes follow this rule Akshell sets the
    :term:`metaclass` of the base exception class ``Error`` to
@@ -229,8 +229,8 @@ this shortcoming Akshell provides these comparison functions.
 
    4. the values are incomparable -- throw ``CmpError(lhs, rhs)``.
 
-   You can see that your own types could support ``cmp`` by providing
-   a method ``__cmp__(other)``; it should
+   Your own types can support ``cmp`` by providing a method
+   ``__cmp__(other)``; it should
 
    * return -1 if *this* is less than *other*;
    * return  0 if *this* is equal to *other*;

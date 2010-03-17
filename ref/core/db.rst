@@ -94,7 +94,7 @@ And ``Comment`` will have the following:
 The two main caveats of representing relations as tables are:
 
 * table rows are ordered but relation tuples are not; and
-* a table could have duplicate rows but relation tuples are unique.
+* a table can have duplicate rows but relation tuples are unique.
 
 A relation should be considered as a set of statements about some
 subject. In the example these statements are "Bob's written 'Hello,
@@ -132,7 +132,7 @@ consistent; in a relational database consistency is maintained using
 Unique constraint
    a set of attributes which must have unique values across all tuples
    of the relation variable body. The ``[id]`` or ``[author, text]``
-   attributes could be unique constraints of the ``Post`` variable.
+   attributes can be unique constraints of the ``Post`` variable.
 
 Foreign key constraint
    a reference from the relation variable to a unique key in another or
@@ -148,8 +148,8 @@ Foreign key constraint
 Check constraint
    an expression which must evaluate to ``true`` for each tuple of the
    relation variable body. ``text`` (``text`` is not empty) or ``id
-   % 1 == 0`` (``id`` is integer) could be check constraints of
-   the ``Post`` variable.
+   % 1 == 0`` (``id`` is integer) can be check constraints of the
+   ``Post`` variable.
 
    
 Database Management
@@ -258,7 +258,7 @@ Low-level database management functions are properties of the
 .. function:: create(name, header, constrs={})
 
    Create a relation variable. *header* must be an object mapping
-   attribute names to their types; The *constrs* object could have the
+   attribute names to their types; The *constrs* object can have the
    fields:
 
    unique
@@ -273,7 +273,7 @@ Low-level database management functions are properties of the
    check
       a list of check expressions.
 
-   One-attribute constraints could be specified either by a
+   One-attribute constraints can be specified either by a
    :class:`~ak.Type` method or by the *constr* argument. The first way
    is more expressive.
       
@@ -323,7 +323,7 @@ Low-level database management functions are properties of the
    Perform a database query; return a relation represented by an array
    of tuples, each tuple being an object mapping attribute names to
    their values. *query* is a query string, see :ref:`Query Language
-   <query_language>` for details; The *options* object could have the
+   <query_language>` for details; The *options* object can have the
    properties:
 
    params
@@ -404,7 +404,7 @@ more expressive.
 
 .. class:: RelVar
 
-   A ``RelVar`` object represents a relation variable. It could not be
+   A ``RelVar`` object represents a relation variable. It cannot be
    constructed manually, but should be obtained as a property of the
    :data:`rv` object.
 
@@ -541,7 +541,7 @@ more expressive.
    .. method:: get(options={} [, byParams...])
 
       Return an array of the tuples represented by objects mapping
-      attribute names to attribute values. The *options* object could
+      attribute names to attribute values. The *options* object can
       have the properties:
 
       only
@@ -687,7 +687,7 @@ retrieved by the queries::
    for (p in Post)
      p where forsome (c in Comment) c.post == p.id && c.author == "Bob"
 
-Range variables could also be specified implicitly: an undeclared range
+Range variables can also be specified implicitly: an undeclared range
 variable with a name of an existing relation variable ranges over the
 value of this relation variable. Using implicit declarations the
 previous examples could be rewritten::
@@ -723,7 +723,7 @@ result. There are two classes of prototype tuples: simple and complex.
 
 * :dfn:`Complex` prototype tuples are formed by any number of range
   variables and represented by a prototype list enclosed by the curly
-  brackets. Each prototype could be a simple prototype or a named
+  brackets. Each prototype is either a simple prototype or a named
   expression. The latter has the form ``name: expr``. The following
   query returns the relation of name pairs such that for each pair
   there exists a post written by ``author`` and commented by
@@ -732,15 +732,15 @@ result. There are two classes of prototype tuples: simple and complex.
      {Post.author, commenter: Comment.author}
        where Comment.post == Post.id
 
-  Complex prototype could have no range variables at all. For example,
+  Complex prototype can have no range variables at all. For example,
   this query returns a single tuple::
 
      {n: 42, s: "the answer"}
 
-Relations with the same header could form a :dfn:`union` relation,
-i.e., a relation consisting of all their tuples. In the query language
-this operation is performed by the ``union`` construction. All post
-and comment texts could be retrieved by::
+Relations with the same header can form a :dfn:`union` relation, i.e.,
+a relation consisting of all their tuples. In the query language this
+operation is performed by the ``union`` construction. All post and
+comment texts could be retrieved by::
 
    union(Post.text, Comment.text)
 
@@ -791,11 +791,11 @@ their values. Supported operators are:
        post != Post.id || text
 
 * The :dfn:`reference operator` ``->`` provides a convenient access to
-  attributes of a referenced relation variable. It could be used only
-  on referencing attribute(s) of a relation variable. Multiple
-  attributes are specified using square bracket syntax. The following
-  queries return the comments of Bob's posts and the post and comment
-  text pairs respectively::
+  attributes of a referenced relation variable. It can be used only on
+  referencing attribute(s) of a relation variable. Multiple attributes
+  are specified using square bracket syntax. The following queries
+  return the comments of Bob's posts and the post and comment text
+  pairs respectively::
 
      Comment where post->author == "Bob"
      

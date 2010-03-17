@@ -38,7 +38,7 @@ It returns the same text for all requests. `Test it`_!
 MVC Framework
 =============
 
-You could handle requests via a big ``if`` and ``switch`` mess in the
+You can handle requests via a big ``if`` and ``switch`` mess in the
 ``__main__()`` function, but this approach is rather fragile for
 nontrivial applications. The Akshell Model-View-Controller framework
 provides a simple and robust way of request handling. The
@@ -123,10 +123,10 @@ arguments.
 
 An URL mapping of an application is defined by the value of the
 ``__root__`` variable. It should be an instance of the :class:`URLMap`
-class. The mapping is a tree-like structure where each node could be
-either a constant part of a path (a ``string`` value) or a variable
-part of it (a ``RegExp`` object or an empty string ``''`` for the
-default pattern ``([^/]+)/``).
+class. The mapping is a tree-like structure where each node is either
+a constant part of a path (a ``string`` value) or a variable part of
+it (a ``RegExp`` object or an empty string ``''`` for the default
+pattern ``([^/]+)/``).
 
 
 Dispatching
@@ -190,10 +190,10 @@ Reversing
 Note that each pattern in the example has a string name (``'index'``,
 ``'profile'``, etc.); it's optional and intended for reconstructing a
 path of a particular resource. This task is reverse to dispatching; it
-could arise, for example, when you need to redirect the user to this
+can arise, for example, when you need to redirect the user to this
 resource.
 
-A resource path could be reconstructed in-place, but this approach is
+A resource path can be reconstructed in-place, but this approach is
 ugly because it violates the :term:`DRY` principle: an URL mapping
 should be defined only once in one place to be maintainable, not
 scattered about the whole application. Akshell provides a clear
@@ -220,7 +220,7 @@ content (usually via :doc:`templates <template>`), and returning a
 response.
 
 A handler receives a request object and positional arguments obtained
-by an URL dispatching. A plain JavaScript function could serve as a
+by an URL dispatching. A plain JavaScript function can serve as a
 handler, but the :class:`Handler` base class offers a more
 :term:`RESTful <REST>` solution. To create a resource controller,
 subclass this class and define ``get()``, ``post()``, ``head()``,
@@ -244,7 +244,7 @@ arguments. This redundancy is deliberate: it's convenient to have
 request arguments at hand.
 
 The zest of handler classes is that you can subclass them. In a
-subclass you could use properties set by the parent class constructor
+subclass you can use properties set by the parent class constructor
 and methods of its prototype.
 
 For example, a handler of single post could be written as follows::

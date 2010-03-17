@@ -22,7 +22,7 @@ Miscellaneous low-level tools.
    otherwise code of a current application is searched for a file. A
    :dfn:`current application` is an executing application or an
    application of the latest incomplete cross-application include. A
-   current application include could be relative or absolute. A
+   current application include can be relative or absolute. A
    *relative include* happens if *path* doesn't begin with a slash;
    search is performed based on the directory of the including
    file. An *absolute include* happens if *path* begins with the
@@ -73,8 +73,7 @@ Miscellaneous low-level tools.
 
    .. data:: READONLY
    
-      Read-only: values of ``READONLY`` properties could not be
-      changed.
+      Read-only: values of ``READONLY`` properties cannot be changed.
 
    .. data:: HIDDEN
    
@@ -83,9 +82,9 @@ Miscellaneous low-level tools.
 
    .. data:: PERMANENT
    
-      Non-deletable: ``PERMANENT`` properties could not be deleted.
+      Non-deletable: ``PERMANENT`` properties cannot be deleted.
 
-   Several attributes could be combined by the "bitwise or" operator
+   Several attributes can be combined by the "bitwise or" operator
    ``|``::
 
       (function ()

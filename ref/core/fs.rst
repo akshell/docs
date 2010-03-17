@@ -9,16 +9,16 @@ File Storage API
 
 Akshell provides applications with a simple file storage. Files are
 served by a web server from http://static.akshell.com/media/ with a
-far future ``Expires`` header; anyone could access them for browsing
-and reading. An application could manage its storage using the
-:mod:`fs` module functions described here.
+far future ``Expires`` header; anyone can access them for browsing and
+reading. An application manages its storage via the :mod:`fs` module
+functions described here.
 
 
 Concepts
 ========
 
 Akshell :dfn:`storage entries` are files and directories organized
-into a traditional treelike structure; entry names could contain any
+into a traditional treelike structure; entry names can contain any
 Unicode symbols except ``'\0'``, ``'\n'``, and ``'/'``. An application
 identify its storage entries by :dfn:`paths`; name delimiting
 character is the slash (``'/'``). Application clients retrieve entries

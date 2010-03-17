@@ -68,9 +68,9 @@ been thrown by ``assert*`` functions). ``unittest.js`` provides
 :func:`runTestViaStream` as an example test runner which reports test
 results on a :class:`stream<Stream>`.
 
-The :func:`loadTestSuite` function is a main test loader. It could
-load test suites from individual test cases, :class:`TestCase`
-subclasses, modules, and arrays of the above.
+The :func:`loadTestSuite` function is a main test loader. It can load
+test suites from individual test cases, :class:`TestCase` subclasses,
+modules, and arrays of the above.
 
 
 TestCase
@@ -376,7 +376,7 @@ TestClient
    constructor arguments. *users* should be an array of user names to
    use in test requests. *apps* should be an object mapping
    application names to application descriptions. Each description
-   should have an ``admin`` property (``string``) and could have a
+   should have an ``admin`` property (``string``) and may have a
    ``developers`` property (``Array``).
 
    .. method:: login(user)
@@ -391,8 +391,8 @@ TestClient
 
    .. method:: request(request)
 
-      Send a test request to the application. The *request* object
-      could have the following properties:
+      Send a test request to the application. The *request* object can
+      have the following properties:
 
       method
          The request method; defaults to ``'get'``.

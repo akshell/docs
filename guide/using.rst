@@ -13,11 +13,11 @@ Overview
 Akshell is a :dfn:`web application network`. I've recently invented
 this term; so I'd better explain it.
 
-Akshell is a site where you could develop web applications in
-JavaScript and host them in the cloud. The development is easy and the
-deployment is instant. You don't have to buy and administer a server
-or deal with low-level details; you even don't have to install
-anything on your computer.
+Akshell is a site where you can develop web applications in JavaScript
+and host them in the cloud. The development is easy and the deployment
+is instant. You don't have to buy and administer a server or deal with
+low-level details; you even don't have to install anything on your
+computer.
 
 But what makes Akshell a "network" is the environment it provides
 applications with. In Akshell applications make requests to each
@@ -29,7 +29,7 @@ collected by others.
 
 It should change the way you think about web application architecture:
 instead of writing a big strong coupled peace of code handling all
-tasks, you could create a number of applications, each one performing
+tasks, you can create a number of applications, each one performing
 one small task. The applications will interact with each other and
 with third-party applications to perform larger tasks. This approach
 makes applications more universal and user experience more consistent,
@@ -54,7 +54,7 @@ JavaScript is the language of Akshell. Modern web applications usually
 have a rich AJAX interface created using one of the popular
 client-side JavaScript libraries; in Akshell you employ it for the
 server side too. This makes your application more integral and robust;
-you could even share some code between the client and server sides
+you can even share some code between the client and server sides
 (e.g., the code of form validation).
 
 
@@ -63,11 +63,11 @@ Applications
 
 Application is the basic unit of the Akshell environment. Each
 application has a unique name and serves from the
-:samp:`{appName}.akshell.com` domain. The name could contain lowercase
+:samp:`{appName}.akshell.com` domain. The name can contain lowercase
 Latin letters, numbers, and single hyphens (in order to be a valid
 domain name).
 
-Every Akshell user could create applications. Currently only the
+Every Akshell user can create applications. Currently only the
 creation of free non-commercial applications is available (code of
 such applications *must* be provided under the terms of the `BSD
 License`_). After the creation you become an application admin, i.e.,
@@ -91,21 +91,21 @@ essential for application interaction.
 
 Akshell guarantees the security of the authentication. It is
 implemented via cookies restricted to application domains; so a
-malicious application could neither guess a user password nor steal an
+malicious application can neither guess a user password nor steal an
 authentication cookie of other application.
 
 
 Developers
 ----------
 
-Akshell encourages collaboration: you could give other users a
+Akshell encourages collaboration: you can give other users a
 development access to your applications. There are two kinds of
 developers: those with an access to the release code and those without
-it. If you do not trust a person enough, you could provide him with
-the second, limited access. He won't be able to affect the release
-code (you will have to release his work by yourself); so the users of
-your applications will be out of danger. When the guy shows he could
-be relied upon, you will give him the release access.
+it. If you do not trust a person enough, you can provide him with the
+second, limited access. He won't be able to affect the release code
+(you will have to release his work by yourself); so the users of your
+applications will be out of danger. When the guy shows he can be
+relied upon, you will give him the release access.
 
 
 Spots
@@ -161,7 +161,7 @@ Basic Library
 -------------
 
 The core APIs are rather low-level, just like system calls in common
-operation systems. Here the zest of Akshell emerge: you could
+operation systems. Here the zest of Akshell emerge: you can
 :func:`include <include>` code of other applications into your
 application, :func:`use <use>` them as libraries. `ak`_ is the basic
 Akshell library; it provides general JavaScript goodies and a
@@ -180,13 +180,13 @@ Interaction
 ===========
 
 Akshell states that a browser should be the only required tool for web
-development; so all application management could be done from a
-browser window.
+development; so all application management can be done from a browser
+window.
 
 The major part of your interaction with Akshell will take place in the
-*Code* tab of the application section. Here you could write code,
-create, clone, and delete spots, view code of other developers (these
-actions are covered above).
+*Code* tab of the application section. Here you write code, create,
+clone, and delete spots, view code of other developers (these actions
+are covered above).
 
 
 .. _evaluate:
@@ -201,7 +201,7 @@ users.
 
 Remember that Akshell does **not** guarantee the persistence of the
 application state across requests and evaluations. I.e., two
-subsequent evaluations could easily give the following::
+subsequent evaluations can easily give the following::
 
    >>> x = 42
    >>> x

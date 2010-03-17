@@ -478,8 +478,8 @@ output.
 slice
 =====
 
-Return a slice of the string or the list. The argument could have
-either ``begin`` or ``begin,end`` form.
+Return a slice of the string or the list. The argument can have either
+``begin`` or ``begin,end`` form.
 
 Example::
 
@@ -649,7 +649,7 @@ yesno
 =====
 
 Return ``'yes'`` if the value evaluates to ``true``; return ``'no'``
-otherwise. An optional argument could specify alternative strings.
+otherwise. An optional argument can specify alternative strings.
 
 For example::
 

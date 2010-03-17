@@ -21,8 +21,8 @@ A handler receives a :class:`Request` object and positional arguments
 retrieved from the request path. It should return a :class:`Response`
 object.
 
-A plain JavaScript function could be used as a handler, but the
-library provides a class facilitating development of a robust handler:
+A plain JavaScript function can be used as a handler, but the library
+provides a class facilitating development of a robust handler:
 
 .. class:: Handler(request, args...)
 
@@ -84,9 +84,9 @@ library provides a class facilitating development of a robust handler:
 Handler Decorators
 ==================
 
-Handler decorators could be used to decorate :class:`Handler`
-subclasses, RESTful methods of these subclasses, or plain JavaScript
-functions used as controllers.
+Handler decorators can decorate :class:`Handler` subclasses, RESTful
+methods of these subclasses, or plain JavaScript functions used as
+controllers.
    
 .. function:: loggingIn(handler)
 
@@ -127,7 +127,7 @@ Middleware
 ==========
 
 :func:`serve` decorators are :dfn:`application middleware`, i.e.,
-logic common for all application handlers. You could write your own
+logic common for all application handlers. You can write your own
 serve decorators or import them from other libraries.
 
 When using custom serve decorators, remember two things:

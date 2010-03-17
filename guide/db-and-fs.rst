@@ -38,7 +38,7 @@ statements about some subject where each tuple is a single
 statement. Relations could be imagined as tables, each tuple being a
 row, but there are a few caveats:
 
-* a relation couldn't have duplicate tuples;
+* a relation cannot have duplicate tuples;
 * relation tuples are unordered;
 * relation attributes are unordered.
 
@@ -114,10 +114,10 @@ Integer
 ~~~~~~~
 
 In the majority of cases when you store numbers in the database, these
-numbers could have only integer values: a blog post could not have
-3.14 comments, neither could a group have 2.72 members. To designate
-this restriction, use the ``'integer number'`` type description or
-just ``'integer'`` -- Akshell is rather shrewd.
+numbers can have only integer values: a blog post could not have 3.14
+comments, neither can a group have 2.72 members. To designate this
+restriction, use the ``'integer number'`` type description or just
+``'integer'`` -- Akshell is rather shrewd.
 
 For example, this relation variable could be used in a hotel
 management application::
@@ -130,7 +130,7 @@ integer attribute::
    >>> repr(rv.Room.insert({number: 3.001, capacity: 1.5}))
    {capacity: 2, number: 3}
 
-Some numbers could not be converted to integer::
+Some numbers cannot be converted to integer::
 
    >>> rv.Room.insert({number: 1, capacity: Infinity})
    ak.ConstraintError: ...
@@ -175,7 +175,7 @@ tuples: 0, 1, 2, etc. Use ``'number serial'`` or just ``'serial'``
 type description for this purpose.
 
 Whenever a value of such attribute is omitted, the next number of a
-sequence is used. Serial attributes could have only integer values. ::
+sequence is used. Serial attributes can have only integer values. ::
 
    >>> db.create('Counter', {s: 'serial'})
    >>> repr(rv.Counter.insert({}))
@@ -500,7 +500,7 @@ grouped under directories. It has the same semantics as a common file
 system on your local hard drive; so in this section you don't have to
 learn anything.
 
-File and directory names could contain any Unicode symbol except
+File and directory names can contain any Unicode symbol except
 ``'\0'``, ``'\n'``, and ``'/'``; path separator is the slash
 (``'/'``).
 

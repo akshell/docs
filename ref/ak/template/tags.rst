@@ -78,10 +78,10 @@ encountered::
      </tr>
    {% endfor %}
 
-Arbitrary template expressions could be used as ``cycle``
-arguments. For example, if you have two template variables,
-``rowvalue1`` and ``rowvalue2``, you can cycle between their
-uppercased values like this::
+Arbitrary template expressions can be used as ``cycle`` arguments. For
+example, if you have two template variables, ``rowvalue1`` and
+``rowvalue2``, you can cycle between their uppercased values like
+this::
 
    {% for item in someList %}
      <tr class="{% cycle rowvalue1|toUpperCase rowvalue2|toUpperCase %}">
@@ -232,14 +232,14 @@ will be displayed by the ``{{ athleteList.length }}`` expression.
 As you can see, the ``{% if %}`` tag can take an optional ``{% else
 %}`` clause that will be displayed if the condition is ``false``.
    
-A :dfn:`condition` could consist of constants and variables combined
-by these JavaScript operators::
+A :dfn:`condition` can consist of constants and variables combined by
+these JavaScript operators::
 
    || && == != === !== !
 
-JavaScript operator precedence rules apply. The parentheses ``()``
-could be used to explicitly define grouping. For example, the
-following complex ``{% if %}`` tag::
+JavaScript operator precedence rules apply. The parentheses ``()`` can
+be used to explicitly define grouping. For example, the following
+complex ``{% if %}`` tag::
 
    {% if a == b || c == d && e %}
 
@@ -300,7 +300,7 @@ include
 
 Load a template and render it with the current context. This is a way
 of "including" other templates within a template. The template name
-could be an arbitrary expression.
+can be an arbitrary expression.
 
 This example includes the contents of the template ``"foo/bar.html"``::
 

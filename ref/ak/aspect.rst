@@ -8,11 +8,11 @@ Programming`__ (AOP). They are designed to modify a behavior of an
 application on the fly by weaving :dfn:`advices` to functions and
 methods. An advice is a piece of code altering a function by adding
 some secondary or supporting logic to it. An advice weaved to a
-function form an :dfn:`aspect`, which could be temporary disabled or
+function form an :dfn:`aspect`, which can be temporary disabled or
 completely unweaved. When a function is advised several times, an
 :dfn:`aspect chain` is formed: the first advice is weaved to the
 original function and each following advice is weaved to the previous
-aspect. Each aspect of the chain could be disabled or unweaved.
+aspect. Each aspect of the chain can be disabled or unweaved.
 
 __ http://en.wikipedia.org/wiki/Aspect-Oriented_Programming
 .. _aspect.js: http://www.akshell.com/apps/ak/code/aspect.js
@@ -92,7 +92,7 @@ weave()
    Weave *advice* to the functions of the *holder* object (if
    *directly* is ``false`` and *holder* is a ``function``, use the
    ``holder.prototype`` object instead). The behavior of ``weave()``
-   depends on the type of *names* argument; it could be:
+   depends on the type of *names* argument; it can be:
 
    ``string``
       Interpret *names* argument as a name of the only function to be

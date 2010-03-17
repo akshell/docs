@@ -6,7 +6,7 @@ Request Handling
 Akshell application model is centered in request handling. During its
 life cycle an application waits for a request delivery, handles a
 request, or requests other application and waits for the request to be
-handled. Besides that, application developers could also evaluate
+handled. Besides that, application developers can also evaluate
 arbitrary expressions in their spots (and in the release if they have
 a permission of an application admin to do so), but this feature is
 intended only for debug purposes.
@@ -107,7 +107,7 @@ requestApp
 
    Perform an application request; return a :class:`Response`
    object. *name* is a name of the application being requested. The
-   *request* object could contain the following fields:
+   *request* object can contain the following fields:
 
       method
          the request method;

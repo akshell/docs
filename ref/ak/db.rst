@@ -57,7 +57,7 @@ The type constraints are:
 * :samp:`default {value}`.
 
 If the ``integer`` or ``serial`` constraint is specified, the type
-name could be omitted -- it defaults to ``number``.
+name can be omitted -- it defaults to ``number``.
 
 
 Constraint Description

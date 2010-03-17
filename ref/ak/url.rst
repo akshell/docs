@@ -25,7 +25,7 @@ URLMap
    this map; *name* is a ``string`` name of the map; *children* are
    definitions of the maps included by this map. Each child definition
    consist of a ``string`` or ``RegExp`` pattern and an ``URLMap``
-   object, which could be defined by the arguments of the ``URLMap``
+   object, which can be defined by the arguments of the ``URLMap``
    constructor (this way is both concise and expressive).
 
    ``URLMap`` considers ``string`` patterns as constant parts of URLs
@@ -86,7 +86,7 @@ URLMap
 
    It is common for complex applications to be separated into modules,
    each module being responsible for a particular functionality. In
-   such cases modules could define their own URL mappings which are
+   such cases modules can define their own URL mappings which are
    incorporated into the ``__root__`` mapping in the ``__main__.js``
    file.
 
@@ -144,7 +144,7 @@ Functions
    ``signup``, and ``session``. For these names ``reverse()`` returns
    an absolute URL of a corresponding Akshell page. If the user visits
    the page and performs the necessary action, he will be redirected
-   back to your application. The path of the redirection could be
+   back to your application. The path of the redirection can be
    specified by the second ``reverse()`` argument (to redirect the
    user back to the current page, use ``request.fullPath``).
 

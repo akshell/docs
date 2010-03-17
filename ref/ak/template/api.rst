@@ -142,7 +142,7 @@ Template Loading
 
 Generally, you'll store templates in code files of your application
 rather than using the low-level :class:`Template` API. In specific
-situations templates could be stored in the database or in the file
+situations templates can be stored in the database or in the file
 storage. Akshell provides a single entry-point to the template
 loading:
 
@@ -151,7 +151,7 @@ loading:
    Load a ``Template`` object from the location specified by the
    *name* argument. By default, load from the directory ``/templates``
    of the application code (*name* specifies a path relative to this
-   directory). The default behavior could be overridden by a template
+   directory). The default behavior can be overridden by a template
    environment.
 
 The most common template use case is rendering HTML and returning it
@@ -277,7 +277,7 @@ To create a custom filter instantiate the ``Filter`` class:
       
 .. class:: Filter(func, traits={})
 
-   *func* is a filter function; the *traits* object could have the
+   *func* is a filter function; the *traits* object can have the
    following properties:
 
    ``accept``
@@ -339,7 +339,7 @@ It accepts a raw value and returns the last item of the list; if the
 value is not a list or a string, it returns the value itself. Value
 safety is preserved by this filter.
 
-You could make your filter available either by creating a new template
+You can make your filter available either by creating a new template
 environment or by adding it to the catalog of default filters. For
 example, the multiplication filter could be published as::
 
@@ -415,7 +415,7 @@ tag.
 Node Objects
 ~~~~~~~~~~~~
       
-A compilation function could create node objects as:
+A compilation function can create node objects as:
 
 * a plain ``Object`` instance with a ``render`` property (arguments
   are passed through a closure)::
@@ -432,7 +432,7 @@ separates parsing and rendering logic. For trivial cases, like the
 following example, the first way is appropriate.
 
 Let me write a template tag, ``{% context %}``, that displays the
-rendering context (such tag could be useful for debugging)::
+rendering context (such tag may be useful for debugging)::
 
    template.env.tags.context = function () {
      return {
@@ -458,7 +458,7 @@ rendering context (such tag could be useful for debugging)::
 Arguments
 ~~~~~~~~~
    
-Template tags could accept arguments. They could be cut from the
+Template tags can accept arguments. They could be cut from the
 :attr:`~Parser.content` parser property via the function:
    
 .. function:: smartSplit(text)

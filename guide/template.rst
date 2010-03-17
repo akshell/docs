@@ -125,7 +125,7 @@ here are some of the more commonly used template filters:
    will display ``'nothing'``.
 
 :filter:`slice`
-   Return a slice of the string or the list. The argument could have
+   Return a slice of the string or the list. The argument can have
    either ``begin`` or ``begin,end`` form.
 
    Example::
@@ -420,7 +420,7 @@ and custom filters) need to think about the cases in which data
 shouldn't be escaped, and pass these data via the :func:`safe`
 function; so things Just Work in a template.
 
-You could also disable auto-escaping in a template via the
+You can also disable auto-escaping in a template via the
 :filter:`safe` filter, but the :func:`safe` function should be
 preferred, because escaping is a responsibility of the controller
 side. Think of *safe* as shorthand for *safe from further escaping* or

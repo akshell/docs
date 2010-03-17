@@ -68,8 +68,8 @@ When a ``setUp()`` method is defined, Akshell will run that method
 prior to each test. Likewise, if a ``tearDown()`` method is defined,
 Akshell will invoke that method after each test.
 
-You could define as many :class:`TestCase` subclasses as you need; in
-a test output they are identified by the ``name`` prototype property.
+You can define as many :class:`TestCase` subclasses as you need; in a
+test output they are identified by the ``name`` prototype property.
 
 
 Entry Point
