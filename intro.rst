@@ -29,11 +29,11 @@ production version.
 
 Creation of a modern web application is complicated: besides its main
 task, it has to perform a lot of routine tasks common for all web
-applications. In contrast, divide-and-conquer is the main philosophy
+applications. By contrast, divide-and-conquer is the main philosophy
 of Akshell: each program should do one thing well; auxiliary task
 should be handled by other programs; interaction between programs is
 Akshell's business. This approach has been employed in UNIX-like
-operating systems for forty years -- why not use it for web
+operating systems for forty years -- why not to use it for web
 applications?
 
 For example, to provide your application with a robust logging system,
@@ -62,7 +62,7 @@ prefer his favorite editor or IDE to the browser, there is a
 Currently Akshell is in beta state; so only creation of free
 non-commercial applications is available.  Akshell makes their code
 publicly accessible; it *must* be provided under the terms of the `BSD
-License`_. Development and hosting of such applications is
+License`_. Development and hosting of such applications are
 *free*. Support of commercial applications is a work in progress.
 
 .. _BSD License: /about/bsd/
@@ -75,7 +75,7 @@ Let me explain the basics of Akshell by an example. I'll guide you
 through the creation of a simple yet fully functional blog
 application.
 
-I've called it ``simple-blog``. Immediately after the creation each
+I named it ``simple-blog``. Immediately after the creation each
 application receives an address on the ``akshell.com`` domain; so you
 can test the example at http://simple-blog.akshell.com/.  You could
 also `browse its code`__ as well as code of other free applications.
@@ -119,13 +119,12 @@ layout is the recommended one:
 Spots
 -----
 
-Each application could have a number of developers working on it. To
-prevent developers from hindering each other and to isolate serving
+Each application can have a few developers working on it. To prevent
+developers from hindering each other and to isolate serving
 application users from development, Akshell provides :dfn:`spots` --
 independent application versions owned by developers. When the next
 stable version is ready, the spot containing it could be "released":
-it will instantly become available to the users (this operation is
-atomic).
+it instantly becomes available to users (this operation is atomic).
 
 By default, every developer has a *debug* spot. I employed it for
 writing code of ``simple-blog``.
@@ -137,8 +136,8 @@ Database
 A blog consists of posts and comments to these posts. To store them, I
 created two :term:`relation variables <relation variable>`: ``Post``
 and ``Comment``. You may imagine them as two tables: each row of
-``Post`` represents a single post, each row of ``Comment`` -- a single
-comment.
+``Post`` represents a single post, each row of ``Comment`` represents
+a single comment.
 
 I put the function creating ``Post`` and ``Comment`` into the
 ``__main__.js`` file::
@@ -167,7 +166,7 @@ types.
 
 The ``id`` attribute of ``Post`` is :ref:`serial <serial>` and
 :ref:`unique <unique>`, i.e., its values come from a sequence 0, 1, 2,
-etc., and two posts could not have the same ``id``. The ``post``
+etc., and two posts cannot have the same ``id``. The ``post``
 attribute of ``Comment`` is a :ref:`foreign key <foreign_key>` to the
 ``id`` attribute of ``Post``; it represents a many-to-one
 relationship: every comment has a post it was added to.
@@ -182,7 +181,7 @@ Libraries
 ---------
 
 Akshell is not a web framework; so it offers rather low-level means of
-web development. However, applications could :func:`use <use>` other
+web development. However, applications can :func:`use <use>` other
 applications as libraries. This feature really frees your creativity:
 use libraries, create new ones, set up your own environment --
 everything is open!
@@ -216,7 +215,7 @@ subclass -- the ``ak`` library provides a lightweight yet powerful
 implementation of class hierarchies for JavaScript through the
 :meth:`~Function.subclass` method of ``Function``.
 
-Here is the handler of the index page of ``simple-blog``::
+Here is the handler of the ``simple-blog`` index page::
 
    var IndexHandler = Handler.subclass(
      {
@@ -428,7 +427,7 @@ Note the exceptions the methods throw. Akshell converts them into the
 appropriate HTTP responses: ``NotFoundError`` results in a 404
 response, ``HttpError`` by default results in a 400 response.
 
-Every ``post()`` methods should always redirect after a successful
+Every ``post()`` method should always redirect after a successful
 request processing. This tip isn't specific to Akshell -- it's a
 common web development practice.
      
@@ -556,8 +555,8 @@ The template actively uses :ref:`filters <filters>`, namely
 ``paragraph`` and ``timeSince``. Filters transform values of variables
 before outputting them. The ``paragraph`` filter converts newlines in
 plain text into the ``<p>`` and ``<br>`` HTML tags; the ``timeSince``
-filter presents a date as a time passed since that date. Filters could
-be chained; they could take arguments.
+filter presents a date as a time passed since that date. Filters can
+be chained; they can take arguments.
 
 
 Entry Point
