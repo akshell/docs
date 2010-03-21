@@ -398,7 +398,7 @@ redirects to the page of this post. Both methods receive the
        get: function (request, author) {
          var posts = rv.Post.where({author: author}).get({by: '-date'});
          if (!posts.length && request.user != author)
-           throw NotFoundError(author + ' doesn\'t have a blog');
+           throw NotFound(author + ' doesn\'t have a blog');
          return render('blog.html',
                        {
                          request: request,
@@ -424,8 +424,8 @@ redirects to the page of this post. Both methods receive the
      });
 
 Note the exceptions the methods throw. Akshell converts them into the
-appropriate HTTP responses: ``NotFoundError`` results in a 404
-response, ``HttpError`` by default results in a 400 response.
+appropriate HTTP responses: ``NotFound`` results in a 404 response,
+``HttpError`` by default results in a 400 response.
 
 Every ``post()`` method should always redirect after a successful
 request processing. This tip isn't specific to Akshell -- it's a
@@ -487,7 +487,7 @@ database and redirects.
      function (request, author, postId) {
        this._post = rv.Post.where({id: postId}).get()[0];
        if (!this._post || this._post.author != author)
-         throw NotFoundError('No such post');
+         throw NotFound('No such post');
      },
      {
        get: function (request, author, postId) {

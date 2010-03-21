@@ -162,9 +162,8 @@ The library provides these middleware:
 
 .. function:: serve.catchingTupleDoesNotExist(func)
 
-   Catch a :exc:`TupleDoesNotExist` error; throw a
-   :exc:`NotFoundError` instead (to be processed by
-   ``serve.catchingHttpError``).
+   Catch a :exc:`TupleDoesNotExist` error; throw a :exc:`NotFound`
+   error instead (to be processed by ``serve.catchingHttpError``).
 
 .. function:: serve.appendingSlash(func)
 

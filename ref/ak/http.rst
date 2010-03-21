@@ -21,7 +21,7 @@ Error Classes
    :func:`serve.catchingHttpError` decorator will catch the error and
    convert it to a :class:`Response` object.
    
-.. exception:: NotFoundError(message='Not found')
+.. exception:: NotFound(message='Not found')
 
    A resource was not found. Reported to a user by a 404 HTTP
    response. Subclass of :exc:`HttpError`.

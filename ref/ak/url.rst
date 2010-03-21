@@ -170,8 +170,8 @@ Error Classes
 .. exception:: ResolveError
 
    Failed to find a handler of a resource with the given
-   path. Subclass of :exc:`NotFoundError`. Thrown by the
-   :func:`resolve` function.
+   path. Subclass of :exc:`NotFound`. Thrown by the :func:`resolve`
+   function.
 
 .. exception:: ReverseError
 
