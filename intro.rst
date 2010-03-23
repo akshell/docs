@@ -3,7 +3,7 @@
 Getting Started
 ===============
 
-New to Akshell? Or to web development in general? You came to the
+New to Akshell? Or to web development in general? You've come to the
 right place: read this material to quickly get up and running.
 
 If you’re new to JavaScript, you might want to start by getting an
