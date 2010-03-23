@@ -115,6 +115,38 @@ Miscellaneous low-level tools.
    Check if *value* is an object with non-negative integer ``length``
    property.
 
+.. function:: getAppDescription(appName)
+
+   Return an object describing the given application. The object has
+   the following properties:
+
+   ``name``
+      The application name.
+
+   ``admin``
+      The name of the application admin.
+
+   ``developers``
+      An ``Array`` of the names of the application developers
+      (``developers[0]`` is ``admin``).
+
+   ``summary``
+      The application summary.
+
+   ``description``
+      The application description.
+
+   ``labels``
+      An ``Array`` of the application labels.
+
+.. function:: getAdminedApps(userName)
+
+   Return names of applications admined by the given user.
+
+.. function:: getDevelopedApps(userName)
+
+   Return names of applications developed by the given user.
+
 .. class:: Script(source[, origin])
 
    A ``Script`` object represents a compiled JavaScript code. *origin*
