@@ -98,6 +98,21 @@ If ``value`` is ``'String with spaces'``, the output will be
 ``'Stringwithspaces'``.
 
 
+.. filter: date
+
+date
+====
+
+Format a date via the :meth:`~Date.format` ``Date`` method.
+
+For example::
+
+   {{ value|date:'mediumDate' }}
+
+If value is ``new Date('Wed, 24 Mar 2010 17:36:07')``, the output will
+be the string ``'Mar 24, 2010'``.
+
+
 .. filter:: default
 
 default
