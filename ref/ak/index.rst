@@ -12,6 +12,7 @@ development and a :term:`Model-View-Control <MVC>` framework.
 
    base
    utils
+   date_format
    db
    http
    url
