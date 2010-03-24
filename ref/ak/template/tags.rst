@@ -355,6 +355,23 @@ These tags produced the following output in the release version of the
    http://static.akshell.com/media/release/ak/image.png?1266512254
 
 
+.. tag:: now
+
+now
+===
+
+Display the date, formatted via the :meth:`~Date.format` ``Date``
+method.
+
+For example::
+
+   It's {% now 'shortTime' %}
+
+At the time of writing, it outputs::
+
+   It's 5:48 PM
+   
+
 .. tag:: spaceless
      
 spaceless
