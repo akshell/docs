@@ -366,6 +366,14 @@ Here are some tips for working with inheritance:
   it probably means you should move that content to a ``{% block %}``
   in a parent template.
 
+* If you need to get the content of the block from the parent
+  template, the ``{{ super }}`` variable will do the trick. This is
+  useful if you want to add to the contents of a parent block instead
+  of completely overriding it. Data inserted using ``{{ super }}``
+  will not be automatically escaped (see the :ref:`next section
+  <escaping>`), since it was already escaped, if necessary, in the
+  parent template.
+      
 * For extra readability, you can optionally give a *name* to your ``{%
   endblock %}`` tag. For example::
 
