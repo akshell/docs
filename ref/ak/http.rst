@@ -12,7 +12,7 @@ are defined.
 Error Classes
 =============
 
-.. exception:: HttpError(message, status=http.BAD_REQUEST)
+.. exception:: HttpError(message='Bad request', status=http.BAD_REQUEST)
 
    A base class of errors which should be reported to a user by a HTTP
    response with the status code *status* and *message* in the
