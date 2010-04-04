@@ -25,6 +25,11 @@ Error Classes
 
    A resource was not found. Reported to a user by a 404 HTTP
    response. Subclass of :exc:`HttpError`.
+   
+.. exception:: Forbidden(message='Forbidden')
+
+   A request is forbidden. Reported to a user by a 403 HTTP
+   response. Subclass of :exc:`HttpError`.
 
    
 redirect()
