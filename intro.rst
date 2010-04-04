@@ -409,7 +409,7 @@ redirects to the page of this post. Both methods receive the
    
        post: function (request, author) {
          if (request.user != author)
-           throw HttpError('Forbidden', http.FORBIDDEN);
+           throw Forbidden();
          if (!request.post.title)
            throw HttpError('Empty title');
          var post = rv.Post.insert(
@@ -424,8 +424,9 @@ redirects to the page of this post. Both methods receive the
      });
 
 Note the exceptions the methods throw. Akshell converts them into the
-appropriate HTTP responses: ``NotFound`` results in a 404 response,
-``HttpError`` by default results in a 400 response.
+appropriate HTTP responses: :exc:`NotFound` results in a 404 response,
+:exc:`Forbidden` results in a 403 response, :exc:`HttpError` by
+default results in a 400 response.
 
 Every ``post()`` method should always redirect after a successful
 request processing. This tip isn't specific to Akshell -- it's a
@@ -502,7 +503,7 @@ database and redirects.
    
        post: function (request, author, postId) {
          if (!request.user)
-           throw HttpError('Login first', http.FORBIDDEN);
+           throw Forbidden('Login first');
          if (!request.post.text)
            throw HttpError('Empty comment text');
          rv.Comment.insert(
