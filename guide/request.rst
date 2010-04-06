@@ -277,13 +277,13 @@ point of request handling. The above-mentioned :func:`defaultServe`
 function is simply ``serve()`` with the :ref:`default middleware
 <default_middleware>` applied.
 
-For example, the :func:`serve.catchingHttpError` middleware catches
-:class:`HttpError` exceptions thrown by your handlers and returns
-error responses rendered from the ``error.html`` template. This way of
-error handling is extremely handy because you don't have to worry
-about returning an appropriate error response whenever you encounter
-an error situation -- you just throw an ``HttpError`` and forget about
-it.
+For example, the :func:`serve.catchingFailure` middleware catches
+:class:`Failure` exceptions thrown by your handlers and returns error
+responses rendered from the ``error.html`` template. This way of error
+handling is extremely handy because you don't have to worry about
+returning an appropriate error response whenever you encounter an
+error situation -- you just throw a ``Failure`` exception and forget
+about it.
 
 You could borrow middleware from third-party libraries or even write
 you own -- it's easy. For example, this middleware adds a custom HTTP

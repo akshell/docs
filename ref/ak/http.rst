@@ -12,24 +12,24 @@ are defined.
 Error Classes
 =============
 
-.. exception:: HttpError(message='Bad request', status=http.BAD_REQUEST)
+.. exception:: Failure(message='Bad request', status=http.BAD_REQUEST)
 
    A base class of errors which should be reported to a user by a HTTP
    response with the status code *status* and *message* in the
    content. Whenever your application faces a problem it has to report
-   to a user, it should throw a ``HttpError``. The
-   :func:`serve.catchingHttpError` decorator will catch the error and
+   to a user, it should throw a ``Failure``. The
+   :func:`serve.catchingFailure` decorator will catch the error and
    convert it to a :class:`Response` object.
    
 .. exception:: NotFound(message='Not found')
 
    A resource was not found. Reported to a user by a 404 HTTP
-   response. Subclass of :exc:`HttpError`.
+   response. Subclass of :exc:`Failure`.
    
 .. exception:: Forbidden(message='Forbidden')
 
    A request is forbidden. Reported to a user by a 403 HTTP
-   response. Subclass of :exc:`HttpError`.
+   response. Subclass of :exc:`Failure`.
 
    
 redirect()

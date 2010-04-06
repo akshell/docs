@@ -154,16 +154,16 @@ The library provides these middleware:
 
    Protect the application from :term:`CSRF` attacks.
 
-.. function:: serve.catchingHttpError(func)
+.. function:: serve.catchingFailure(func)
 
-   Catch a :exc:`HttpError` thrown by a handler; render the
+   Catch a :exc:`Failure` thrown by a handler; render the
    ``error.html`` template for the error; return a :class:`Response`
    object with the appropriate status code.
 
 .. function:: serve.catchingTupleDoesNotExist(func)
 
    Catch a :exc:`TupleDoesNotExist` error; throw a :exc:`NotFound`
-   error instead (to be processed by ``serve.catchingHttpError``).
+   error instead (to be processed by ``serve.catchingFailure``).
 
 .. function:: serve.appendingSlash(func)
 
