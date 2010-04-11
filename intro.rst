@@ -153,6 +153,7 @@ I put the function creating ``Post`` and ``Comment`` into the
                });
      db.create('Comment',
                {
+                 id: 'unique serial',
                  post: 'integer -> Post.id',
                  author: 'string',
                  date: 'date',
@@ -164,12 +165,11 @@ The :func:`db.create` function accepts a name of a relation variable
 to be created and an object mapping its attributes (columns) to their
 types.
 
-The ``id`` attribute of ``Post`` is :ref:`serial <serial>` and
-:ref:`unique <unique>`, i.e., its values come from a sequence 0, 1, 2,
-etc., and two posts cannot have the same ``id``. The ``post``
-attribute of ``Comment`` is a :ref:`foreign key <foreign_key>` to the
-``id`` attribute of ``Post``; it represents a many-to-one
-relationship: every comment has a post it was added to.
+The ``id`` attributes are :ref:`unique <unique>` and :ref:`serial
+<serial>`, i.e., their values are unique and come from a sequence 0,
+1, 2, etc. The ``post`` attribute of ``Comment`` is a :ref:`foreign
+key <foreign_key>` to the ``id`` attribute of ``Post``; it represents
+a many-to-one relationship: every comment has a post it was added to.
 
 OK, then I needed to call the ``init()`` function. I went to the
 :ref:`evaluate` tab, typed ``init()``, and pressed ``Enter``. The
@@ -396,7 +396,7 @@ redirects to the page of this post. Both methods receive the
    var BlogHandler = IndexHandler.subclass(
      {
        get: function (request, author) {
-         var posts = rv.Post.where({author: author}).get({by: '-date'});
+         var posts = rv.Post.where({author: author}).get({by: '-id'});
          if (!posts.length && request.user != author)
            throw NotFound(author + ' doesn\'t have a blog');
          return render('blog.html',
@@ -497,7 +497,7 @@ database and redirects.
            {
              request: request,
              post: this._post,
-             comments: rv.Comment.where({post: this._post.id}).get({by: 'date'})
+             comments: rv.Comment.where({post: this._post.id}).get({by: 'id'})
            });
        },
    
