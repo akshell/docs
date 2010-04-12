@@ -48,7 +48,6 @@ Numbers
 =======
 
 .. class:: Number
-   :noindex:
 
    .. method:: toString(format='g')
 
@@ -110,7 +109,6 @@ Dates
 =====
 
 .. class:: Date
-   :noindex:
 
    .. method:: toString(format='ddd MMM dd yyyy HH:mm:ss')
 

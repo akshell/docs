@@ -360,12 +360,12 @@ These tags produced the following output in the release version of the
 now
 ===
 
-Display the date, formatted via the :meth:`~Date.format` ``Date``
+Display the date, formatted via the :meth:`~Date.toString` ``Date``
 method.
 
 For example::
 
-   It's {% now 'shortTime' %}
+   It's {% now 't' %}
 
 At the time of writing, it outputs::
 

@@ -98,21 +98,6 @@ If ``value`` is ``'String with spaces'``, the output will be
 ``'Stringwithspaces'``.
 
 
-.. filter: date
-
-date
-====
-
-Format a date via the :meth:`~Date.format` ``Date`` method.
-
-For example::
-
-   {{ value|date:'mediumDate' }}
-
-If value is ``new Date('Wed, 24 Mar 2010 17:36:07')``, the output will
-be the string ``'Mar 24, 2010'``.
-
-
 .. filter:: default
 
 default
@@ -284,50 +269,6 @@ For example::
 If ``value`` is 123456789, the output will be ``'117.7 MB'``.
 
 
-.. filter:: formatFloat
-
-formatFloat
-===========
-
-When used without an argument, the ``formatFloat`` filter rounds a
-floating-point number to one decimal place -- but only if there's a
-decimal part to be displayed. For example:
-
-============  ===========================  ========
-Value         Template                     Output
-============  ===========================  ========
-``34.23234``  ``{{ value|formatFloat }}``  ``34.2``
-``34.00000``  ``{{ value|formatFloat }}``  ``34``
-``34.26000``  ``{{ value|formatFloat }}``  ``34.3``
-============  ===========================  ========
-
-If used with a positive integer argument, ``formatFloat`` rounds a
-number to that many decimal places. For example:
-
-============  =============================  ==========
-Value         Template                       Output
-============  =============================  ==========
-``34.23234``  ``{{ value|formatFloat:3 }}``  ``34.232``
-``34.00000``  ``{{ value|formatFloat:3 }}``  ``34.000``
-``34.26000``  ``{{ value|formatFloat:3 }}``  ``34.260``
-============  =============================  ==========
-
-If the argument passed to ``formatFloat`` is negative, it will round a
-number to that many decimal places -- but only if there's a decimal
-part to be displayed. For example:
-
-============  ==============================  ==========
-Value         Template                          Output
-============  ==============================  ==========
-``34.23234``  ``{{ value|formatFloat:-3 }}``  ``34.232``
-``34.00000``  ``{{ value|formatFloat:-3 }}``  ``34``
-``34.26000``  ``{{ value|formatFloat:-3 }}``  ``34.260``
-============  ==============================  ==========
-
-Using ``formatFloat`` with no argument is equivalent to using
-``formatFloat`` with an argument of ``-1``.
-
-
 .. filter:: getDigit
 
 getDigit
@@ -344,6 +285,22 @@ For example::
    {{ value|getDigit:2 }}
 
 If ``value`` is ``123456789``, the output will be ``8``.
+
+
+.. filter:: hyphen
+
+hyphen
+======
+
+Remove non-word characters (alphanumerics and underscores), strip
+leading and trailing white space, and replace spaces by hyphens.
+
+For example::
+
+   {{ value|hyphen }}
+
+If ``value`` is ``'Joel is a slug'``, the output will be
+``'Joel-is-a-slug'``.
 
 
 .. filter:: items
@@ -504,23 +461,6 @@ If ``someList`` is ``['a', 'b', 'c', 'd', 'e']``, the output will be
 ``['c', 'd']``.
 
 
-.. filter:: slugify
-
-slugify
-=======
-
-Convert to lowercase, remove non-word characters (alphanumerics and
-underscores), and replace spaces by hyphens. Also strip leading and
-trailing white space.
-
-For example::
-
-   {{ value|slugify }}
-
-If ``value`` is ``'Joel is a slug'``, the output will be
-``'joel-is-a-slug'``.
-
-
 .. filter:: sortObjects
 
 sortObjects
@@ -612,6 +552,21 @@ For example::
 
 If ``value`` is ``'Still MAD At Yoko'``, the output will be ``'still
 mad at yoko'``.
+
+
+.. filter:: toString
+
+toString
+========
+
+Convert the value to a string via its ``toString()`` method.
+
+For example::
+
+   {{ value|toString:'MMM yyyy' }}
+
+If ``value`` is ``new Date('Wed, 24 Mar 2010 17:36:07')``, the output
+will be the string ``'Mar 2010'``.
 
 
 .. filter:: toTitleCase
