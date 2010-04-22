@@ -147,10 +147,11 @@ Miscellaneous low-level tools.
 
    Return names of applications developed by the given user.
 
-.. class:: Script(source[, origin])
+.. class:: Script(source[, resourceName, [lineOffset, [columnOffset]]])
 
-   A ``Script`` object represents a compiled JavaScript code. *origin*
-   is displayed in exception backtraces.
+   A ``Script`` object represents a compiled JavaScript
+   code. *resourceName*, *lineOffset*, and *columnOffset* are used in
+   exception backtraces.
 
    .. method:: run()
 
