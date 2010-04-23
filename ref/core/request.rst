@@ -138,8 +138,8 @@ requestHost
 .. function:: requestHost(name, request)
 
    Perform an HTTP request; return a :class:`Response` object. *name*
-   is a host name with optional *:port* suffix. The *request* object
-   can contain the following fields:
+   is a host name with an optional *:port* suffix. The *request*
+   object can contain the following fields:
 
       method
          The request method; defaults to ``'get'``.
