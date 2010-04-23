@@ -110,20 +110,62 @@ requestApp
    *request* object can contain the following fields:
 
       method
-         the request method;
+         The request method; defaults to ``'get'``.
 
       path
-         the path of the requested resource;
+         The path of the requested resource; defaults to ``'/'``.
 
       get
-         an object mapping GET parameter names to their values;
+         An object mapping GET parameter names to their values;
+         defaults to ``{}``.
 
       post
-         an object mapping POST parameter names to their values;
+         An object mapping POST parameter names to their values;
+         defaults to ``{}``.
 
       headers
-         an object mapping the request header names to their values; and
+         An object mapping the request header names to their values;
+         defaults to ``{}``.
 
       files
-         an object mapping the request file names to their paths or
-         :class:`TempFile` objects.
+         An object mapping the request file names to their paths or
+         :class:`TempFile` objects; default to ``{}``.
+
+
+requestHost
+===========
+
+.. function:: requestHost(name, request)
+
+   Perform an HTTP request; return a :class:`Response` object. *name*
+   is a host name with optional *:port* suffix. The *request* object
+   can contain the following fields:
+
+      method
+         The request method; defaults to ``'get'``.
+
+      path
+         The path of the requested resource;  defaults to ``'/'``.
+
+      get
+         An object mapping GET parameter names to their values;
+         defaults to ``{}``.
+
+      post
+         An object mapping POST parameter names to their values or a
+         string containing raw POST data; defaults to ``''``.
+
+      headers
+         An object mapping the additional request header names to
+         their values; defaults to ``{}``.
+
+   Besides them, Akshell sets the following headers:
+
+   * ``Connection: close``
+   * ``Accept-Charset: utf-8``
+   * ``Accept-Encoding: identity``
+   * ``Host:`` *name*
+   * If *request.post* is nonempty, ``Content-Length`` is set
+     appropriately.
+   * If *request.post* is an object, it is encoded and
+     ``Content-Type`` is set to ``application/x-www-form-urlencoded``.
