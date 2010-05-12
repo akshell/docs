@@ -24,8 +24,7 @@ from URLs of the form
 :file:`http://static.akshell.com/media/{prefix}/{path}` where
 :file:`{prefix}` is :file:`release/{appName}` for the release version
 of the application and :file:`spots/{appName}/{ownerName}/{spotName}`
-for a spot one (:file:`{ownerName}` is lower cased with spaces
-replaced by hyphens).
+for a spot one (:file:`{ownerName}` has spaces replaced by hyphens).
 
 For example, the file :file:`hello.txt` in the subdirectory
 :file:`subdir` of the directory :file:`dir` has a path
