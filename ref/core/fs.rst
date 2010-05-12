@@ -33,7 +33,7 @@ For example, the file :file:`hello.txt` in the subdirectory
 ``example`` application it has an URL
 http://static.akshell.com/media/release/example/dir/subdir/hello.txt,
 in Anton Korenyushkin's (mine) spot ``debug`` it has an URL
-http://static.akshell.com/media/spots/example/anton-korenyushkin/debug/dir/subdir/hello.txt.
+http://static.akshell.com/media/spots/example/Anton-Korenyushkin/debug/dir/subdir/hello.txt.
 
 :dfn:`Temporary files` are another kind of files: they come from
 requests (see :doc:`request` for details), have no path, and disappear
