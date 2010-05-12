@@ -5,8 +5,6 @@ File Storage API
 
 .. module:: fs
 
-.. todo:: Add an appropriate link to "Expires header"
-
 Akshell provides applications with a simple file storage. Files are
 served by a web server from http://static.akshell.com/media/ with a
 far future ``Expires`` header; anyone can access them for browsing and
