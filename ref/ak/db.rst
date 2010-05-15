@@ -21,7 +21,7 @@ over the low-level one for defining relation variables by hand because
 it's more brief and expressive. The low-level interface is more
 convenient for machine generation of relation variables.
 
-.. _db.js: http://www.akshell.com/apps/ak/code/db.js
+.. _db.js: http://www.akshell.com/apps/ak/code/0.1/db.js
 
 The human-friendly syntax is:
 

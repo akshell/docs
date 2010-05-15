@@ -6,7 +6,7 @@ Utilities
 In the `utils.js`_ file various utility functions and classes are
 defined.
 
-.. _utils.js: http://www.akshell.com/apps/ak/code/utils.js
+.. _utils.js: http://www.akshell.com/apps/ak/code/0.1/utils.js
 
 
 Function Utilities
@@ -227,8 +227,8 @@ Miscellaneous Utilities
    for creating parsers of domain-specific languages; see `db.js`_ and
    `template.js`_ for examples.
 
-   .. _db.js: http://www.akshell.com/apps/ak/code/db.js
-   .. _template.js: http://www.akshell.com/apps/ak/code/template.js
+   .. _db.js: http://www.akshell.com/apps/ak/code/0.1/db.js
+   .. _template.js: http://www.akshell.com/apps/ak/code/0.1/template.js
 
 
 .. function:: timeSince(date, now=new Date())

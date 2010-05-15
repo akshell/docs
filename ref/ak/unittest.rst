@@ -13,7 +13,7 @@ environment. The framework is a port of the Python unit testing
 framework, which is, in turn, a port of JUnit, by Kent Beck and Erich
 Gamma.
 
-.. _unittest.js: http://www.akshell.com/apps/ak/code/unittest.js
+.. _unittest.js: http://www.akshell.com/apps/ak/code/0.1/unittest.js
 
 Overview
 ========

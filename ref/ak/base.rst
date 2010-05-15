@@ -8,7 +8,7 @@ features borrowed mainly from Python_ making it more suitable for
 creating modular server-side applications. The code was inspired by
 the MochiKit_ client-side JavaScript library, by Bob Ippolito.
 
-.. _base.js: http://www.akshell.com/apps/ak/code/base.js
+.. _base.js: http://www.akshell.com/apps/ak/code/0.1/base.js
 .. _Python: http://python.org/
 .. _MochiKit: http://mochikit.com/
 

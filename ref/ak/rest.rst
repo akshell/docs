@@ -6,7 +6,7 @@ REST Framework
 The `rest.js`_ file defines tools for convenient, robust, and
 :term:`RESTful <REST>` request handling.
 
-.. _rest.js: http://www.akshell.com/apps/ak/code/rest.js
+.. _rest.js: http://www.akshell.com/apps/ak/code/0.1/rest.js
 
 
 Handler

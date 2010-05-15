@@ -15,7 +15,7 @@ original function and each following advice is weaved to the previous
 aspect. Each aspect of the chain can be disabled or unweaved.
 
 __ http://en.wikipedia.org/wiki/Aspect-Oriented_Programming
-.. _aspect.js: http://www.akshell.com/apps/ak/code/aspect.js
+.. _aspect.js: http://www.akshell.com/apps/ak/code/0.1/aspect.js
 
 AOP aims to increase modularity by the separation of accessory logic
 from business logic of an application. Aspects form an agile web of

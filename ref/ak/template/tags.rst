@@ -33,19 +33,19 @@ a timestamp. By default, a timestamp is appended to ``.css`` and
 
 For example::
 
-   {% code '__main__.js' %}
-   {% code '__main__.js' no-timestamp %}
+   {% code '0.1/__main__.js' %}
+   {% code '0.1/__main__.js' no-timestamp %}
    {% code path %}
    {% code path timestamp %}
 
 These tags produced the following output in the release version of the
 ``ak`` application (the ``path`` variable was set to
-``'templates/home.html'``)::
+``'0.1/templates/hello.html'``)::
 
-   http://static.akshell.com/code/release/ak/__main__.js?1266400939
-   http://static.akshell.com/code/release/ak/__main__.js
-   http://static.akshell.com/code/release/ak/templates/home.html
-   http://static.akshell.com/code/release/ak/templates/home.html?1266305202
+   http://static.akshell.com/code/release/ak/0.1/__main__.js?1266400939
+   http://static.akshell.com/code/release/ak/0.1/__main__.js
+   http://static.akshell.com/code/release/ak/0.1/templates/hello.html
+   http://static.akshell.com/code/release/ak/0.1/templates/hello.html?1266305202
 
 
 .. tag:: comment

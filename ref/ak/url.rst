@@ -7,7 +7,7 @@ The `url.js`_ file supplies the main tool for handling URLs in your
 application, the ``URLMap`` class, along with the corresponding
 functions and error classes.
 
-.. _url.js: http://www.akshell.com/apps/ak/code/url.js
+.. _url.js: http://www.akshell.com/apps/ak/code/0.1/url.js
 
 
 URLMap

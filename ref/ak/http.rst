@@ -6,7 +6,7 @@ HTTP Goodies
 In the `http.js`_ file HTTP error classes, utilities, and status codes
 are defined.
 
-.. _http.js: http://www.akshell.com/apps/ak/code/http.js
+.. _http.js: http://www.akshell.com/apps/ak/code/0.1/http.js
 
 
 Error Classes
