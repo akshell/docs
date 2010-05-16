@@ -40,7 +40,7 @@ For example, to provide your application with a robust logging system,
 you could use the log_ application. Only one line is necessary for
 it::
 
-   use('log');
+   use('log', '0.1');
 
 Your logs will be available at http://log.akshell.com/.
 
