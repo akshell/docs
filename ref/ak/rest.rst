@@ -6,7 +6,7 @@ REST Framework
 The `rest.js`_ file defines tools for convenient, robust, and
 :term:`RESTful <REST>` request handling.
 
-.. _rest.js: http://www.akshell.com/apps/ak/code/0.1/rest.js
+.. _rest.js: http://www.akshell.com/apps/ak/code/0.2/rest.js
 
 
 Handler
@@ -71,7 +71,7 @@ provides a class facilitating development of a robust handler:
           // PostsHandler.prototype.post won't interfere with PostHandler
         });
 
-      var __root__ = new URLMap(
+      exports.root = new URLMap(
         ['users/',
          ['', UserHandler,
           ['posts/', PostsHandler,
@@ -103,11 +103,27 @@ controllers.
    message asking to enable them.
 
 
+Shortcut Functions
+==================
+
+.. function:: redirect(location)
+
+   Return a :class:`Response` object with the :data:`http.FOUND`
+   status code redirecting to the *location* URL.
+
+.. function:: render(name, context={}, status=http.OK[, headers])
+
+   Load a template via the :func:`getTemplate` function, render it via
+   the :meth:`~Template.render` :class:`Template` method, and return a
+   :class:`Response` object containing the rendered template.
+   
+
 Serve Functions
 ===============
 
-The Akshell core initiates a request handling by the
-``__main__(request)`` call. The library provides ``__main__``
+The Akshell core initiates a request handling by calling
+``require.main.exports.main(request)`` (the ``main()`` function
+exported by ``main.js``). The library provides ``main()``
 implementations handling a request via the high-level framework
 abstraction.
 
@@ -119,8 +135,9 @@ abstraction.
 
 .. function:: defaultServe(request)
 
-   The ``defaultServe()`` function is ``serve()`` extended by all the
-   decorators described below. It should suite most use cases.
+   The ``defaultServe()`` function is :func:`serve()` extended by all
+   the decorators described below. ``require.main.exports.main()``
+   defaults to this function.
 
 
 Middleware

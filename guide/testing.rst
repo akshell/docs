@@ -29,7 +29,9 @@ Test Cases
 
 Let me immediately start with an example::
 
-   var FirstTestCase = TestCase.subclass(
+   exports.tests = {};
+   
+   exports.tests.FirstTestCase = TestCase.subclass(
      {
        name: 'first',
 
@@ -80,10 +82,9 @@ expression::
 
    test()
 
-Yes, that easy. You don't have to declare anything -- Akshell will
-guess tests to run via black magic (in fact, the :func:`test` function
-simply scans the global namespace for :class:`TestCase` subclasses,
-but don't tell anybody).
+Yes, that easy. The :func:`test` function searches the ``tests``
+object exported by ``main.js`` for :class:`TestCase` subclasses and
+runs them.
 
 For the previous example it will produce the following output::
 
@@ -105,7 +106,7 @@ method and use it in test methods.
 
 For example::
 
-   var SecondTestCase = TestCase.subclass(
+   exports.tests.SecondTestCase = TestCase.subclass(
      {
        setUp: function () {
          this._client = new TestClient();

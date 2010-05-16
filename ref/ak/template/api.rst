@@ -86,7 +86,7 @@ Usage of the template system is a two-step process:
    syntax. ::
 
       >>> new Template('{{ }}')
-      ak.TemplateSyntaxError: ...
+      TemplateSyntaxError: ...
 
       
 Template Rendering
@@ -149,20 +149,10 @@ loading:
 .. function:: getTemplate(name, env=template.env)
 
    Load a ``Template`` object from the location specified by the
-   *name* argument. By default, load from the directory ``/templates``
+   *name* argument. By default, load from the directory ``templates/``
    of the application code (*name* specifies a path relative to this
    directory). The default behavior can be overridden by a template
    environment.
-
-The most common template use case is rendering HTML and returning it
-to a user in a :class:`Response` object. The ``render()`` shortcut
-function specifically targets this use case:
-   
-.. function:: render(name, context={}, status=http.OK[, headers])
-
-   Load a template via the :func:`getTemplate` function; render it via
-   the :meth:`~Template.render` ``Template`` method; return a
-   :class:`Response` object containing the rendered template.
 
 
 .. _template_customization:
@@ -329,11 +319,9 @@ The :filter:`last` filter is implemented as::
 
     var lastFilter = new template.Filter(
       function (value) {
-        return (typeof(value) == 'string' || ak.isList(value)
-                ? value[value.length - 1]
-                : value);
+        return value && value[value.length - 1];
       },
-      {safety: 'value'})
+      {safety: 'value'});
 
 It accepts a raw value and returns the last item of the list; if the
 value is not a list or a string, it returns the value itself. Value

@@ -13,7 +13,7 @@ environment. The framework is a port of the Python unit testing
 framework, which is, in turn, a port of JUnit, by Kent Beck and Erich
 Gamma.
 
-.. _unittest.js: http://www.akshell.com/apps/ak/code/0.1/unittest.js
+.. _unittest.js: http://www.akshell.com/apps/ak/code/0.2/unittest.js
 
 Overview
 ========
@@ -66,7 +66,7 @@ counts tests has been run and collects :dfn:`errors` (unexpected
 exceptions) and :dfn:`failures` (:exc:`AssertionError` exceptions has
 been thrown by ``assert*`` functions). ``unittest.js`` provides
 :func:`runTestViaStream` as an example test runner which reports test
-results on a :class:`stream<Stream>`.
+results on a stream
 
 The :func:`loadTestSuite` function is a main test loader. It can load
 test suites from individual test cases, :class:`TestCase` subclasses,
@@ -127,7 +127,7 @@ TestCase
         assertSame(repr(result.errors),
                    '[[<TestCase testError>, "error"]]');
         assertSame(repr(result.failures),
-                   '[[<TestCase testFailure>, ak.AssertionError("4 !== 5")]]');
+                   '[[<TestCase testFailure>, AssertionError: 4 !== 5]]');
       })()
 
 
@@ -257,44 +257,43 @@ Functions
    sources are supported:
 
    ``TestSuite`` object
-      return *source* itself;
+      Return *source* itself.
 
    ``TestCase`` object
-      return a suite with this test case;
+      Return a suite with this test case.
 
    ``TestCase`` subclass
-      return a suite of all test cases contained in this subclass (the
+      Return a suite of all test cases contained in this subclass. The
       subclass is instantiated for each method whose name starts with
-      the letters ``test``);
+      the letters ``test``.
 
-   ``Module`` object
-      return a suite of suites loaded from the module properties
-      matching one of three previous types; and
-
-   array-like object
-      return a suite of suites loaded from the items of the list.
+   ``Array``
+      Return a suite of suites loaded from the items of the array.
+      
+   ``Object``
+      Return a suite of suites loaded from the object properties.
 
    ::
 
       (function ()
       {
-        var module = new Module();
-        module.Test = TestCase.subclass(
+        var tests = {};
+        tests.Test = TestCase.subclass(
           {
             test1: function () {},
             test2: function () {},
             func: function () {}
           });
-        module.test = new module.Test('func');
-        module.suite = new TestSuite();
-        assertSame(loadTestSuite(module.suite), module.suite);
-        assertSame(repr(loadTestSuite(module.test)),
+        tests.test = new tests.Test('func');
+        tests.suite = new TestSuite();
+        assertSame(loadTestSuite(tests.suite), tests.suite);
+        assertSame(repr(loadTestSuite(tests.test)),
                    '<TestSuite func>');
-        assertSame(repr(loadTestSuite(module.Test)),
+        assertSame(repr(loadTestSuite(tests.Test)),
                    '<TestSuite test1, test2>');
-        assertSame(repr(loadTestSuite(module)),
+        assertSame(repr(loadTestSuite(tests)),
                    '<TestSuite test1, test2, func>');
-        assertSame(repr(loadTestSuite([module.test, module.Test])),
+        assertSame(repr(loadTestSuite([tests.test, tests.Test])),
                    '<TestSuite func, test1, test2>');
       })();
 
@@ -302,8 +301,8 @@ Functions
 
    Create a :class:`TestResult` object, run *test* collecting the
    results in the result object, and return the result object. Test
-   progress, errors, and failures are printed to the :class:`Stream`
-   object *stream*, which defaults to :data:`out`. ::
+   progress, errors, and failures are written to *stream*, which
+   defaults to :data:`out`. ::
 
       (function ()
       {
@@ -311,31 +310,30 @@ Functions
           {
             test: function () {}
           });
-        var stream = new Stream();
+        var stream = new MemTextStream();
         var result = runTestViaStream(new Test('test'), stream);
         assertSame(result.testsRun, 1);
         assert(result.wasSuccessful());
-        assertSame(stream.read(), 'test ok\n-----\nRan 1 tests\nOK');
+        assertSame(stream.get(), 'test ok\n-----\nRan 1 tests\nOK');
       })()
 
-.. function:: test(source=global, stream=out)
+.. function:: test(source=require.main.exports.tests, stream=out)
 
    Load a test from *source* by :func:`loadTestSuite`, run it by
-   :func:`runTestViaStream`, and return ``stream.read()``. The
+   :func:`runTestViaStream`, and return ``stream.get()``. The
    ``test()`` function is a common launcher of your tests. All you
-   need to run the tests is to evaluate the expression "``test()``" in
-   a development spot. ::
+   need is to export the ``tests`` object in the ``main.js`` file and
+   then evaluate the expression "``test()``" in a :term:`spot`. ::
 
       >>> (function ()
           {
-            var module = new Module();
-            module.Test = TestCase.subclass(
+            var MyTestCase = TestCase.subclass(
               {
                 testSuccess: function () {},
                 testFailure: function () { assertSame(2 + 2, 5); },
                 testError:   function () { throw Error(); }
               });
-            return test(module, new Stream());
+            return test(MyTestCase, new MemTextStream());
           })()
       testError ERROR
       testFailure FAIL
@@ -346,7 +344,7 @@ Functions
           ...
       =====
       FAIL: testFailure
-      ak.AssertionError: 4 !== 5 
+      AssertionError: 4 !== 5 
           ...
       -----
       Ran 3 tests
@@ -369,8 +367,8 @@ TestClient
    substitutes the :func:`describeApp`, :func:`getAdminedApps`,
    :func:`getDevelopedApps` functions and instrument the
    :meth:`~Template.render` :class:`Template` method, the
-   :meth:`~Controller.respond` :class:`Controller` method, and the
-   :class:`Response` constructor.
+   :meth:`~Handler.handle` :class:`Handler` method, and the
+   ``require.main.exports.main()`` function.
 
    The sandbox environment is described by the ``TestClient``
    constructor arguments. *users* should be an array of user names to
@@ -442,13 +440,15 @@ TestClient
 
    ::
 
-      function __main__(request) {
+      exports.main = function (request) {
         return (request.user
                 ? new Response('Hi, ' + request.user + '!')
                 : new Response('Please, log in', http.UNAUTHORIZED));
       }
 
-      var Test = TestCase.subclass(
+      exports.tests = {};
+      
+      exports.tests.MyTestCase = TestCase.subclass(
         {
           setUp: function () {
             this.client = new TestClient(['Bob', 'Alice']);
@@ -459,8 +459,7 @@ TestClient
             var response = this.client.get({});
             assertSame(response.status, http.OK);
             assertSame(response.content, 'Hi, Bob!');
-            assertSame(this.client.get({user: 'Alice'}).content,
-                       'Hi, Alice!');
+            assertSame(this.client.get({user: 'Alice'}).content, 'Hi, Alice!');
           },
 
           testError: function () {

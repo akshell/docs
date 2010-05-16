@@ -5,6 +5,82 @@ Miscellaneous APIs
 
 Miscellaneous low-level tools.
 
+
+require()
+=========
+
+.. function:: require(id)
+              require(lib, version, id='index')
+
+   Return an exported API of a module.
+
+   The first form exports a module of the current application. *id* is
+   a module identifier; The ``'.js'`` extension is appended to it to
+   form a file path. *id* is relative if it starts with ``'./'`` or
+   ``'../'``; otherwise *id* is top-level.
+
+   The second form exports a module of the application *lib* from the
+   subdirectory *version*.
+
+   A foreign module may not have finished executing at the time it is
+   required by one of its transitive dependencies; in this case, the
+   object returned by ``require()`` contains the exports that the
+   foreign module has prepared before the call to ``require()`` that
+   led to the current module's execution.
+
+   ``require()`` has the ``main`` property which is a reference to the
+   ``module`` object of the ``main`` module of the application being
+   executed.
+
+   This function conforms to the `CommonJS Modules 1.1.1 proposal`__.
+
+__ http://wiki.commonjs.org/wiki/Modules/1.1.1
+
+.. data:: exports
+
+   A module-scope object that the module may add its API to.
+   
+.. data:: module
+
+   A module-scope object describing the current module. Has the
+   following properties.
+
+   ``exports``
+      The module :data:`exports` object.
+
+   ``id``
+      The module identifier.
+
+   ``version``
+      The package version, i.e., the base directory of top-level
+      identifiers.
+
+   ``app``
+      The module application.
+
+   ``owner``
+      The spot owner. Does not exist in release versions.
+
+   ``spot``
+      The spot name. Does not exist in release versions.
+
+
+global
+======
+      
+.. data:: global
+
+   The global object reference; an analog of the ``window`` property
+   in client-side JavaScript.
+
+.. class:: Global
+
+   The global object class.
+
+
+Stuff
+=====
+        
 .. function:: readCode([appName,] path)
 
    Return contents of a code file as a ``string``. If *appName* is a
@@ -14,53 +90,6 @@ Miscellaneous low-level tools.
    defaults to the name of the executing application. *path* separator
    is the slash (``'/'``).
    
-.. function:: include([appName,] path)
-
-   Include a code file; return a code evaluation result. Do not
-   include the same file twice -- return a cached result instead. If
-   *appName* is specified, a cross-application include takes place;
-   otherwise code of a current application is searched for a file. A
-   :dfn:`current application` is an executing application or an
-   application of the latest incomplete cross-application include. A
-   current application include can be relative or absolute. A
-   *relative include* happens if *path* doesn't begin with a slash;
-   search is performed based on the directory of the including
-   file. An *absolute include* happens if *path* begins with the
-   slash; search is performed based on the root directory.
-
-   For example, if the application ``app1`` has this lines in its
-   :file:`__main__.js` file::
-
-      include('utils/useful.js')
-      include('app2', 'feature/__init__.js')
-
-   ... they will include the file :file:`utils/useful.js` of the
-   ``app1`` application and the file :file:`feature/__init__.js` of
-   the ``app2`` application. Suppose :file:`utils/useful.js` has the
-   lines::
-
-      include('very-useful.js')
-      include('/base.js')
-
-   ... these lines will include the files :file:`utils/very-useful.js`
-   and :file:`base.js` of the ``app1`` application because the first
-   include is relative and the second one was absolute. Finally, if
-   the :file:`feature/__init__.js` file of the ``app2`` application
-   has the lines::
-
-      include('impl.js')
-      include('/base.js')
-
-   ... they will include the files :file:`feature/impl.js` and
-   :file:`base.js` of the ``app2`` application.
-   
-.. function:: use(appName [,path])
-
-   Include the :file:`__init__.js` file from a library; it's a common
-   library interface file. This function is equivalent to::
-
-      include(appName, (path ? path + '/' : '') + '__init__.js')
-
 .. function:: set(object, name, attributes, value)
 
    Set the property *name* of *object* to *value*; if the property was
@@ -109,12 +138,132 @@ Miscellaneous low-level tools.
 .. function:: construct(constructor, args)
 
    Instantiate *constructor* with *args*; *args* must be a list.
+   
+.. class:: Script(source[, resourceName, [lineOffset, [columnOffset]]])
 
-.. function:: isList(value)
+   A ``Script`` object represents a compiled JavaScript
+   code. *resourceName*, *lineOffset*, and *columnOffset* are used in
+   exception backtraces.
 
-   Check if *value* is an object with non-negative integer ``length``
-   property.
+   .. method:: run()
 
+      Run the script; return the evaluation value.
+
+
+Exceptions
+==========
+        
+.. exception:: ValueError
+
+   Inappropriate argument value (of correct type).
+
+.. exception:: UsageError
+
+   Function was used in a wrong way.
+
+.. exception:: NotImplementedError
+
+   Function hasn't been implemented yet.
+
+
+Binary
+======
+      
+.. class:: Binary()
+
+   A ``Binary`` object represents raw binary data. ``Binary`` is a
+   mutable fixed-length numeric byte storage type. It can be
+   instantiated in a few ways:
+
+   ``new Binary(length, byte=0)``
+      Create a new ``Binary`` with the given *length* and fill it with
+      the given *byte*.
+
+   ``new Binary(string, charset='utf-8')``
+      Convert the *string* to ``Binary`` using the given *charset*.
+
+   ``new Binary(array)``
+      Initialize ``Binary`` bytes from the *array* values.
+
+   ``new Binary(binary, toCharset, fromCharset='utf-8')``
+      Transcode *binary* from *fromCharset* to *toCharset*.
+   
+   ``new Binary(binary[, binary1...])``
+      Create new ``Binary`` concatenating the given binaries.
+
+   The index operator ``[]`` can be used to get and set byte values.
+
+   .. attribute:: length
+
+      The length of the byte sequence. Cannot be changed.
+   
+   .. method:: toString(charset='utf-8')
+
+      Convert to ``string`` using the given *charset*.
+
+   .. method:: range(start=0, stop=length)
+
+      Return a new ``Binary`` that views the given range of this
+      ``Binary``.
+
+   .. method:: fill(byte=0)
+
+      Fill the ``Bynary`` by the given *byte*.
+
+   .. method:: indexOf(value, start=0)
+
+      Return the index of the first occurence of *value*, starting
+      search at *start*; return ``-1`` if *value* is not
+      found. *value* can be ``Binary`` or ``string``.
+   
+   .. method:: lastIndexOf(value, start=length)
+
+      Return the index of the last occurence of *value*, starting
+      search at *start*; return ``-1`` if *value* is not
+      found. *value* can be ``Binary`` or ``string``.
+
+.. exception:: ConversionError
+
+   Failed to encode, decode, or transcode data.
+      
+
+Proxy
+=====
+      
+.. class:: Proxy(handler)
+
+   A ``Proxy`` object intercepts property access on it. The *handler*
+   object must have five attributes::
+
+      new Proxy(
+        {
+          get: function (name) {
+            // Return the property value or undefined if not found
+          },
+
+          set: function (name, value) {
+            // Set the property value
+          },
+
+          del: function (name) {
+            // Delete the property and return true;
+            // if the property cannot be deleted, return false
+          },
+
+          query: function (name) {
+            // Return true if the proxy has the property;
+            // otherwise return false
+          },
+
+          list: function () {
+            // Return an Array of all property names
+          }
+        })
+
+        
+Metadata
+========
+   
 .. function:: getAppDescription(appName)
 
    Return an object describing the given application. The object has
@@ -127,8 +276,7 @@ Miscellaneous low-level tools.
       The name of the application admin.
 
    ``developers``
-      An ``Array`` of the names of the application developers
-      (``developers[0]`` is ``admin``).
+      A sorted ``Array`` of the names of the application developers.
 
    ``summary``
       The application summary.
@@ -137,7 +285,7 @@ Miscellaneous low-level tools.
       The application description.
 
    ``labels``
-      An ``Array`` of the application labels.
+      A sorted ``Array`` of the application labels.
 
 .. function:: getAdminedApps(userName)
 
@@ -146,34 +294,3 @@ Miscellaneous low-level tools.
 .. function:: getDevelopedApps(userName)
 
    Return names of applications developed by the given user.
-
-.. class:: Script(source[, resourceName, [lineOffset, [columnOffset]]])
-
-   A ``Script`` object represents a compiled JavaScript
-   code. *resourceName*, *lineOffset*, and *columnOffset* are used in
-   exception backtraces.
-
-   .. method:: run()
-
-      Run the script; return the evaluation value.
-
-.. data:: app
-
-   An object describing the application being executed.
-
-   .. data:: app.name
-
-      The name of the application.
-
-   .. data:: app.spot
-
-      An object describing the current spot. In the release version of
-      the application this attribute does not exist.
-
-      .. data:: app.spot.name
-
-         The name of the current spot.
-
-      .. data:: app.spot.owner
-
-         The name of the owner of the current spot.

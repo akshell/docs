@@ -17,10 +17,10 @@ changes either all occur or nothing occurs. Cancellation of changes
 happens if request/expression processing throws an exception or calls
 the :func:`db.rollback` function.
 
-The request handling entry point of an application is the
-``__main__()`` function which must be defined by the
-:file:`__main__.js` file. It should accept a :class:`Request` object
-as an argument and return a :class:`Response` object.
+The request handling entry point of an application is the ``main()``
+function exported by ``main.js``. It should accept a :class:`Request`
+object as an argument and return a :class:`Response` object. By
+default it's set to :func:`defaultServe`.
 
 
 Request
@@ -29,8 +29,8 @@ Request
 .. class:: Request
 
    A ``Request`` object stores data passed with an application
-   request. The ``__main__()`` function receives a ``Request`` object
-   whenever the application is requested.
+   request. The ``main()`` function exported by ``main.js`` receives a
+   ``Request`` object whenever the application is requested.
 
    .. attribute:: method
 
@@ -40,6 +40,13 @@ Request
 
       A name of the user who initiated the request; an empty string if the
       user is not logged in.
+      
+   .. attribute:: session
+
+      A string representing the session token; evaluates to ``false``
+      if there is no session. A session can be obtained by redirecting
+      to :func:`reverse('session') <reverse>` or via the
+      :func:`obtainingSession` decorator.
       
    .. attribute:: issuer
 
@@ -76,7 +83,7 @@ Request
    .. attribute:: files
 
       An object mapping the uploaded file names to their
-      :class:`TempFile` representations.
+      :class:`fs.File` representations.
    
    .. attribute:: data
 
@@ -91,13 +98,15 @@ Response
 
    A ``Response`` object represents an application response; it has
    ``content``, ``status``, and ``headers`` properties. *content* is a
-   text of the response; *status* is a HTTP status code (the ``ak``
-   library defines :ref:`constants for status codes<status_codes>`);
-   *headers* are HTTP headers, which default to::
+   :class:`Binary` or a ``string`` representing the response content;
+   *status* is an HTTP status code (the ``ak`` library defines
+   :ref:`constants for status codes<status_codes>`); *headers* are
+   HTTP headers, which default to::
 
       {'Content-Type': 'text/html; charset=utf-8'}
       
-   ``__main__()`` function should return a ``Response`` object.
+   ``main()`` function exported by ``main.js`` should return a
+   ``Response`` object.
 
 
 requestApp
@@ -123,13 +132,21 @@ requestApp
          An object mapping POST parameter names to their values;
          defaults to ``{}``.
 
+      data
+         A :class:`Binary` or a ``string`` to pass; defaults to an
+         empty ``Binary``.
+
       headers
          An object mapping the request header names to their values;
          defaults to ``{}``.
 
       files
          An object mapping the request file names to their paths or
-         :class:`TempFile` objects; default to ``{}``.
+         :class:`TempFile` objects; defaults to ``{}``.
+
+.. exception:: RequestAppError
+
+   An application failed to process a request.
 
 
 requestHost
@@ -155,6 +172,11 @@ requestHost
          An object mapping POST parameter names to their values or a
          string containing raw POST data; defaults to ``''``.
 
+      data
+         A :class:`Binary` or a ``string`` to pass as POST data;
+         defaults to an empty ``Binary``. ``data`` and ``post`` cannot
+         be specified together.
+
       headers
          An object mapping the additional request header names to
          their values; defaults to ``{}``.
@@ -169,3 +191,7 @@ requestHost
      appropriately.
    * If *request.post* is an object, it is encoded and
      ``Content-Type`` is set to ``application/x-www-form-urlencoded``.
+
+.. exception:: RequestHostError
+
+   An HTTP request failed.

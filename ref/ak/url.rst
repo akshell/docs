@@ -7,7 +7,7 @@ The `url.js`_ file supplies the main tool for handling URLs in your
 application, the ``URLMap`` class, along with the corresponding
 functions and error classes.
 
-.. _url.js: http://www.akshell.com/apps/ak/code/0.1/url.js
+.. _url.js: http://www.akshell.com/apps/ak/code/0.2/url.js
 
 
 URLMap
@@ -16,10 +16,10 @@ URLMap
 .. class:: URLMap([handler, [name,]] children...)
 
    An ``URLMap`` object defines a mapping from URL patterns to
-   handlers responsible these URLs. An URL mapping of an application
-   is a tree-like structure with nodes represented by ``URLMap``
-   objects and the root node stored in the ``__root__`` global
-   variable.
+   handlers responsible for these URLs. An URL mapping of an
+   application is a tree-like structure with nodes represented by
+   ``URLMap`` objects. ``main.js`` must set the ``exports.root``
+   property to the root node.
 
    The *handler* argument is a function associated with the root of
    this map; *name* is a ``string`` name of the map; *children* are
@@ -44,7 +44,7 @@ URLMap
 
    Example::
 
-      var __root__ = new URLMap(
+      exports.root = new URLMap(
         IndexHandler, 'index'
         ['users/',
          ['',
@@ -87,27 +87,24 @@ URLMap
    It is common for complex applications to be separated into modules,
    each module being responsible for a particular functionality. In
    such cases modules can define their own URL mappings which are
-   incorporated into the ``__root__`` mapping in the ``__main__.js``
-   file.
+   joined in the ``main.js`` file.
 
    In the example, post handling could be moved to the ``post.js``
-   module::
+   file::
 
-      var postMap = new URLMap(
+      exports.root = new URLMap(
         PostsHandler, 'posts',
         ['add/', AddPostHandler, 'add-post'],
         [/(\d+)\//, PostHandler, 'post']);
 
-   In the ``__main__.js`` file::
+   In the ``main.js`` file::
 
-      include('post.js');
-      ...
-      var __root__ = new URLMap(
+      exports.root = new URLMap(
         IndexHandler, 'index'
         ['users/',
          ['',
           ['profile/', ProfileHandler, 'profile'],
-          ['posts/', postMap]
+          ['posts/', require('post').root]
          ]
         ]);
    
@@ -129,9 +126,9 @@ Functions
       >>> repr(resolve('/users/Anton/posts/42/'))
       [<function PostHandler>, ["Anton", "42"]]
       >>> resolve('/invalid/path/')
-      ak.ResolveError: ...
+      ResolveError: ...
       >>> resolve('relative/path/')
-      ak.ValueError: ak.resolve() requires absolute path 
+      ValueError: resolve() requires absolute path 
 
 .. function:: reverse(name, args...)
 
@@ -155,17 +152,17 @@ Functions
       >>> reverse('post', 'Anton', 42)
       /users/Anton/posts/42/
       >>> reverse('no-such-name')
-      ak.ReverseError: ...
+      ReverseError: ...
       >>> reverse('post', 'too', 'many', 'arguments')
-      ak.ReverseError: ...
+      ReverseError: ...
       >>> reverse('login')
       http://www.akshell.com/login/?domain=example&path=%2F
       >>> reverse('session', '/some/path/')
       http://www.akshell.com/session/?domain=example&path=%2Fsome%2Fpath%2F
       
-   
-Error Classes
-=============
+
+Exceptions
+==========
 
 .. exception:: ResolveError
 
@@ -175,5 +172,5 @@ Error Classes
 
 .. exception:: ReverseError
 
-   Failed to reconstruct a request path. Subclass of
-   :exc:`BaseError`. Thrown by the :func:`reverse` function.
+   Failed to reconstruct a request path. Thrown by the :func:`reverse`
+   function.

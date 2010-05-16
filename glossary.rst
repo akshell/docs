@@ -28,6 +28,9 @@ Glossary
       every piece of knowledge must have a single, unambiguous,
       authoritative representation within a system.
 
+   JSGI
+      `JavaScript Gateway Interface`_.
+
    Metaclass
       A class whose instances are classes. Just as an ordinary class
       defines the behavior of certain objects, a metaclass defines the
@@ -80,6 +83,7 @@ Glossary
 
 .. _Cross-site request forgery: http://en.wikipedia.org/wiki/Csrf
 .. _Don't repeat yourself: http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+.. _JavaScript Gateway Interface: http://wiki.commonjs.org/wiki/JSGI/Level0/A/Draft2
 .. _Model–view–controller: http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
 .. _Wikipedia page: http://en.wikipedia.org/wiki/Relational_model
 .. _Representational State Transfer: http://en.wikipedia.org/wiki/REST

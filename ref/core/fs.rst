@@ -34,24 +34,22 @@ http://static.akshell.com/media/release/example/dir/subdir/hello.txt,
 in Anton Korenyushkin's (mine) spot ``debug`` it has an URL
 http://static.akshell.com/media/spots/example/Anton-Korenyushkin/debug/dir/subdir/hello.txt.
 
-:dfn:`Temporary files` are another kind of files: they come from
-requests (see :doc:`request` for details), have no path, and disappear
-after the request was processed. :class:`~ak.TempFile` objects
-representing temporary files are accepted by all :mod:`fs` functions
-expecting file path parameter.
-
 
 Functions
 =========
 
+.. function:: open(path)
+
+   Open file and return a :class:`fs.File` object.
+
 .. function:: read(path)
 
-   Return file contents represented by a :class:`~ak.Data` object.
+   Return file contents represented by a :class:`Binary` object.
 
 .. function:: write(path, data)
 
-   Coerce *data* to ``string`` and write it into a file; if the file
-   already exists, overwrite it.
+   Coerce *data* to :class:`Binary` and write it into a file; if the
+   file already exists, overwrite it.
 
 .. function:: list(path)
 
@@ -83,25 +81,89 @@ Functions
    parent directory does not exist.
 
    
-Classes
-=======
+File
+====
+
+.. class:: File
+
+   A ``File`` object provides means of reading and writing a file. It
+   can be obtained via the :func:`fs.open` function or the ``files``
+   :class:`Request` property. In the latter case file is read-only.
+
+   .. attribute:: closed
+
+      ``true`` if the file is closed; ``false`` otherwise.
+      
+   .. attribute:: writable
+
+      ``true`` if the file is writable; ``false`` otherwise.
+   
+   .. attribute:: length
+
+      The length of the file, in bytes. If the file is writable,
+      ``length`` is assignable.
+   
+   .. attribute:: position
+
+      The position within the file at which the next read or write
+      operation occurs, in bytes. Setting ``position`` to a new value
+      moves the stream's position to the given byte offset.
+
+   .. method:: read([max])
+
+      Read *max* bytes from the stream, or until the end of the file
+      has been reached, and return a :class:`Binary` object. If the
+      argument is omitted, read until the end of the file.
+   
+   .. method:: write(data)
+
+      Coerce *data* to :class:`Binary` and write it to the file.
+      Return ``this``.
+   
+   .. method:: flush()
+
+      Flush the file to the disc. Return ``this``.
+   
+   .. method:: close()
+
+      Close the file, freeing the resources it is holding. ``close()``
+      can be called multiple times; all other operations on a closed
+      file result in a :exc:`ValueError` exception.
+   
+
+Exceptions
+==========
 
 .. currentmodule:: None
 
-.. class:: Data
+.. exception:: FSError
 
-   A ``Data`` object represents file contents.
+   A base class of all file storage exceptions.
+   
+.. exception:: PathError
 
-   .. method:: toString(encoding='UTF-8')
+   Incorrect path.
 
-      Return a ``string`` decoded from the data using *encoding*.
+.. exception:: EntryExistsError
 
-.. class:: TempFile
+   Entry already exists
 
-   A ``TempFile`` object represents a temporary file passed to the
-   application through the values of the ``files`` request property
-   (see :doc:`request` for details).
+.. exception:: NoSuchEntryError
 
-   .. method:: read()
+   Entry doesn't exist.
 
-      Return the file contents represented by a :class:`Data` object.
+.. exception:: EntryIsDirError
+
+   Entry is a directory.
+   
+.. exception:: EntryIsNotDirError
+
+   Entry is not a directory.
+   
+.. exception:: FileIsReadOnly
+
+   Attempt to write into a read-only file.
+   
+.. exception:: FSQuotaError
+
+   File storage quota exceeded.

@@ -6,7 +6,7 @@ Utilities
 In the `utils.js`_ file various utility functions and classes are
 defined.
 
-.. _utils.js: http://www.akshell.com/apps/ak/code/0.1/utils.js
+.. _utils.js: http://www.akshell.com/apps/ak/code/0.2/utils.js
 
 
 Function Utilities
@@ -30,28 +30,6 @@ Function Utilities
       >>> partial(function () { return Array.join(arguments, ', '); },
                   1, 2)(3, 4)
       1, 2, 3, 4
-
-.. function:: giveNames(namespace)
-
-   Recursively set the ``__name__`` property of all functions and
-   modules of the *namespace* object. ::
-
-      (function ()
-      {
-        global.abc = new Module('abc');
-        abc.foo = function () {};
-        abc.submodule = new Module();
-        abc.submodule.bar = function () {};
-        giveNames(abc);
-        assertSame(repr(abc.foo), '<function abc.foo>');
-        assertSame(repr(abc.submodule), '<module abc.submodule>');
-        assertSame(repr(abc.submodule.bar), '<function abc.submodule.bar>');
-      })()
-
-.. function:: abstract()
-
-   Throw a :exc:`NotImplementedError`. Useful for declaring methods
-   which should be defined by subclasses.
 
 
 List Utilities
@@ -86,33 +64,36 @@ List Utilities
       [[1, 4, 7], [2, 5, 8], [3, 6, 9]]
 
 
-Stream
-======
+MemTextStream
+=============
 
-.. class:: Stream
+.. class:: MemTextStream
 
    A console emulator. Targeted at debugging. 
 
-   .. method:: write(values...)
+   .. method:: write(value)
 
-      Coerce *values* to strings and store them in the stream buffer.
+      Coerce *value* to ``string`` and append it to the stream buffer.
 
-   .. method:: read()
+   .. method:: get()
 
-      Return the contents of the stream buffer as a ``string`` and
-      empty the buffer.
+      Return the contents of the stream buffer as a ``string``.
+
+   .. method:: reset()
+
+      Reset the contents of the stream buffer.
 
    ::
 
       (function ()
       {
-        var s = new Stream();
-        s.write(1, 2, 3, '\n');
-        s.write('Hello', ', ', 'world!');
-        assertSame(s.read(), '123\nHello, world!');
-        assertSame(s.read(), '');
-        s.write('Buy!');
-        assertSame(s.read(), 'Buy!');
+        var s = new MemTextStream();
+        s.write('Hello world!');
+        s.write(42);
+        assertSame(s.get(), s.get());
+        assertSame(s.get(), 'Hello world!42');
+        s.reset();
+        assertSame(s.get(), '');
       })()
 
 .. data:: out
@@ -208,28 +189,20 @@ Dict
 
          >>> (function () {
                 var d = new Dict();
-                d.set(ak, 42);
-                d.set(ak.Dict, 'Dict class!');
+                d.set(42, 'number');
+                d.set('42', 'string');
                 return repr(d);
               })()
-         {<module ak 0.1>: 42, <function ak.Dict>: "Dict class!"}
+         {42: "number", "42": "string"}
 
          
 Miscellaneous Utilities
 =======================
 
-.. function:: nextMatch(re, string, errorClass=SyntaxError)
+.. function:: abstract()
 
-   Try to match *string* against the regular expression *re*; return a
-   match object if parsing succeeded or ``null`` if the whole *string*
-   was parsed (``re.lastIndex == string.length``). Throw an error of
-   *errorClass* on parse failure. This function is extremely useful
-   for creating parsers of domain-specific languages; see `db.js`_ and
-   `template.js`_ for examples.
-
-   .. _db.js: http://www.akshell.com/apps/ak/code/0.1/db.js
-   .. _template.js: http://www.akshell.com/apps/ak/code/0.1/template.js
-
+   Throw a :exc:`NotImplementedError`. Useful for declaring methods
+   which should be defined by subclasses.
 
 .. function:: timeSince(date, now=new Date())
 
@@ -255,4 +228,3 @@ Miscellaneous Utilities
    * ``'`` (single quote) is converted to ``&#39;``
    * ``"`` (double quote) is converted to ``&quot;``
    * ``&`` is converted to ``&amp;``
-   

@@ -59,23 +59,20 @@ knowledge on a number of levels:
 Relation Variables
 ------------------
 
-To create a new relation variable, call the :func:`db.create`
-function, for example::
-
-   >>> db.create('Post',
-                 {
-                   id: 'serial unique',
-                   author: 'string',
-                   title: 'string',
-                   text: 'string'
-                 });
-
 Properties of the :data:`rv` object provide your program with an
 interface to the relation variables. Each property is an instance of
-the :class:`RelVar` class.
+the :class:`RelVar` class. To create a new relation variable, call the
+:func:`~RelVar.create` method, for example::
 
-For example, the ``Post`` relation variable could be managed as
-follows::
+   >>> rv.Post.create(
+         {
+           id: 'serial unique',
+           author: 'string',
+           title: 'string',
+           text: 'string'
+         });
+
+The ``Post`` relation variable could be managed as follows::
 
    >>> rv.Post.insert(
          {author: 'Bob', title: 'Greeting', text: 'Hello, world!'})
@@ -93,11 +90,10 @@ retrieved from the database is represented by an ``Array`` of such
 objects.
 
 To permanently remove a relation variable from the database use the
-:meth:`~RelVar.drop` method; the corresponding :data:`rv` property
-will disappear after that::
+:meth:`~RelVar.drop` method::
 
    >>> rv.Post.drop()
-   >>> 'Post' in rv
+   >>> rv.Post.exists()
    false
    
 
@@ -122,7 +118,7 @@ restriction, use the ``'integer number'`` type description or just
 For example, this relation variable could be used in a hotel
 management application::
 
-   >>> db.create('Room', {number: 'integer', capacity: 'integer'})
+   >>> rv.Room.create({number: 'integer', capacity: 'integer'})
 
 Fractional numbers will be rounded when inserted as values of an
 integer attribute::
@@ -133,11 +129,11 @@ integer attribute::
 Some numbers cannot be converted to integer::
 
    >>> rv.Room.insert({number: 1, capacity: Infinity})
-   ak.ConstraintError: ...
+   ConstraintError: ...
    >>> rv.Room.insert({number: 1, capacity: NaN})
-   ak.ConstraintError: ...
+   ConstraintError: ...
    >>> rv.Room.insert({number: 1, capacity: 1e10})
-   ak.ConstraintError: ...
+   ConstraintError: ...
 
    
 Default
@@ -152,12 +148,12 @@ Suppose you store data about the users of your application in the
 ``Profile`` relation variable. Then the ``description`` and ``banned``
 attributes will naturally have default values::
 
-   >>> db.create('Profile',
-                 {
-                   name: 'unique string',
-                   description: 'string default ""',
-                   banned: 'bool default false'
-                 })
+   >>> rv.Profile.create(
+         {
+           name: 'unique string',
+           description: 'string default ""',
+           banned: 'bool default false'
+         })
    >>> repr(rv.Profile.insert({name: 'Bob'}))
    {banned: false, description: "", name: "Bob"}
    >>> repr(rv.Profile.insert({name: 'Anton', description: "That's me"}))
@@ -177,7 +173,7 @@ type description for this purpose.
 Whenever a value of such attribute is omitted, the next number of a
 sequence is used. Serial attributes can have only integer values. ::
 
-   >>> db.create('Counter', {s: 'serial'})
+   >>> rv.Counter.create({s: 'serial'})
    >>> repr(rv.Counter.insert({}))
    {s: 0}
    >>> repr(rv.Counter.insert({}))
@@ -211,14 +207,14 @@ unique, use a separate unique declaration.
 
 For example::
 
-   >>> db.create('Post',
-                 {
-                   id: 'unique serial',
-                   author: 'string',
-                   title: 'string',
-                   text: 'string'
-                 },
-                 'unique [author, title]');
+   >>> rv.Post.create(
+         {
+           id: 'unique serial',
+           author: 'string',
+           title: 'string',
+           text: 'string'
+         },
+         'unique [author, title]');
 
 All posts will have a unique ``id`` attribute; posts of the same
 author will never have the same title::
@@ -228,10 +224,10 @@ author will never have the same title::
    0
    >>> rv.Post.insert(
          {id: 0, author: 'Alice', title: 'Declaration', text: 'I love Akshell'})
-   ak.ConstraintError: ...
+   ConstraintError: ...
    >>> rv.Post.insert(
          {author: 'Bob', title: 'Greeting', text: 'Hello again!'})
-   ak.ConstraintError: ...
+   ConstraintError: ...
 
 
 .. _foreign_key:
@@ -246,13 +242,13 @@ many-to-one relationship between them.
 For example, the ``Comment`` relation variable could reference
 ``Post`` defined before through its ``id`` attribute::
 
-   >>> db.create('Comment',
-                 {
-                   id: 'unique serial',
-                   post: 'integer -> Post.id',
-                   author: 'string',
-                   text: 'string'
-                 });
+   >>> rv.Comment.create(
+         {
+           id: 'unique serial',
+           post: 'integer -> Post.id',
+           author: 'string',
+           text: 'string'
+         });
 
 A referenced attribute of a foreign key must be unique (otherwise the
 key would be meaningless). Akshell ensures that for each referencing
@@ -266,9 +262,9 @@ try to break this rule, an error will be thrown::
          {post: 0, author: 'Alice', text: 'Hi, Bob'})
    >>> rv.Comment.insert(
          {post: 42, author: 'Bob', text: 'Bump!'})
-   ak.ConstraintError: ...
+   ConstraintError: ...
    >>> rv.Post.where({id: 0}).del()
-   ak.ConstraintError: ...
+   ConstraintError: ...
          
 
 Check
@@ -281,28 +277,30 @@ inside a type declaration or in a separate check declaration.
 For example, an airline company could employ the following relation
 variable (note the required parenthesis)::
 
-   >>> db.create('Flight',
-                 {
-                   departure: 'date',
-                   arrival: 'date',
-                   passengers: 'integer check (passengers > 0)'
-                 },
-                 'check (arrival > departure)');
+   >>> rv.Flight.create(
+         {
+           departure: 'date',
+           arrival: 'date',
+           passengers: 'integer check (passengers > 0)'
+         },
+         'check (arrival > departure)');
 
 If you try to break a check, an error will be thrown::
 
-   >>> rv.Flight.insert({
-                          departure: 'Jan 1 2010',
-                          arrival: 'Dec 31 2009',
-                          passengers: 100
-                        })
-   ak.ConstraintError: ...
-   >>> rv.Flight.insert({
-                          departure: 'Jan 1 2010',
-                          arrival: 'Jan 2 2010',
-                          passengers: -1
-                        })
-   ak.ConstraintError: ...
+   >>> rv.Flight.insert(
+         {
+           departure: 'Jan 1 2010',
+           arrival: 'Dec 31 2009',
+           passengers: 100
+         })
+   ConstraintError: ...
+   >>> rv.Flight.insert(
+         {
+           departure: 'Jan 1 2010',
+           arrival: 'Jan 2 2010',
+           passengers: -1
+         })
+   ConstraintError: ...
 
 
 Transactions
@@ -414,8 +412,8 @@ getOne()
 Some queries should return one and only one tuple. For such cases the
 :meth:`getOne` method is useful: it performs a query and returns an
 object representing the resulting tuple. If the query has returned no
-tuples, a ``DoesNotExist`` error is thrown; if the query has returned
-more than one tuple, a ``MultipleTuplesReturned`` error is
+tuples, a :exc:`~RelVar.DoesNotExist` error is thrown; if the query
+has returned more than one tuple, an :exc:`IsAmbiguous` error is
 thrown. These errors are properties of the corresponding
 :class:`RelVar` object.
 
@@ -453,12 +451,13 @@ For example, the following code adds a signature to all Bob's posts::
 
 This code changes posts with empty texts::
 
-   rv.Post.where('!text').update({
-                                   title: 'title + $1',
-                                   text: '$2'
-                                 },
-                                 ' (empty)',
-                                 'subj')
+   rv.Post.where('!text').update(
+     {
+       title: 'title + $1',
+       text: '$2'
+     },
+     ' (empty)',
+     'subj')
 
 Sometimes it's necessary to set attributes of some tuples to given
 values, i.e., perform an update with constant expressions. To
@@ -530,7 +529,7 @@ Here is an example of file storage usage:
    >>> fs.isFile('no-such-entry')
    false
    >>> fs.read('no-such-entry')
-   ak.NoSuchEntryError: ...
+   NoSuchEntryError: ...
 
 See the :doc:`file storage API reference </ref/core/fs>` for details.
    

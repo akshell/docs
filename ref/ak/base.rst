@@ -8,26 +8,14 @@ features borrowed mainly from Python_ making it more suitable for
 creating modular server-side applications. The code was inspired by
 the MochiKit_ client-side JavaScript library, by Bob Ippolito.
 
-.. _base.js: http://www.akshell.com/apps/ak/code/0.1/base.js
+.. _base.js: http://www.akshell.com/apps/ak/code/0.2/base.js
 .. _Python: http://python.org/
 .. _MochiKit: http://mochikit.com/
 
-The only module-level object defined here is
 
-.. data:: global
+Object Functions
+================
 
-   The global object reference; an analog of the ``window`` property
-   in client-side JavaScript.
-   
-
-Object Functions and Methods
-============================
-
-``Object`` handling tools are provided as module-level functions and
-as respective ``Object`` methods. The formers should be used when
-dealing with objects with arbitrary properties; otherwise the latters
-should be preferred because of their expressiveness.
-   
 .. function:: update(self[, attributes], objects...)
 
    Mutate the object *self* by setting its key:value pairs to those
@@ -51,39 +39,6 @@ should be preferred because of their expressiveness.
    Return an array of the *object* property values in the order
    determined by the ``for..in`` loop.
 
-.. class:: Object
-
-   Added ``Object`` methods.
-
-   .. method:: set(name, attributes, value)
-
-      A shortcut for :func:`set`.
-   
-   .. method:: setHidden(name, value)
-
-      Set a hidden property; equivalent to ``set(name, HIDDEN,
-      value)``.
-   
-   .. method:: instances(constructor)
-
-      Set the class of the object to *constructor*; return ``this``.
-
-   .. method:: update([attributes,] objects...)
-
-      A shortcut for :func:`update`.
-
-   .. method:: items()
-
-      A shortcut for :func:`items`.
-
-   .. method:: keys()
-   
-      A shortcut for :func:`keys`.
-
-   .. method:: values()
-
-      A shortcut for :func:`values`.
-      
    
 Function Methods
 ================
@@ -151,37 +106,6 @@ Function Methods
 
       Test if this class is a subclass of the class *base*.
 
-
-Error Subclasses
-================
-
-.. class:: ErrorMeta
-
-   The standard JavaScript exception classes can be instantiated
-   without the operator ``new``. To guarantee that all user defined
-   exception classes follow this rule Akshell sets the
-   :term:`metaclass` of the base exception class ``Error`` to
-   ``ErrorMeta``. ``ErrorMeta`` redefines the
-   :meth:`~Function.subclass` method to provide exception classes with
-   the instantiation without ``new``, the initialization of stack
-   trace, and a sensible ``name`` property.
-
-   .. note::
-
-      In Akshell the preferred style of instantiation of error classes
-      is **without** ``new``.
-
-The following subclasses of :exc:`BaseError` are broadly used by the
-rest of the ``ak`` library; you should also employ them in your code.
-      
-.. exception:: ValueError
-
-   Inappropriate argument value (of correct type).
-
-.. exception:: NotImplementedError
-
-   Method or function hasn't been implemented yet.
-
    
 Value Representation
 ====================
@@ -200,10 +124,6 @@ Value Representation
       "Some\" tricky\n\t'string'"
       >>> repr({n: 42, s: "string"})
       {n: 42, s: "string"}
-      >>> repr(db)
-      <module ak.db>
-      >>> repr(db.create)
-      <function ak.db.create>
       >>> repr({__repr__: function () { return 'My own repr!'; }})
       My own repr!
 
@@ -274,11 +194,11 @@ this shortcoming Akshell provides these comparison functions.
       >>> cmp(new Date('Feb 1 2010'), new Date('Sep 13 2010'))
       -1
       >>> cmp(42, '42')
-      ak.CmpError: ...
+      CmpError: ...
       >>> cmp(0, false)
-      ak.CmpError: ...
+      CmpError: ...
       >>> cmp(false, null)
-      ak.CmpError: ...
+      CmpError: ...
       
    The ``__cmp__(other)`` method of ``Array`` perform a lexicographic
    comparison of array-like objects: it iterates over the objects and
@@ -289,6 +209,10 @@ this shortcoming Akshell provides these comparison functions.
      ``cmp(this[i], other[i]) != 0``;
 
    * ``cmp(this.length, other.length)`` if such ``i`` does not exist.
+
+.. exception:: CmpError(lhs, rhs)
+
+   Values *lhs* and *rhs* are incomparable.
 
 .. function:: equal(lhs, rhs)
 
@@ -324,33 +248,6 @@ this shortcoming Akshell provides these comparison functions.
       >>> equal({__eq__: function () { return true; }}, null)
       true
    
-.. exception:: CmpError(lhs, rhs)
-
-   Values *lhs* and *rhs* are incomparable.
-
-
-Module
-======
-
-.. class:: Module([name[, version]])
-
-   A module representation. *name* and *version* should be strings.
-
-   .. attribute:: __name__
-
-      The name of the module defined by *name* constructor argument.
-
-   .. attribute:: __version__
-
-      The version of the module defined by *version* constructor
-      argument.
-
-   .. method:: __repr__()
-
-      Return a string :samp:`'<module {name} {version}>'`, or
-      :samp:`'<module {name}>'` for modules without a version, or
-      ``'<anonymous module>'`` for modules without a name.
-
 
 .. _debug_tools:
       

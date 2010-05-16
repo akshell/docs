@@ -3,6 +3,8 @@
 Database API
 ============
 
+.. module:: db
+
 This document describes Akshell database model, an API for managing an
 application database, and a language for querying it.
 
@@ -130,12 +132,12 @@ consistent; in a relational database consistency is maintained using
 :dfn:`constraints`. Akshell supports three types of constraints:
 
 Unique constraint
-   a set of attributes which must have unique values across all tuples
+   A set of attributes which must have unique values across all tuples
    of the relation variable body. The ``[id]`` or ``[author, text]``
    attributes can be unique constraints of the ``Post`` variable.
 
 Foreign key constraint
-   a reference from the relation variable to a unique key in another or
+   A reference from the relation variable to a unique key in another or
    the same relation variable. Formally a foreign key is a referencing
    variable, a subset of its attributes, a referenced variable, and
    its unique key such that for all tuples in the referencing variable
@@ -146,7 +148,7 @@ Foreign key constraint
    variable.
 
 Check constraint
-   an expression which must evaluate to ``true`` for each tuple of the
+   An expression which must evaluate to ``true`` for each tuple of the
    relation variable body. ``text`` (``text`` is not empty) or ``id
    % 1 == 0`` (``id`` is integer) can be check constraints of the
    ``Post`` variable.
@@ -160,8 +162,8 @@ Database Management
 Types
 -----
 
-Four Akshell database types are represented by properties of the
-``ak`` module; they are instances of the :class:`Type` class.
+Akshell has four database types; they are represented by instances of
+the :class:`db.Type` class.
 
 .. data:: number
 
@@ -197,36 +199,36 @@ Four Akshell database types are represented by properties of the
       Return a serial-generated type constrained to integer values;
       applicable only to :data:`number`. ::
 
-         >>> db.create('X', {s: number.serial()})
-         >>> repr(rv.X.insert({}))
+         >>> db.create('X', {s: db.number.serial()})
+         >>> repr(db.insert('X', {}))
          {s: 0}
-         >>> repr(rv.X.insert({}))
+         >>> repr(db.insert('X', {}))
          {s: 1}
-         >>> repr(rv.X.insert({s: 42}))
+         >>> repr(db.insert('X', {s: 42}))
          {s: 42}
-         >>> repr(rv.X.insert({}))
+         >>> repr(db.insert('X', {}))
          {s: 2}
 
    .. method:: unique()
 
       Return a type with a unique constraint. ::
 
-         >>> db.create('X', {n: number.unique(), s: string})
-         >>> rv.X.insert({n: 42, s: 'the answer'})
-         >>> rv.X.insert({n: 42, s: 'forty two'})
-         ak.ConstraintError: ...
+         >>> db.create('X', {n: db.number.unique(), s: db.string})
+         >>> db.insert('X', {n: 42, s: 'the answer'})
+         >>> db.insert('X', {n: 42, s: 'forty two'})
+         ConstraintError: ...
 
    .. method:: foreign(refRelVarName, refAttrName)
 
       Return a type with a foreign key constraint, i.e., a reference
       to a unique attribute in another or the same relation variable.
 
-         >>> db.create('X', {u: number}) // u is unique because it's lonely
-         >>> db.create('Y', {f: number.foreign('X', 'u')})
-         >>> rv.X.insert({u: 0})
-         >>> rv.Y.insert({f: 0})
-         >>> rv.Y.insert({f: 42})
-         ak.ConstraintError: ...
+         >>> db.create('X', {u: db.number}) // u is unique because it's lonely
+         >>> db.create('Y', {f: db.number.foreign('X', 'u')})
+         >>> db.insert('X', {u: 0})
+         >>> db.insert('Y', {f: 0})
+         >>> db.insert('Y', {f: 42})
+         ConstraintError: ...
 
    .. method:: check(expr)
 
@@ -234,26 +236,25 @@ Four Akshell database types are represented by properties of the
       evaluate to ``true`` for each tuple of a relation with an
       attribute of this type. ::
 
-         >>> db.create('X', {n: number.check('n > 0')})
-         >>> rv.X.insert({n: -1})
-         ak.ConstraintError: ...
+         >>> db.create('X', {n: db.number.check('n > 0')})
+         >>> db.insert('X', {n: -1})
+         ConstraintError: ...
    
    .. method:: default_(value)
 
       Return a type with a default value attached.
 
-         >>> db.create('X', {n: number.default_(42)})
-         >>> repr(rv.X.insert({}))
+         >>> db.create('X', {n: db.number.default_(42)})
+         >>> db.insert('X', {}))
          {n: 42}
 
 
-db
---
+Functions
+---------
 
-.. module:: db
-
-Low-level database management functions are properties of the
-:mod:`db` module.
+These functions constitute the low-level database interface. The basic
+library offers a :doc:`convenient object-oriented wrapper <../ak/db>`
+of it.
 
 .. function:: create(name, header, constrs={})
 
@@ -261,87 +262,83 @@ Low-level database management functions are properties of the
    attribute names to their types; The *constrs* object can have the
    fields:
 
-   unique
-      a list of unique keys represented by lists of attribute names;
+   ``unique``
+      A list of unique keys represented by lists of attribute names.
 
-   foreign
-      a list of foreign keys represented by three-element lists: the
+   ``foreign``
+      A list of foreign keys represented by three-element lists: the
       first item of such list is itself a list of referencing
       attribute names, the second is a referenced relation variable
-      name, and the third is a list of referenced attribute names;
+      name, and the third is a list of referenced attribute names.
 
-   check
-      a list of check expressions.
+   ``check``
+      A list of check expressions.
 
    One-attribute constraints can be specified either by a
-   :class:`~ak.Type` method or by the *constr* argument. The first way
+   :class:`db.Type` method or by the *constr* argument. The first way
    is more expressive.
-      
-   .. seealso::
-
-      The ``ak`` library alters ``create()`` function to have an
-      :ref:`alternative human-friendly interface
-      <human_friendly_db_create>`, which should be preferred for
-      defining relation variables by hand.
       
    ::
 
       >>> db.create('Post',
                     {
-                      id: number.serial(),
-                      author: string,
-                      text: string
+                      id: db.number.serial(),
+                      author: db.string,
+                      text: db.string
                     },
                     {unique: [['author', 'text'], ['id']]})
       >>> db.create('Comment',
                     {
-                      id: number.serial().unique(),
-                      post: number.integer(),
-                      author: string,
-                      text: string,
+                      id: db.number.serial().unique(),
+                      post: db.number.integer(),
+                      author: db.string,
+                      text: db.string,
                     },
                     {
                       foreign: [[['post'], 'Post', ['id']]],
                       check: ['text != "+1"']
                     })
                     
-.. function:: drop(names...)
+.. function:: drop(names)
 
    Drop relation variables. Drop fails if any of them is referenced by
    a variable not being dropped.
 
-      >>> db.create('X', {u: number})
-      >>> db.create('Y', {f: number.foreign('X', 'u')})
-      >>> db.drop('X')
-      ak.RelVarDependencyError: ...
-      >>> db.drop('X', 'Y')
+      >>> db.create('X', {u: db.number})
+      >>> db.create('Y', {f: db.number.foreign('X', 'u')})
+      >>> db.drop(['X'])
+      RelVarDependencyError: ...
+      >>> db.drop(['X', 'Y'])
       undefined
       
 
-.. function:: query(query, options={})
+.. function:: query(query, queryParams=[], by=[], byParams=[], start=0[, length])
 
    Perform a database query; return a relation represented by an array
    of tuples, each tuple being an object mapping attribute names to
-   their values. *query* is a query string, see :ref:`Query Language
-   <query_language>` for details; The *options* object can have the
-   properties:
+   their values. The function accepts the following arguments:
 
-   params
-      a list of query parameters;
+   *query*
+      A query string; see :ref:`Query Language <query_language>` for
+      details.
 
-   by
-      an expression or a list of expressions to order resulting
-      tuples (order is ascending, to get descending order use
-      *-expr*);
+   *queryParams*
+      An array of query parameters.
 
-   byParams
-      a list of *by* expression parameters;
+   *by*
+      An expression or an array of expressions to order resulting
+      tuples. Order is ascending, to get descending order use
+      ``-expr``.
 
-   start
-      a number of tuples to skip before starting to return tuples; and
+   *byParams*
+      An array of *by* expression parameters.
 
-   length
-      a maximum number of tuples to return.
+      
+   *start*
+      A number of tuples to skip before starting to return tuples.
+
+   *length*
+      A maximum number of tuples to return.
 
    .. warning::
 
@@ -351,27 +348,27 @@ Low-level database management functions are properties of the
 
    ::
 
-      >>> db.create('X', {n: number})
-      >>> for (var i = 0; i < 6; ++i) rv.X.insert({n: i});
-      >>> repr(db.query('X', {by: '-n'}))
+      >>> db.create('X', {n: db.number})
+      >>> for (var i = 0; i < 6; ++i) db.insert('X', {n: i});
+      >>> repr(db.query('X', [], '-n'))
       [{n: 5}, {n: 4}, {n: 3}, {n: 2}, {n: 1}, {n: 0}]
-      >>> repr(db.query('X', {by: 'n', start: 2, length: 3}))
+      >>> repr(db.query('X', [], 'n', [], 2, 3))
       [{n: 2}, {n: 3}, {n: 4}]
-      >>> repr(db.query('X where n < $', {params: [4], by: 'n'}))
+      >>> repr(db.query('X where n < $', [4], 'n'))
       [{n: 0}, {n: 1}, {n: 2}, {n: 3}]
-      >>> repr(db.query('X', {by: ['n % $', 'n'], byParams: [3]}))
+      >>> repr(db.query('X', [], ['n % $', 'n'], [3]))
       [{n: 0}, {n: 3}, {n: 1}, {n: 4}, {n: 2}, {n: 5}]
 
-.. function:: count(query[, params...])
+.. function:: count(query, params=[])
 
    Return a number of tuples matching *query* not loading them. Useful
    for big relations. ::
 
-      >>> db.create('X', {n: number})
-      >>> for (var i = 0; i < 1000; ++i) rv.X.insert({n: i});
+      >>> db.create('X', {n: db.number})
+      >>> for (var i = 0; i < 1000; ++i) db.insert('X', {n: i});
       >>> db.count('X')
       1000
-      >>> db.count('X where n % $1 == $2', 4, 1)
+      >>> db.count('X where n % $1 == $2', [4, 1])
       250
 
 .. function:: rollback()
@@ -379,260 +376,50 @@ Low-level database management functions are properties of the
    Roll back the :term:`transaction` of the current request. See
    :doc:`request` for details.
 
-.. function:: refresh()
 
-   Refresh the database metadata (the :data:`rv` object). Useful for
-   rare cases when a :term:`transaction` which had created or dropped
-   relation variables was rolled back. In the majority of applications
-   metadata should not change during a request handling.
-
-   
-Relation Variables
-------------------
+Exceptions
+----------
 
 .. currentmodule:: None
 
-The :class:`RelVar` and :class:`Selection` classes provide a
-convenient access to the database management. You should prefer this
-interface over the :mod:`db` module whenever possible because it's
-more expressive.
+.. exception:: DBError
 
-.. data:: rv
+   A base class of all database exceptions.
 
-   An object mapping relation variable names to :class:`RelVar`
-   objects representing correspondent relation variables.
+.. exception:: RelVarExistsError
 
-.. class:: RelVar
+   Relation variable already exists.
+   
+.. exception:: NoSuchRelVarError
 
-   A ``RelVar`` object represents a relation variable. It cannot be
-   constructed manually, but should be obtained as a property of the
-   :data:`rv` object.
+   Relation variable doesn't exist.
 
-   .. attribute:: name
+.. exception:: ConstraintError
 
-      The name of the relation variable.
+   Database constraint violation.
+   
+.. exception:: QueryError
 
-   .. attribute:: header
+   Incorrect database query.
+   
+.. exception:: NoSuchAttrError
 
-      The header of the relation variable represented by an object mapping
-      the attribute names to the attribute type names. ::
+   Relation variable attribute doesn't exist.
+   
+.. exception:: AttrValueRequiredError
 
-         >>> db.create('X', {n: number, s: string, b: bool, d: date})
-         >>> repr(rv.X.header)
-         {b: "bool", d: "date", n: "number", s: "string"}
+   Value of a relation variable attribute must be supplied.
 
-   .. attribute:: integer
+.. exception:: RelVarDependencyError
 
-      A sorted array of the integer attribute names. ::
+   Relation variable cannot be dropped because other variable depends
+   on it.
 
-         >>> db.create('X', {i: number.integer(), s: number.serial()})
-         >>> repr(rv.X.integer)
-         ["i", "s"]
+.. exception:: DBQuotaError
 
-   .. attribute:: serial
+   Database quota exceeded.
 
-      A sorted array of the serial attribute names. ::
-
-         >>> db.create('X', {i: number.integer(), s: number.serial()})
-         >>> repr(rv.X.serial)
-         ["s"]
-
-   .. attribute:: unique
-
-      A sorted array of the unique keys represented by name arrays. A
-      set of all attributes is always a unique key. ::
-
-         >>> db.create('X',
-                       {a: number.unique(), b: number, c: number},
-                       {unique: [['b', 'c']]})
-         >>> repr(rv.X.unique)
-         [["a"], ["a", "b", "c"], ["b", "c"]]
-
-   .. attribute:: foreign
-
-      A sorted array of the foreign keys represented by three-item
-      arrays: the first item of such array is itself an array of
-      referencing attribute names, the second is a name of a
-      referenced relation variable, the third is an array of
-      referenced attribute names. ::
-
-         >>> db.create('X', {a: number, b: number})
-         >>> db.create('Y',
-                       {c: number, d: number},
-                       {foreign: [[['c', 'd'], 'X', ['a', 'b']]]})
-         >>> repr(rv.Y.foreign)
-         [[["c", "d"], "X", ["a", "b"]]]
-
-   .. attribute:: default_
-
-      An object mapping the names of the attributes with default
-      values to these values. ::
-
-         >>> db.create('X', {n: number.default_(42), s: string.default_('')})
-         >>> repr(rv.X.default_)
-         {n: 42, s: ""}
-      
-   .. method:: drop()
-
-      Drop the relation variable; fail if there are references to it.
-
-   .. method:: insert(values)
-
-      Insert a tuple into the relation variable; return the inserted
-      tuple. *values* must be an object mapping attribute names to
-      attribute values. ::
-
-         >>> db.create('X', {s: number.serial(), d: number.default_(42)})
-         >>> repr(rv.X.insert({s: 0, d: 0}))
-         {d: 0, s: 0}
-         >>> repr(rv.X.insert({d: 1}))
-         {d: 1, s: 0}
-         >>> repr(rv.X.insert({}))
-         {d: 42, s: 1}
-
-   .. method:: where(expr[, params...])
-               where(values)
-
-      Return a :class:`Selection` of tuples of the relation variable
-      matching *expr* with *params*. In the second form *values* must
-      be an object mapping attribute names to required attribute
-      values, an expression is generated from this object.
-
-      .. note::
-
-         ``where()`` call does not perform any database interaction.
-
-      ::
-
-         >>> db.create('X', {n: number, b: bool, s: string})
-         >>> rv.X.insert({n: 0, b: false, s: 'zero'})
-         >>> rv.X.insert({n: 42, b: true, s: 'the answer'})
-         >>> repr(rv.X.where('n == $1 && b == $2', 42, true).get({attr: 's'}))
-         ["the answer"]
-         >>> repr(rv.X.where({n: 42, b: true}).get({attr: 's'})) // the same
-         ["the answer"]
-         
-   .. method:: all()
-
-      Return a :class:`Selection` of all tuples of the relation
-      variable. It's equivalent to ``where(true)``.
-
-.. class:: Selection
-
-   A ``Selection`` object represents a subset of relation variable
-   tuples and provides methods for managing them.
-
-   .. attribute:: name
-
-      The name of the relation variable
-
-   .. attribute:: expr
-
-      The expression the selection tuples match to.
-
-   .. attribute:: params
-
-      The parameters of the expression.
-
-   .. attribute:: rv
-
-      The :class:`RelVar` object of the selection.
-
-   .. method:: get(options={} [, byParams...])
-
-      Return an array of the tuples represented by objects mapping
-      attribute names to attribute values. The *options* object can
-      have the properties:
-
-      only
-         a list of attribute names to fetch;
-
-      attr
-         a name of an attribute to fetch, if *attr* option is used,
-         ``get()`` returns an array of attribute values;
-         
-      by
-         an expression or a list of expressions to order resulting
-         tuples;
-    
-      start
-         a number of tuples to skip before starting to return tuples; and
-    
-      length
-         a maximum number of tuples to return.
-         
-      *byParams* is a list of *by* expression parameters. See the
-      corresponding :func:`db.query` options for details. Unless *by*
-      option is specified the order of the returned tuples is
-      undefined. ::
-
-         >>> db.create('X', {n: number, b: bool, s: string})
-         >>> rv.X.insert({n: 0, b: false, s: 'zero'})
-         >>> rv.X.insert({n: 1, b: false, s: 'one'})
-         >>> rv.X.insert({n: 42, b: true, s: 'the answer'})
-         >>> repr(rv.X.all().get({by: 'n', start: 1, length: 1}))
-         [{b: false, n: 1, s: "one"}]
-         >>> repr(rv.X.all().get({attr: 'n', by: 'n * $'}, -1))
-         [42, 1, 0]
-         >>> repr(rv.X.where('!b').get({only: ['n', 's']})) // undefined order
-         [{n: 0, s: "zero"}, {n: 1, s: "one"}]
-         >>> repr(rv.X.all().get({attr: 'b', by: 'b'})) // tuples are unique
-         [false, true]
-         
-   .. method:: count()
-
-      Return a number of the selection tuples not loading them from the
-      database. Useful for big selections. ::
-
-         >>> db.create('X', {n: number})
-         >>> for (var i = 0; i < 1000; ++i) rv.X.insert({n: i})
-         >>> rv.X.where('n % $ == 0', 2).count()
-         500
-
-   .. method:: del()
-
-      Delete the selection tuples from the relation variable; return a
-      number of the deleted tuples. ::
-
-         >>> db.create('X', {n: number})
-         >>> for (var i = 0; i < 10; ++i) rv.X.insert({n: i})
-         >>> rv.X.where('n % $ == 0', 2).del()
-         5
-         >>> repr(rv.X.all().get({attr: 'n', by: 'n'}))
-         [1, 3, 5, 7, 9]
-
-   .. method:: update(exprs[, exprParams...])
-
-      Update the selection tuples calculating new attribute values
-      using *exprs*; return a number of the updated tuples. *exprs* is
-      an object mapping attribute names to expressions; *exprParams*
-      are parameters of these expressions. ::
-
-         >>> db.create('X', {n: number, s: string})
-         >>> rv.X.insert({n: 0, s: 'zero'})
-         >>> rv.X.insert({n: 1, s: 'one'})
-         >>> rv.X.insert({n: 42, s: 'the answer'})
-         >>> rv.X.where('n != 0').update({s: 's + $'}, '!')
-         2
-         >>> repr(rv.X.all().get({attr: 's', by: 's'}))
-         ["one!", "the answer!", "zero"]
-
-   .. method:: set(values)
-
-      Set the selection tuple attributes to *values*; return a number
-      of the changed tuples. *values* is an object mapping attribute
-      names to attribute values. ::
-
-         >>> db.create('X', {n: number, s: string})
-         >>> rv.X.insert({n: 0, s: 'zero'})
-         >>> rv.X.insert({n: 1, s: 'one'})
-         >>> rv.X.insert({n: 42, s: 'the answer'})
-         >>> rv.X.where('n != 0').set({s: 's + $'})
-         2
-         >>> repr(rv.X.all().get({attr: 's', by: 's'}))
-         ["s + $", "zero"]
-
-         
+   
 .. _query_language:
 
 Query Language
@@ -653,21 +440,21 @@ performed on it using the :func:`db.query` function. ::
 
    >>> db.create('Post',
                  {
-                   id: number.serial().unique(),
-                   author: string,
-                   text: string
+                   id: db.number.serial().unique(),
+                   author: db.string,
+                   text: db.string
                  })
    >>> db.create('Comment',
                  {
-                   id: number.serial().unique(),
-                   post: number.integer().foreign('Post', 'id'),
-                   author: string,
-                   text: string,
+                   id: db.number.serial().unique(),
+                   post: db.number.integer().foreign('Post', 'id'),
+                   author: db.string,
+                   text: db.string,
                  })
-   >>> rv.Post.insert({author: 'Bob', text: 'Hello, world!'})
-   >>> rv.Comment.insert({post: 0, author: 'Ann', text: 'Hi, Bob!'})
-   >>> rv.Comment.insert({post: 0, author: 'Bob', text: 'Hi, Ann!'})
-   >>> rv.Post.insert({author: 'Ann', text: 'Hey, Bob is onboard'})
+   >>> db.insert('Post', {author: 'Bob', text: 'Hello, world!'})
+   >>> db.insert('Comment', {post: 0, author: 'Ann', text: 'Hi, Bob!'})
+   >>> db.insert('Comment', {post: 0, author: 'Bob', text: 'Hi, Ann!'})
+   >>> db.insert('Post', {author: 'Ann', text: 'Hey, Bob is onboard'})
 
    
 Range Variables

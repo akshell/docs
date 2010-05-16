@@ -40,7 +40,7 @@ For example, to provide your application with a robust logging system,
 you could use the log_ application. Only one line is necessary for
 it::
 
-   use('log', '0.1');
+   var log = require('log', '0.2');
 
 Your logs will be available at http://log.akshell.com/.
 
@@ -89,7 +89,7 @@ Skeleton Code
 Akshell generates a skeleton code for every new application. Its
 layout is the recommended one:
 
-``__main__.js``
+``main.js``
    The main code file of the application.
 
 ``README``
@@ -140,30 +140,30 @@ and ``Comment``. You may imagine them as two tables: each row of
 a single comment.
 
 I put the function creating ``Post`` and ``Comment`` into the
-``__main__.js`` file::
+``main.js`` file::
 
-   function init() {
-     db.create('Post',
-               {
-                 id: 'unique serial',
-                 author: 'string',
-                 date: 'date',
-                 title: 'string',
-                 text: 'string'
-               });
-     db.create('Comment',
-               {
-                 id: 'unique serial',
-                 post: 'integer -> Post.id',
-                 author: 'string',
-                 date: 'date',
-                 text: 'string'
-               });
+   init = function () {
+     rv.Post.create(
+       {
+         id: 'unique serial',
+         author: 'string',
+         date: 'date',
+         title: 'string',
+         text: 'string'
+       });
+     rv.Comment.create(
+       {
+         id: 'unique serial',
+         post: 'integer -> Post.id',
+         author: 'string',
+         date: 'date',
+         text: 'string'
+       });
    }
-   
-The :func:`db.create` function accepts a name of a relation variable
-to be created and an object mapping its attributes (columns) to their
-types.
+
+The :data:`rv` object maps relation variable names to their
+:class:`RelVar` representations. The :meth:`~RelVar.create` method
+accepts an object mapping attribute (column) names to their types.
 
 The ``id`` attributes are :ref:`unique <unique>` and :ref:`serial
 <serial>`, i.e., their values are unique and come from a sequence 0,
@@ -181,12 +181,11 @@ Libraries
 ---------
 
 Akshell is not a web framework; so it offers rather low-level means of
-web development. However, applications can :func:`use <use>` other
-applications as libraries. This feature really frees your creativity:
-use libraries, create new ones, set up your own environment --
-everything is open!
+web development. However, applications can use other applications as
+libraries. This feature really frees your creativity: use libraries,
+create new ones, set up your own environment -- everything is open!
 
-The :doc:`basic Akshell library <ref/ak/index>`, called ak_, provides
+The :doc:`basic Akshell library <ref/ak/index>`, named ak_, provides
 general JavaScript goodies and a :term:`Model-View-Controller <MVC>`
 framework facilitating web development. This library is enabled in the
 application skeleton; the code of the rest of this document actively
@@ -213,7 +212,7 @@ framework is a two-step process:
 A handler is usually a subclass of the :class:`Handler` class. Yes,
 subclass -- the ``ak`` library provides a lightweight yet powerful
 implementation of class hierarchies for JavaScript through the
-:meth:`~Function.subclass` method of ``Function``.
+:meth:`~Function.subclass` ``Function`` method.
 
 Here is the handler of the ``simple-blog`` index page::
 
@@ -237,9 +236,8 @@ HTML code and returns a response containing this code. The object
 passed to ``render()`` is used as a :dfn:`context` for the template
 rendering (see below).
 
-The ``Post`` relation variable is accessed through the :data:`rv`
-object. The ``authors`` context property is set to the sorted array of
-all post authors.
+The ``authors`` context property is set to the sorted array of all
+post authors.
 
 Akshell provides applications with a centralized authentication
 system. A user has to create only one account to use all Akshell
@@ -281,10 +279,9 @@ URLs to handlers. A mapping is a tree-like structure where each node
 is a pattern of a path part; this approach encourages clean and robust
 design. See :ref:`url_mapping` for details.
 
-
 ``simple-blog`` has this URL mapping::
 
-	var __root__ = new URLMap(
+	exports.root = new URLMap(
 	  IndexHandler, 'index',
 	  ['', BlogHandler, 'blog',
 	   [/(\d+)\//, PostHandler, 'post']]);
@@ -560,18 +557,8 @@ filter presents a date as a time passed since that date. Filters can
 be chained; they can take arguments.
 
 
-Entry Point
------------
-
-The ``simple-blog`` application was created via the means of the MVC
-framework. This line tells Akshell to use the framework for request
-handling::
-
-   var __main__ = defaultServe;
-
-It's the last line of the application skeleton. The ``__main__``
-function is the entry point of request handling; so this assignment
-delegates request handling to the framework.
+Deploying
+---------
 
 After writing the code, I tested it in the ``debug`` spot, released
 this spot, and called the ``init()`` function in the

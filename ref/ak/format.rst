@@ -9,7 +9,7 @@ interface is inspired by the .NET Framework; the implementation is
 based on the `String.format for JavaScript`__ by Daniel Mester
 Pirttijärvi.
 
-.. _format.js: http://www.akshell.com/apps/ak/code/0.1/format.js
+.. _format.js: http://www.akshell.com/apps/ak/code/0.2/format.js
 __ http://www.masterdata.dyndns.org/r/string_format_for_javascript/
 
 

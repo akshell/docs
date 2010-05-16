@@ -3,14 +3,14 @@
 HTTP Goodies
 ============
 
-In the `http.js`_ file HTTP error classes, utilities, and status codes
-are defined.
+In the `http.js`_ file HTTP exception classes and status codes are
+defined.
 
-.. _http.js: http://www.akshell.com/apps/ak/code/0.1/http.js
+.. _http.js: http://www.akshell.com/apps/ak/code/0.2/http.js
 
 
-Error Classes
-=============
+Exceptions
+==========
 
 .. exception:: Failure(message='Bad request', status=http.BAD_REQUEST)
 
@@ -30,15 +30,6 @@ Error Classes
 
    A request is forbidden. Reported to a user by a 403 HTTP
    response. Subclass of :exc:`Failure`.
-
-   
-redirect()
-==========
-
-.. function:: redirect(location)
-
-   Return a :class:`Response` object with the :data:`http.FOUND`
-   status code redirecting to the *location* URL.
 
 
 .. _status_codes:

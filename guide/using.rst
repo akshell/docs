@@ -144,36 +144,43 @@ Akshell Core
 ------------
 
 The Akshell core executes applications via the Google V8 JavaScript
-engine and provides them with a set of :doc:`core APIs
-</ref/core/index>`. The engine compiles JavaScript code into the
-native code; so the execution is utterly fast.
+engine. The engine compiles JavaScript code into the native code; so
+the execution is utterly fast. The core_ library exposes the
+:doc:`core APIs </ref/core/index>` to applications.
 
-To handle a request the Akshell core evaluates the ``__main__.js``
-file of your application and runs the ``__main__()`` function passing
-a request object to it. Note that the application state is not
-guaranteed to persist across requests, i.e., variables set during a
-request handling may not be available after the handling is completed.
-The application should maintain persistence through the :doc:`database
-</ref/core/db>` and the :doc:`file storage </ref/core/fs>`.
+.. _core: http://www.akshell.com/apps/core/
+
+To handle a request the Akshell core evaluates the ``main.js`` file of
+your application and runs the ``app()`` function exported by it,
+passing a request object to the function. This architecture conforms
+to the :term:`JSGI` specification. Note that the application state is
+not guaranteed to persist across requests, i.e., variables set during
+a request handling may not be available after the handling is
+completed.  The application should maintain persistence through the
+:doc:`database </ref/core/db>` and the :doc:`file storage
+</ref/core/fs>`.
 
 
 Basic Library
 -------------
 
 The core APIs are rather low-level, just like system calls in common
-operation systems. Here the zest of Akshell emerge: you can
-:func:`include <include>` code of other applications into your
-application, :func:`use <use>` them as libraries. `ak`_ is the basic
-Akshell library; it provides general JavaScript goodies and a
-:term:`Model-View-Controller <MVC>` framework. You should always use
-it unless you really understand what you are doing.
+operation systems; a web framework is needed for comfortable
+development. The ak_ library provides general JavaScript goodies and a
+:term:`Model-View-Controller <MVC>` framework. For convenience, the
+library exports the core APIs along with its own. Because these
+exports will be used quite often in your program, it's recommended to
+put them to the global object (it's already done in the application
+skeleton)::
+
+   require('ak', '0.2').setup()
 
 .. _ak: http://www.akshell.com/apps/ak/
 
-The core Akshell APIs and the ``ak`` library APIs are represented as
-properties of the ``ak`` :class:`Module`. Because they will be used
-quite often in your program, it's recommended to export them to the
-global object (it's already done in the application skeleton).
+During a request handling the ak_ library converts a :term:`JSGI`
+request object into a more convenient :class:`Request` object and
+passes it to the ``main()`` function exported by ``main.js``, which
+defaults to :func:`defaultServe`.
 
 
 Interaction

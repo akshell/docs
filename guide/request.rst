@@ -13,21 +13,18 @@ request handling.
 Serve Function
 ==============
 
-Each request handling starts from the ``__main__()`` function, which
-should be defined in the ``__main__.js`` file of your
-application. This function is an analog of the ``main()`` function in
-C programs. ``__main__()`` receives a :class:`Request` object as an
-argument; it should handle the request and return a :class:`Response`
-object.
+Each request handling starts from the ``main()`` function exported by
+the ``main.js`` file of your application. ``main()`` receives a
+:class:`Request` object as an argument; it should handle the request
+and return a :class:`Response` object.
 
 Here is the full code of the hello-world_ application::
 
-   ak.use('ak');
-   this.update(ak);
-
-   function __main__(request) {
+   require('ak', '0.2').setup();
+   
+   exports.main = function (request) {
      return new Response('Hello, world!');
-   }
+   };
 
 It returns the same text for all requests. `Test it`_!
 
@@ -39,14 +36,11 @@ MVC Framework
 =============
 
 You can handle requests via a big ``if`` and ``switch`` mess in the
-``__main__()`` function, but this approach is rather fragile for
+``main()`` function, but this approach is rather fragile for
 nontrivial applications. The Akshell Model-View-Controller framework
 provides a simple and robust way of request handling. The
-:func:`defaultServe` function is a framework entry point; set
-``__main__`` to it to enable the framework (this is already done in
-the application skeleton)::
-
-   var __main__ = defaultServe;
+:func:`defaultServe` function is a framework entry point; the
+``main()`` function defaults to it.
 
 The MVC framework splits an application into three parts:
 
@@ -121,12 +115,12 @@ controller responsible for the requested resource by the value of the
 task: determine the path of the given resource by its name and
 arguments.
 
-An URL mapping of an application is defined by the value of the
-``__root__`` variable. It should be an instance of the :class:`URLMap`
-class. The mapping is a tree-like structure where each node is either
-a constant part of a path (a ``string`` value) or a variable part of
-it (a ``RegExp`` object or an empty string ``''`` for the default
-pattern ``([^/]+)/``).
+An URL mapping of an application is defined by the ``root`` object
+exported by ``main.js``. It should be an instance of the
+:class:`URLMap` class. The mapping is a tree-like structure where each
+node is either a constant part of a path (a ``string`` value) or a
+variable part of it (a ``RegExp`` object or an empty string ``''`` for
+the default pattern ``([^/]+)/``).
 
 
 Dispatching
@@ -139,7 +133,7 @@ the tree nodes one after another until the path matches one of them.
 
 Example::
 
-   var __root__ = new URLMap(
+   exports.root = new URLMap(
      IndexHandler, 'index'
      ['users/',
       ['',
@@ -297,7 +291,7 @@ header to all responses::
      };
    }
 
-To enable it in your application decorate the ``defaultServe()``
+To enable it in your application decorate the :func:`defaultServe`
 function::
 
-   var __main__ = defaultServe.decorated(addingUselessHeader);
+   exports.main = defaultServe.decorated(addingUselessHeader);
