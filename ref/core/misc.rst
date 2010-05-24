@@ -222,6 +222,14 @@ Binary
       search at *start*; return ``-1`` if *value* is not
       found. *value* can be ``Binary`` or ``string``.
 
+   .. method:: md5()
+
+      Calculate the MD5 hash and return it as a ``string`` hex dump.
+      
+   .. method:: sha1()
+
+      Calculate the SHA1 hash and return it as a ``string`` hex dump.
+
 .. exception:: ConversionError
 
    Failed to encode, decode, or transcode data.
