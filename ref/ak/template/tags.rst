@@ -35,17 +35,17 @@ For example::
 
    {% code '0.2/main.js' %}
    {% code '0.2/main.js' no-timestamp %}
-   {% code path %}
-   {% code path timestamp %}
+   {% code 'example' path %}
+   {% code 'example' path timestamp %}
 
 These tags produced the following output in the release version of the
 ``ak`` application (the ``path`` variable was set to
-``'0.2/templates/hello.html'``)::
+``'templates/base.html'``)::
 
    http://static.akshell.com/code/release/ak/0.2/main.js?1266400939
    http://static.akshell.com/code/release/ak/0.2/main.js
-   http://static.akshell.com/code/release/ak/0.2/templates/hello.html
-   http://static.akshell.com/code/release/ak/0.2/templates/hello.html?1266305202
+   http://static.akshell.com/code/release/example/templates/base.html
+   http://static.akshell.com/code/release/example/templates/base.html?1266305202
 
 
 .. tag:: comment
@@ -342,8 +342,8 @@ For example::
 
    {% media 'test.css' %}
    {% media 'test.css' no-timestamp %}
-   {% media path %}
-   {% media path timestamp %}
+   {% media 'example' path %}
+   {% media 'example' path timestamp %}
 
 These tags produced the following output in the release version of the
 ``ak`` application (the ``path`` variable was set to
@@ -351,8 +351,8 @@ These tags produced the following output in the release version of the
 
    http://static.akshell.com/media/release/ak/test.css?1266512248
    http://static.akshell.com/media/release/ak/test.css
-   http://static.akshell.com/media/release/ak/image.png
-   http://static.akshell.com/media/release/ak/image.png?1266512254
+   http://static.akshell.com/media/release/example/image.png
+   http://static.akshell.com/media/release/example/image.png?1266512254
 
 
 .. tag:: now
