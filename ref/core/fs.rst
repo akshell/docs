@@ -38,11 +38,11 @@ http://static.akshell.com/media/spots/example/Anton-Korenyushkin/debug/dir/subdi
 Functions
 =========
 
-.. function:: open(path)
+.. function:: open([appName,] path)
 
-   Open file and return a :class:`fs.File` object.
+   Open a file and return a :class:`fs.File` object.
 
-.. function:: read(path)
+.. function:: read([appName,] path)
 
    Return file contents represented by a :class:`Binary` object.
 
@@ -51,21 +51,25 @@ Functions
    Coerce *data* to :class:`Binary` and write it into a file; if the
    file already exists, overwrite it.
 
-.. function:: list(path)
+.. function:: list([appName,] path)
 
    Return an array of names of directory subentries in arbitrary order.
 
-.. function:: exists(path)
+.. function:: exists([appName,] path)
 
    Test whether an entry exists.
 
-.. function:: isDir(path)
+.. function:: isDir([appName,] path)
 
    Test whether an entry exists and is a directory.
 
-.. function:: isFile(path)
+.. function:: isFile([appName,] path)
 
    Test whether an entry exists and is a file.
+
+.. function:: getModDate([appName,] path)
+
+   Return a modification ``Date`` of an entry.
 
 .. function:: createDir(path)
 

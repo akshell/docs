@@ -90,6 +90,10 @@ Stuff
    defaults to the name of the executing application. *path* separator
    is the slash (``'/'``).
    
+.. function:: getCodeModDate([appName,] path)
+
+   Return a modification ``Date`` of a code entry. 
+   
 .. function:: set(object, name, attributes, value)
 
    Set the property *name* of *object* to *value*; if the property was
