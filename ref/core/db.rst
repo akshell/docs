@@ -401,6 +401,10 @@ Exceptions
 .. exception:: QueryError
 
    Incorrect database query.
+
+.. exception:: AttrExistsError
+
+   Attribute already exists.
    
 .. exception:: NoSuchAttrError
 
