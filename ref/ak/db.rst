@@ -207,6 +207,32 @@ RelVar
          >>> repr(rv.X.getDefault())
          {n: 42, s: ""}
 
+   .. method:: addAttrs(attrs)
+
+      Add new attributes to the relation variable. Each attribute is
+      described by a ``string`` of the form ``'type value'`` where
+      ``type`` is ``number``, ``string``, ``bool``, ``date``, or
+      ``integer`` and ``value`` is used to extend existing tuples. ::
+
+         >>> rv.X.create({n: 'number'})
+         >>> rv.X.insert({n: 0})
+         >>> rv.X.insert({n: 1})
+         >>> rv.X.addAttrs({i: 'integer 42', s: 'string "the answer"'})
+         >>> repr(rv.X.all().get())
+         [{n: 0, i: 42, s: "the answer"}, {n: 1, i: 42, s: "the answer"}]
+
+   .. method:: dropAttrs(names...)
+
+      Drop some attributes of the relation variable. ::
+
+         >>> rv.X.create({n: 'number', s: 'string', b: 'bool'})
+         >>> rv.X.dropAttrs('s', 'b')
+         >>> repr(rv.X.getHeader())
+         {n: "number"}
+         >>> rv.X.dropAttrs('n')
+         >>> repr(rv.X.getHeader())
+         {}
+
    .. exception:: DoesNotExist
 
       Tuple was not found. The :meth:`~Selection.getOne`
