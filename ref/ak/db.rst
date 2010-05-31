@@ -62,6 +62,8 @@ RelVar
        
       If the ``integer`` or ``serial`` constraint is specified, the
       type name can be omitted -- it defaults to ``number``.
+
+.. _constraint_description:
       
       A constraint description is a ``string`` of one of the forms:
 
@@ -233,6 +235,48 @@ RelVar
          >>> repr(rv.X.getHeader())
          {}
 
+   .. method:: addDefault(values)
+
+      Add default values to some attributes. Overwrite existing
+      defaults. ::
+
+         >>> rv.X.create({n: 'number default 0', s: 'string'})
+         >>> rv.X.addDefault({n: 42, s: 'the answer'})
+         >>> repr(rv.X.insert({}))
+         {n: 42, s: "the answer"}
+
+   .. method:: dropDefault(names...)
+
+      Drop default values of some attributes. ::
+
+         >>> rv.X.create({n: 'number default 0', s: 'string default ""'})
+         >>> rv.X.dropDefault('n', 's')
+         >>> repr(rv.X.getDefault())
+         {}
+         
+   .. method:: addConstrs(constrs...)
+
+      Add constraints to the relation variable. *constrs* are
+      ``string`` :ref:`constraint descriptions
+      <constraint_description>`. ::
+
+         >>> rv.X.create({n: 'unique number', s: 'string', b: 'bool'})
+         >>> rv.X.addConstrs('unique [s, b]')
+         >>> repr(rv.X.getUnique())
+         [["n"], ["s", "b"]]
+
+   .. method:: dropAllConstrs()
+
+      Drop all constraints and add a unique constraint on all
+      attributes. ::
+
+         >>> rv.X.create({n: 'number unique check (n != 42)', s: 'string'})
+         >>> rv.X.dropAllConstrs()
+         >>> repr(rv.X.getUnique())
+         [["n", "s"]]
+         >>> repr(rv.X.insert({n: 42, s: ''}))
+         {n: 42, s: ""}
+         
    .. exception:: DoesNotExist
 
       Tuple was not found. The :meth:`~Selection.getOne`
