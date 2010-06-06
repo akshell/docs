@@ -151,8 +151,8 @@ attributes will naturally have default values::
    >>> rv.Profile.create(
          {
            name: 'unique string',
-           description: 'string default ""',
-           banned: 'bool default false'
+           description: ['string', ''],
+           banned: ['bool', false]
          })
    >>> repr(rv.Profile.insert({name: 'Bob'}))
    {banned: false, description: "", name: "Bob"}

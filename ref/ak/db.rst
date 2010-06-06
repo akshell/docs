@@ -37,12 +37,14 @@ RelVar
    .. method:: create(header[, constrs...])
 
       Create this relation variable. The *header* object should map
-      attribute names to ``string`` attribute descriptions, *constrs*
-      should be ``string`` constraint descriptions.
+      attribute names to attribute descriptions, *constrs* should be
+      ``string`` constraint descriptions.
 
-      An attribute description is a ``string`` consisted of a type
-      name and (optionally) type constraints separated by spaces (the
-      order is unimportant).
+      An attribute type description is a ``string`` consisted of a
+      type name and (optionally) type constraints separated by spaces
+      (the order is unimportant). An attribute with a default value
+      should be described by a ``[typeDescription, defaultValue]``
+      pair, e.g., ``['number', 42]``.
        
       The type names are:
        
@@ -57,9 +59,8 @@ RelVar
       * ``serial``;
       * ``unique``;
       * :samp:`-> {referencedRelVarName}.{referencedAttrName}`;
-      * :samp:`check ({expr})`;
-      * :samp:`default {value}`.
-       
+      * :samp:`check ({expr})`.
+      
       If the ``integer`` or ``serial`` constraint is specified, the
       type name can be omitted -- it defaults to ``number``.
 
@@ -115,7 +116,7 @@ RelVar
       tuple. *values* must be an object mapping attribute names to
       attribute values. ::
 
-         >>> rv.X.create({s: 'serial', d: 'number default 42'})
+         >>> rv.X.create({s: 'serial', d: ['number', 42]})
          >>> repr(rv.X.insert({s: 0, d: 0}))
          {d: 0, s: 0}
          >>> repr(rv.X.insert({d: 1}))
@@ -205,21 +206,22 @@ RelVar
       Return an object mapping the names of the attributes with
       default values to these values. ::
 
-         >>> rv.X.create({n: 'number default 42', s: 'string default ""'})
+         >>> rv.X.create({n: ['number', 42], s: ['string', '']})
          >>> repr(rv.X.getDefault())
          {n: 42, s: ""}
 
    .. method:: addAttrs(attrs)
 
       Add new attributes to the relation variable. Each attribute is
-      described by a ``string`` of the form ``'type value'`` where
-      ``type`` is ``number``, ``string``, ``bool``, ``date``, or
-      ``integer`` and ``value`` is used to extend existing tuples. ::
+      described by a ``[type, value]`` pair where ``type`` is
+      ``'number'``, ``'string'``, ``'bool'``, ``'date'``, or
+      ``'integer'`` and ``value`` is used to extend existing
+      tuples. ::
 
          >>> rv.X.create({n: 'number'})
          >>> rv.X.insert({n: 0})
          >>> rv.X.insert({n: 1})
-         >>> rv.X.addAttrs({i: 'integer 42', s: 'string "the answer"'})
+         >>> rv.X.addAttrs({i: ['integer', 42], s: ['string', 'the answer']})
          >>> repr(rv.X.all().get())
          [{n: 0, i: 42, s: "the answer"}, {n: 1, i: 42, s: "the answer"}]
 
@@ -240,7 +242,7 @@ RelVar
       Add default values to some attributes. Overwrite existing
       defaults. ::
 
-         >>> rv.X.create({n: 'number default 0', s: 'string'})
+         >>> rv.X.create({n: ['number', 0], s: 'string'})
          >>> rv.X.addDefault({n: 42, s: 'the answer'})
          >>> repr(rv.X.insert({}))
          {n: 42, s: "the answer"}
@@ -249,7 +251,7 @@ RelVar
 
       Drop default values of some attributes. ::
 
-         >>> rv.X.create({n: 'number default 0', s: 'string default ""'})
+         >>> rv.X.create({n: ['number', 0], s: ['string', '']})
          >>> rv.X.dropDefault('n', 's')
          >>> repr(rv.X.getDefault())
          {}
