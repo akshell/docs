@@ -51,7 +51,8 @@ RelVar
       * ``number``;
       * ``string``;
       * ``bool``;
-      * ``date``.
+      * ``date``;
+      * ``json``.
        
       The type constraints are:
        
@@ -214,8 +215,8 @@ RelVar
 
       Add new attributes to the relation variable. Each attribute is
       described by a ``[type, value]`` pair where ``type`` is
-      ``'number'``, ``'string'``, ``'bool'``, ``'date'``, or
-      ``'integer'`` and ``value`` is used to extend existing
+      ``'number'``, ``'string'``, ``'bool'``, ``'date'``, ``'json'``,
+      or ``'integer'`` and ``value`` is used to extend existing
       tuples. ::
 
          >>> rv.X.create({n: 'number'})

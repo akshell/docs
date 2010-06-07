@@ -183,6 +183,11 @@ the :class:`db.Type` class.
 
    The date type storing JavaScript ``Date`` objects.
 
+.. data:: json
+
+   The data type storing arbitrary JavaScript objects by serializing
+   them into JSON.
+
 .. class:: Type
 
    The class of type objects. Provides methods returning modified
