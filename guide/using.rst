@@ -28,7 +28,7 @@ ecosystem where every member has an access to the information
 collected by others.
 
 It should change the way you think about web application architecture:
-instead of writing a big strong coupled peace of code handling all
+instead of writing a big strong coupled piece of code handling all
 tasks, you can create a number of applications, each one performing
 one small task. The applications will interact with each other and
 with third-party applications to perform larger tasks. This approach
