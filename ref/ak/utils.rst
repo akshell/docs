@@ -69,7 +69,7 @@ MemTextStream
 
 .. class:: MemTextStream
 
-   A console emulator. Targeted at debugging. 
+   A console emulator. Targeted at debugging.
 
    .. method:: write(value)
 
@@ -99,7 +99,7 @@ MemTextStream
 .. data:: out
 
    The standard debug output stream.
-   
+
 .. function:: dump(values...)
 
    Dump representations of *values* to the stream :data:`out`
@@ -121,7 +121,7 @@ Dict
    .. method:: clear()
 
       Remove all items from the dictionary.
-   
+
    .. method:: set(key, value)
 
       Map *key* to *value*.
@@ -163,20 +163,20 @@ Dict
            var f = function (key, value) { return key.x + ':' + value; };
            assertEqual(d.map(f).sort(), ['0:zero', '1:one']);
          })()
-         
+
    .. method:: items()
 
       Return ``[key, value]`` pairs of the dictionary in arbitrary
       order.
-   
+
    .. method:: keys()
-   
+
       Return the dictionary keys in arbitrary order.
-      
+
    .. method:: values()
-   
+
       Return the dictionary values in arbitrary order.
-   
+
    .. method:: __eq__(other)
 
       Test if the *other* dictionary equals ``this``; called by
@@ -195,7 +195,7 @@ Dict
               })()
          {42: "number", "42": "string"}
 
-         
+
 Miscellaneous Utilities
 =======================
 
@@ -222,7 +222,7 @@ Miscellaneous Utilities
 .. function:: escapeHTML(string)
 
    Escape *string's* HTML. Specifically, make these replacements:
-   
+
    * ``<`` is converted to ``&lt;``
    * ``>`` is converted to ``&gt;``
    * ``'`` (single quote) is converted to ``&#39;``

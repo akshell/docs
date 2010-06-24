@@ -46,10 +46,10 @@ Design
 
    -- Antoine de Saint-Exupéry
 
-   
+
 JavaScript
 ----------
-   
+
 JavaScript is the language of Akshell. Modern web applications usually
 have a rich AJAX interface created using one of the popular
 client-side JavaScript libraries; in Akshell you employ it for the
@@ -80,7 +80,7 @@ By default the maximum number of administrated applications per user
 is 10; this limit is set to prevent name squatting. If you're
 productive and need more, just write a letter to support@akshell.com.
 
- 
+
 Authentication
 --------------
 
@@ -229,7 +229,7 @@ documentation)::
          assertSame(x, 42);
        })()
 
-       
+
 Administer
 ----------
 
@@ -276,7 +276,7 @@ Type::
 
    sudo easy_install akshell
 
-   
+
 Windows
 ~~~~~~~
 
@@ -330,6 +330,6 @@ injury)::
          '(akshell
            "^    at \\(?:[^\n]*(\\)?\\([^:\n]*\\):\\([0-9]+\\))?" 1 2 3 nil 0))
         (add-to-list 'compilation-error-regexp-alist 'akshell t)))
-   
+
 Then you can use ``M-x compile`` to launch the tool and enjoy nice
 error backtraces.

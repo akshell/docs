@@ -107,7 +107,7 @@ URLMap
           ['posts/', require('post').root]
          ]
         ]);
-   
+
 
 Functions
 =========
@@ -128,7 +128,7 @@ Functions
       >>> resolve('/invalid/path/')
       ResolveError: ...
       >>> resolve('relative/path/')
-      ValueError: resolve() requires absolute path 
+      ValueError: resolve() requires absolute path
 
 .. function:: reverse(name, args...)
 
@@ -159,7 +159,7 @@ Functions
       http://www.akshell.com/login/?domain=example&path=%2F
       >>> reverse('session', '/some/path/')
       http://www.akshell.com/session/?domain=example&path=%2Fsome%2Fpath%2F
-      
+
 
 Exceptions
 ==========

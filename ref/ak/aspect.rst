@@ -44,12 +44,12 @@ Aspect
       handles only plain JavaScript functions.
 
    The aspect interface is:
-      
+
    .. method:: apply(self, args)
 
       If the aspect is enabled, run the advised function; otherwise
       run the original function.
-   
+
    .. attribute:: enabled
 
       A boolean aspect switch. Use it to enable/disable the aspect and
@@ -61,8 +61,8 @@ Aspect
       Unweave the aspect. If this is the only aspect of the function,
       restore the function and return it; otherwise remove the aspect
       from the aspect chain and return the top aspect of the chain.
-      
-      
+
+
 AspectArray
 ===========
 
@@ -78,11 +78,11 @@ AspectArray
    .. method:: enable()
 
       Enable all aspects of the array.
-   
+
    .. method:: disable()
-   
+
       Disable all aspects of the array.
-   
+
 
 weave()
 =======
@@ -97,7 +97,7 @@ weave()
    ``string``
       Interpret *names* argument as a name of the only function to be
       weaved; return an :class:`Aspect` object.
-      
+
    ``Array``
       Interpret *names* as a list of names of the functions to be weaved;
       return an :class:`AspectArray` object.
@@ -133,7 +133,7 @@ weave()
         assertSame(fooAspect.unweave(), func);
         assertSame(holder.foo, func);
       })()
-      
+
 
 Aspect Subclasses
 =================
@@ -141,7 +141,7 @@ Aspect Subclasses
 Concrete :class:`Aspect` subclasses implement various kinds of
 aspects. They should be instantiated only via the :func:`weave`
 function.
-   
+
 .. class:: Before
 
    An aspect executing the advice before the function. The advice can

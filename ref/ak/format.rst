@@ -24,7 +24,7 @@ format()
       Substitute substrings of the form
       ``{index[,length][:formatString]}`` by the corresponding
       arguments and return the resulting string. ::
-      
+
          >>> 'Name: {0}\nAge: {1}'.format('John', 42)
          Name: John
          Age: 42
@@ -43,7 +43,7 @@ format()
          >>> '{0:dd MMMM}: {1,6:0.00%}'.format(new Date('03/26/2010'), .012)
          26 March:  1.20%
 
-         
+
 Numbers
 =======
 
@@ -93,15 +93,15 @@ formats.
 Specifier  Type               Note                   Format  Number  Output
 =========  =================  =====================  ======  ======  ======
 0          Zero placeholder   Pads with zeroes       00.000  1.2     01.200
-#          Digit placeholder                         (#).##  1.2345  (1).23   
+#          Digit placeholder                         (#).##  1.2345  (1).23
 .          Decimal point                             0.0     12.34   12.3
 ,          Thousands          Must be between        0,0     12345   12,345
-           Separator          two zeroes                     
-,.         Number scaling     Scales by 1000         0,.     12345   12       
+           Separator          two zeroes
+,.         Number scaling     Scales by 1000         0,.     12345   12
 %          Percent            Multiplies by 100,     0%      .1234   12.34%
-                              adds % sign                    
+                              adds % sign
 ;          Group separator    Positive, negative,    p;n;z   0       z
-                              and zero formats               
+                              and zero formats
 =========  =================  =====================  ======  ======  ======
 
 
@@ -144,7 +144,7 @@ Custom Specifiers
 
 Custom specifiers are intended for defining application-specific
 formats.
-      
+
 +-----------+----------------------------------------------------------+
 | Specifier | Description                                              |
 +===========+==========================================================+

@@ -8,7 +8,7 @@ Glossary
 
    Attribute
       A pair of a name and a type.
-   
+
    Class
       A function intended for creating objects via the ``new`` operator.
 
@@ -44,7 +44,7 @@ Glossary
    Relation
       A data structure which consists of a header and a set of tuples
       sharing the same header.
-   
+
    Relation variable
       A named variable whose value is a relation.
 
@@ -63,12 +63,12 @@ Glossary
 
    Spot
       An independent version of an application owned by a developer.
-      
+
    Subclass
       A class that inherits prototype properties from its
       superclass. If ``Derived`` is a subclass of ``Base``,
       ``Derived.prototype.__proto__ === Base.prototype``.
-      
+
    Surrogate key
       A unique identifier of a tuple. The surrogate key is *not*
       derived from application data. Usually implemented using the
@@ -77,7 +77,7 @@ Glossary
    Transaction
       A unit of work performed against a database. It bundles multiple
       steps into a single, all-or-nothing operation.
-      
+
    Tuple
       A set of uniquely named attributes with their values.
 

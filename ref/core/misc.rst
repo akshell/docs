@@ -39,7 +39,7 @@ __ http://wiki.commonjs.org/wiki/Modules/1.1.1
 .. data:: exports
 
    A module-scope object that the module may add its API to.
-   
+
 .. data:: module
 
    A module-scope object describing the current module. Has the
@@ -67,7 +67,7 @@ __ http://wiki.commonjs.org/wiki/Modules/1.1.1
 
 global
 ======
-      
+
 .. data:: global
 
    The global object reference; an analog of the ``window`` property
@@ -80,7 +80,7 @@ global
 
 Stuff
 =====
-        
+
 .. function:: readCode([appName,] path)
 
    Return contents of a code file as a ``string``. If *appName* is a
@@ -89,11 +89,11 @@ Stuff
    base of the specified application. If *appName* is omitted, it
    defaults to the name of the executing application. *path* separator
    is the slash (``'/'``).
-   
+
 .. function:: getCodeModDate([appName,] path)
 
-   Return a modification ``Date`` of a code entry. 
-   
+   Return a modification ``Date`` of a code entry.
+
 .. function:: set(object, name, attributes, value)
 
    Set the property *name* of *object* to *value*; if the property was
@@ -101,20 +101,20 @@ Stuff
    property attributes available:
 
    .. data:: COMMON
-   
+
       Common: no special treatment.
 
    .. data:: READONLY
-   
+
       Read-only: values of ``READONLY`` properties cannot be changed.
 
    .. data:: HIDDEN
-   
+
       Non-enumerable: ``HIDDEN`` properties do not appear in
       ``for..in`` loops.
 
    .. data:: PERMANENT
-   
+
       Non-deletable: ``PERMANENT`` properties cannot be deleted.
 
    Several attributes can be combined by the "bitwise or" operator
@@ -131,7 +131,7 @@ Stuff
         assert(!delete object.x);
         assertSame(object.x, 42);
       })()
-      
+
 .. function:: hash(value)
 
    Return an identity hash of an object if ``typeof(value)`` is either
@@ -142,7 +142,7 @@ Stuff
 .. function:: construct(constructor, args)
 
    Instantiate *constructor* with *args*; *args* must be a list.
-   
+
 .. class:: Script(source[, resourceName, [lineOffset, [columnOffset]]])
 
    A ``Script`` object represents a compiled JavaScript
@@ -156,7 +156,7 @@ Stuff
 
 Exceptions
 ==========
-        
+
 .. exception:: ValueError
 
    Inappropriate argument value (of correct type).
@@ -172,7 +172,7 @@ Exceptions
 
 Binary
 ======
-      
+
 .. class:: Binary()
 
    A ``Binary`` object represents raw binary data. ``Binary`` is a
@@ -191,7 +191,7 @@ Binary
 
    ``new Binary(binary, toCharset, fromCharset='utf-8')``
       Transcode *binary* from *fromCharset* to *toCharset*.
-   
+
    ``new Binary(binary[, binary1...])``
       Create new ``Binary`` concatenating the given binaries.
 
@@ -200,7 +200,7 @@ Binary
    .. attribute:: length
 
       The length of the byte sequence. Cannot be changed.
-   
+
    .. method:: toString(charset='utf-8')
 
       Convert to ``string`` using the given *charset*.
@@ -219,7 +219,7 @@ Binary
       Return the index of the first occurence of *value*, starting
       search at *start*; return ``-1`` if *value* is not
       found. *value* can be ``Binary`` or ``string``.
-   
+
    .. method:: lastIndexOf(value, start=length)
 
       Return the index of the last occurence of *value*, starting
@@ -229,7 +229,7 @@ Binary
    .. method:: md5()
 
       Calculate the MD5 hash and return it as a ``string`` hex dump.
-      
+
    .. method:: sha1()
 
       Calculate the SHA1 hash and return it as a ``string`` hex dump.
@@ -237,11 +237,11 @@ Binary
 .. exception:: ConversionError
 
    Failed to encode, decode, or transcode data.
-      
+
 
 Proxy
 =====
-      
+
 .. class:: Proxy(handler)
 
    A ``Proxy`` object intercepts property access on it. The *handler*
@@ -272,10 +272,10 @@ Proxy
           }
         })
 
-        
+
 Metadata
 ========
-   
+
 .. function:: getAppDescription(appName)
 
    Return an object describing the given application. The object has

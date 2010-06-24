@@ -35,62 +35,62 @@ Request
    .. attribute:: method
 
       A lowercase string representing the method of the request.
-   
+
    .. attribute:: user
 
       A name of the user who initiated the request; an empty string if the
       user is not logged in.
-      
+
    .. attribute:: session
 
       A string representing the session token; evaluates to ``false``
       if there is no session. A session can be obtained by redirecting
       to :func:`reverse('session') <reverse>` or via the
       :func:`obtainingSession` decorator.
-      
+
    .. attribute:: issuer
 
       A name of the application which initiated the request; an empty
       string if the request was initiated by a client browser.
-      
+
    .. attribute:: path
 
       A string representing the path of the requested resource; always
       starts with the slash.
-      
+
    .. attribute:: fullPath
 
       The path of the requested resource plus an appended query
       string if applicable.
-      
+
    .. attribute:: uri
 
       The full requested URI.
-      
+
    .. attribute:: get
 
       An object mapping GET parameter names to their values.
-   
+
    .. attribute:: post
-   
+
       An object mapping POST parameter names to their values; does
       **not** include file uploads, see :attr:`files`.
-      
+
    .. attribute:: headers
 
       An object mapping the request header names to their values.
-   
+
    .. attribute:: files
 
       An object mapping the uploaded file names to their
       :class:`fs.File` representations.
-   
+
    .. attribute:: data
 
       The raw POST data represented by a :class:`Data` object;
       ``null`` if not present.
 
-      
+
 Response
 ========
 
@@ -104,7 +104,7 @@ Response
    HTTP headers, which default to::
 
       {'Content-Type': 'text/html; charset=utf-8'}
-      
+
    ``main()`` function exported by ``main.js`` should return a
    ``Response`` object.
 

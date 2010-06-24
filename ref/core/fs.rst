@@ -84,7 +84,7 @@ Functions
    Change a path of an entry; fail if *newPath* already exists or its
    parent directory does not exist.
 
-   
+
 File
 ====
 
@@ -97,16 +97,16 @@ File
    .. attribute:: closed
 
       ``true`` if the file is closed; ``false`` otherwise.
-      
+
    .. attribute:: writable
 
       ``true`` if the file is writable; ``false`` otherwise.
-   
+
    .. attribute:: length
 
       The length of the file, in bytes. If the file is writable,
       ``length`` is assignable.
-   
+
    .. attribute:: position
 
       The position within the file at which the next read or write
@@ -118,22 +118,22 @@ File
       Read *max* bytes from the stream, or until the end of the file
       has been reached, and return a :class:`Binary` object. If the
       argument is omitted, read until the end of the file.
-   
+
    .. method:: write(data)
 
       Coerce *data* to :class:`Binary` and write it to the file.
       Return ``this``.
-   
+
    .. method:: flush()
 
       Flush the file to the disc. Return ``this``.
-   
+
    .. method:: close()
 
       Close the file, freeing the resources it is holding. ``close()``
       can be called multiple times; all other operations on a closed
       file result in a :exc:`ValueError` exception.
-   
+
 
 Exceptions
 ==========
@@ -143,7 +143,7 @@ Exceptions
 .. exception:: FSError
 
    A base class of all file storage exceptions.
-   
+
 .. exception:: PathError
 
    Incorrect path.
@@ -159,15 +159,15 @@ Exceptions
 .. exception:: EntryIsDirError
 
    Entry is a directory.
-   
+
 .. exception:: EntryIsNotDirError
 
    Entry is not a directory.
-   
+
 .. exception:: FileIsReadOnly
 
    Attempt to write into a read-only file.
-   
+
 .. exception:: FSQuotaError
 
    File storage quota exceeded.

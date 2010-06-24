@@ -20,12 +20,12 @@ Exceptions
    to a user, it should throw a ``Failure``. The
    :func:`serve.catchingFailure` decorator will catch the error and
    convert it to a :class:`Response` object.
-   
+
 .. exception:: NotFound(message='Not found')
 
    A resource was not found. Reported to a user by a 404 HTTP
    response. Subclass of :exc:`Failure`.
-   
+
 .. exception:: Forbidden(message='Forbidden')
 
    A request is forbidden. Reported to a user by a 403 HTTP
@@ -33,7 +33,7 @@ Exceptions
 
 
 .. _status_codes:
-   
+
 Status Codes
 ============
 

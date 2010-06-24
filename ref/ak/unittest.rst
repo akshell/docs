@@ -35,7 +35,7 @@ test suite
    A :dfn:`test suite` is a collection of test cases, test suites, or
    both. It is used to aggregate tests that should be executed
    together.
-   
+
 test runner
    A :dfn:`test runner` is a function which orchestrates the execution
    of tests and provides the outcome to you. The runner may use
@@ -104,7 +104,7 @@ TestCase
       rather than a test failure. This method will only be called if
       :meth:`setUp()` succeeds, regardless of the outcome of the test
       method. The default implementation does nothing.
-   
+
    .. method:: run(result)
 
       Run the test, collecting the result into the test result object
@@ -133,7 +133,7 @@ TestCase
 
 TestSuite
 =========
-   
+
 .. class:: TestSuite(tests=[])
 
    ``TestSuite`` objects behave much like :class:`TestCase` objects,
@@ -176,7 +176,7 @@ TestSuite
                    'test3(fixture), test1(fixture), test2(fixture)');
       })()
 
-   
+
 TestResult
 ==========
 
@@ -195,14 +195,14 @@ TestResult
       An array containing 2-item arrays of :class:`TestCase` instances
       and exceptions representing a test which threw an unexpected
       exception.
-   
+
    .. attribute:: failures
-   
+
       An array containing 2-item arrays of :class:`TestCase` instances
       and exceptions representing a test where a failure was
       explicitly signaled using the ``assert*()`` functions (an
       :exc:`AssertionError` was thrown).
-      
+
    .. attribute:: testsRun
 
       The total number of tests run so far.
@@ -234,20 +234,20 @@ TestResult
       Called when the test case *test* throws an unexpected
       exception. The default implementation pushes a pair ``[test,
       error]`` to the instance's ``errors`` attribute.
-   
+
    .. method:: addFailure(test, failure)
 
       Called when the test case *test* signals a failure (throws an
       :exc:`AssertionError`). The default implementation pushes a
       pair ``[test, failure]`` to the instance's ``failures``
       attribute.
-   
+
    .. method:: addSuccess(test)
 
       Called when the test case *test* succeeds. The default
       implementation does nothing.
 
-   
+
 Functions
 =========
 
@@ -269,7 +269,7 @@ Functions
 
    ``Array``
       Return a suite of suites loaded from the items of the array.
-      
+
    ``Object``
       Return a suite of suites loaded from the object properties.
 
@@ -344,13 +344,13 @@ Functions
           ...
       =====
       FAIL: testFailure
-      AssertionError: 4 !== 5 
+      AssertionError: 4 !== 5
           ...
       -----
       Ran 3 tests
       FAILED (failures=1, errors=1)
 
-      
+
 TestClient
 ==========
 
@@ -417,23 +417,23 @@ TestClient
       files
          An object mapping the uploaded file names to
          :class:`TempFile` objects or file paths; defaults to ``{}``.
-      
+
    .. method:: get(request)
 
       A shortcut for GET requests.
-   
+
    .. method:: post(request)
-   
+
       A shortcut for POST requests.
-      
+
    .. method:: head(request)
-   
+
       A shortcut for HEAD requests.
-   
+
    .. method:: put(request)
-   
+
       A shortcut for PUT requests.
-   
+
    .. method:: del(request)
 
       A shortcut for DELETE requests.
@@ -447,7 +447,7 @@ TestClient
       }
 
       exports.tests = {};
-      
+
       exports.tests.MyTestCase = TestCase.subclass(
         {
           setUp: function () {

@@ -21,7 +21,7 @@ and return a :class:`Response` object.
 Here is the full code of the hello-world_ application::
 
    require('ak', '0.2').setup();
-   
+
    exports.main = function (request) {
      return new Response('Hello, world!');
    };
@@ -31,7 +31,7 @@ It returns the same text for all requests. `Test it`_!
 .. _hello-world: http://www.akshell.com/apps/hello-world/
 .. _Test it: http://hello-world.akshell.com/
 
-   
+
 MVC Framework
 =============
 
@@ -144,7 +144,7 @@ Example::
        ]
       ]
      ]);
-   
+
 It maps path patterns to controllers:
 
 * ``/`` to ``IndexHandler``;
@@ -172,7 +172,7 @@ The pattern tree is the following:
       "([^/]*)/" -> "posts/" -> "add/";
       "posts/" -> "(\\d+)/";
    }
-   
+
 The controller found by the URL dispatching is responsible for the
 rest of the request handling. If the dispatching has failed, a 404
 "Not found" response is returned.

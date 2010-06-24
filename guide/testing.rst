@@ -30,7 +30,7 @@ Test Cases
 Let me immediately start with an example::
 
    exports.tests = {};
-   
+
    exports.tests.FirstTestCase = TestCase.subclass(
      {
        name: 'first',
@@ -42,7 +42,7 @@ Let me immediately start with an example::
        setUp: function () {
          this._answer = 42;
        },
-     
+
        testMultiply: function () {
          assertSame(this.multiply(21, 2), this._answer);
          assert(isNaN(this.multiply(42, 'text')));
@@ -94,7 +94,7 @@ For the previous example it will produce the following output::
    Ran 2 tests
    OK
 
-   
+
 Test Client
 ===========
 

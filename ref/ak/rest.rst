@@ -37,7 +37,7 @@ provides a class facilitating development of a robust handler:
    For each request your subclass is instantiated and then the
    appropriate method is called. In the constructor your could perform
    initialization common for all methods.
-   
+
    You could subclass your ``Handler`` subclass to define a
    "subhandler", i.e., a handler responsible for some part of the
    resource of the parent handler. The handling methods of the parent
@@ -87,7 +87,7 @@ Handler Decorators
 Handler decorators can decorate :class:`Handler` subclasses, RESTful
 methods of these subclasses, or plain JavaScript functions used as
 controllers.
-   
+
 .. function:: loggingIn(handler)
 
    Decorate *handler* to redirect anonymous users to the Akshell login
@@ -116,7 +116,7 @@ Shortcut Functions
    Load a template via the :func:`getTemplate` function, render it via
    the :meth:`~Template.render` :class:`Template` method, and return a
    :class:`Response` object containing the rendered template.
-   
+
 
 Serve Functions
 ===============
@@ -187,7 +187,7 @@ The library provides these middleware:
    Catch a :exc:`ResolveError`; if the request path with a slash added
    resolves successfully, redirect a user to the path with the
    slash.
-   
+
 .. function:: serve.rollbacking(func)
 
    :func:`Roll back <db.rollback>` the current transaction if the

@@ -76,7 +76,7 @@ Usage of the template system is a two-step process:
       ``string``.
 
    ::
-      
+
       >>> (new Template('My name is {{ name }}.')).render({name: 'Anton'})
       My name is Anton.
 
@@ -88,7 +88,7 @@ Usage of the template system is a two-step process:
       >>> new Template('{{ }}')
       TemplateSyntaxError: ...
 
-      
+
 Template Rendering
 ------------------
 
@@ -115,7 +115,7 @@ are propagated::
    >>> (new Template('{{ func }}')).render({func: function () { throw 42; }})
    Line 1, column 57
    Uncaught 42
-   
+
 .. warning::
 
    Do **not** use complex methods and methods with side effects in
@@ -136,7 +136,7 @@ pages. Sometimes you need to disable this behavior.
       >>> (new Template('{{ text }}')).render({text: safe('<h1>Header</h1>')})
       <h1>Header</h1>
 
-      
+
 Template Loading
 ----------------
 
@@ -156,7 +156,7 @@ loading:
 
 
 .. _template_customization:
-   
+
 Customization
 =============
 
@@ -194,9 +194,9 @@ the template engine. It must have three properties:
       template.env.load = function (name) {
         return rv.Template.where({name: name}).getOne().value;
       }
-      
+
 The default template engine configuration is represented by:
-   
+
 .. data:: env
 
    The default template environment object. Used by the
@@ -259,12 +259,12 @@ template by the ``Wrap`` class.
       >>> repr(new template.Wrap(undefined) + '')
       ""
 
-      
+
 Filter
 ~~~~~~
-      
+
 To create a custom filter instantiate the ``Filter`` class:
-      
+
 .. class:: Filter(func, traits={})
 
    *func* is a filter function; the *traits* object can have the
@@ -294,7 +294,7 @@ To create a custom filter instantiate the ``Filter`` class:
       Prepare *value* and *arg* using the ``accept`` trait; pass them
       to the filter function; return the result wrapping it, if
       needed, using the ``safety`` trait.
-      
+
 Filter functions should never throw an exception -- they should fail
 silently returning an empty string or the original value, whichever is
 more appropriate.
@@ -340,7 +340,7 @@ example, the multiplication filter could be published as::
 
 
 .. _custom_tags:
-      
+
 Custom Tags
 -----------
 
@@ -383,7 +383,7 @@ tag.
    .. attribute:: content
 
       The content of the current tag.
-   
+
    .. method:: parse(until=[])
 
       Parse the template until one of the block tags specified in the
@@ -399,10 +399,10 @@ tag.
       Parse template expressions and return an ``Array`` of expression
       objects.
 
-      
+
 Node Objects
 ~~~~~~~~~~~~
-      
+
 A compilation function can create node objects as:
 
 * a plain ``Object`` instance with a ``render`` property (arguments
@@ -431,7 +431,7 @@ rendering context (such tag may be useful for debugging)::
        }
      };
    }
-   
+
 ``{% context %}`` output perfectly suites for embedding into HTML::
 
    >>> (new Template('{% context %}')).render({s: 'string', n: 42})
@@ -445,10 +445,10 @@ rendering context (such tag may be useful for debugging)::
 
 Arguments
 ~~~~~~~~~
-   
+
 Template tags can accept arguments. They could be cut from the
 :attr:`~Parser.content` parser property via the function:
-   
+
 .. function:: smartSplit(text)
 
    Split text by white spaces regarding string constants and template

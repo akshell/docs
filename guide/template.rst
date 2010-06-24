@@ -53,7 +53,7 @@ element will be explained later in this document.::
 
    {% block content %}
      <h1>{{ section.title }}</h1>
-    
+
      {% for story in stories %}
        <h2>
          <a href="{{ story.href }}">
@@ -134,7 +134,7 @@ here are some of the more commonly used template filters:
 
    If ``someList`` is ``['a', 'b', 'c', 'd', 'e']``, the output will
    be ``['c', 'd']``.
-   
+
 :filter:`stripTags`
    Strips all HTML tags. For example::
 
@@ -337,12 +337,12 @@ using inheritance is the following three-level approach:
 
 * Create a ``base.html`` template that holds the main look-and-feel of
   your site.
-  
+
 * Create a :samp:`base_{SECTION_NAME}.html` template for each "section"
   of your site. For example, ``base_news.html``,
   ``base_sports.html``. These templates all extend ``base.html`` and
   include section-specific styles/design.
-  
+
 * Create individual templates for each type of page, such as a news
   article or a blog entry. These templates extend the appropriate
   section template.
@@ -373,7 +373,7 @@ Here are some tips for working with inheritance:
   will not be automatically escaped (see the :ref:`next section
   <escaping>`), since it was already escaped, if necessary, in the
   parent template.
-      
+
 * For extra readability, you can optionally give a *name* to your ``{%
   endblock %}`` tag. For example::
 
@@ -450,7 +450,7 @@ the output will be::
 As I mentioned earlier, filter arguments can be strings::
 
    {{ data|default:'This is a string literal.' }}
-    
+
 All string literals are inserted **without** any automatic escaping
 into the template -- they act as if they were all passed through the
 :filter:`safe` filter.  The reasoning behind this is that the template

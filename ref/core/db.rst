@@ -65,10 +65,10 @@ When Ann replies him, the tuple will be added to the body of
 
    <"post", number, 0>, <"author", string, "Ann">, <"text", string, "Hi, Bob!">
 
-   
+
 Relations as Tables
 -------------------
-   
+
 A relation can be imagined as a table with a header matching the
 relation header and rows containing the tuple attribute values. If Bob
 replies Ann: "Hi, Ann!" and she writes in her blog: "Hey, Bob is
@@ -153,7 +153,7 @@ Check constraint
    % 1 == 0`` (``id`` is integer) can be check constraints of the
    ``Post`` variable.
 
-   
+
 Database Management
 ===================
 
@@ -244,7 +244,7 @@ the :class:`db.Type` class.
          >>> db.create('X', {n: db.number.check('n > 0')})
          >>> db.insert('X', {n: -1})
          ConstraintError: ...
-   
+
    .. method:: default_(value)
 
       Return a type with a default value attached.
@@ -282,7 +282,7 @@ of it.
    One-attribute constraints can be specified either by a
    :class:`db.Type` method or by the *constr* argument. The first way
    is more expressive.
-      
+
    ::
 
       >>> db.create('Post',
@@ -303,7 +303,7 @@ of it.
                       foreign: [[['post'], 'Post', ['id']]],
                       check: ['text != "+1"']
                     })
-                    
+
 .. function:: drop(names)
 
    Drop relation variables. Drop fails if any of them is referenced by
@@ -315,7 +315,7 @@ of it.
       RelVarDependencyError: ...
       >>> db.drop(['X', 'Y'])
       undefined
-      
+
 
 .. function:: query(query, queryParams=[], by=[], byParams=[], start=0[, length])
 
@@ -338,7 +338,7 @@ of it.
    *byParams*
       An array of *by* expression parameters.
 
-      
+
    *start*
       A number of tuples to skip before starting to return tuples.
 
@@ -394,7 +394,7 @@ Exceptions
 .. exception:: RelVarExistsError
 
    Relation variable already exists.
-   
+
 .. exception:: NoSuchRelVarError
 
    Relation variable doesn't exist.
@@ -402,7 +402,7 @@ Exceptions
 .. exception:: ConstraintError
 
    Database constraint violation.
-   
+
 .. exception:: QueryError
 
    Incorrect database query.
@@ -410,11 +410,11 @@ Exceptions
 .. exception:: AttrExistsError
 
    Attribute already exists.
-   
+
 .. exception:: NoSuchAttrError
 
    Relation variable attribute doesn't exist.
-   
+
 .. exception:: AttrValueRequiredError
 
    Value of a relation variable attribute must be supplied.
@@ -428,7 +428,7 @@ Exceptions
 
    Database quota exceeded.
 
-   
+
 .. _query_language:
 
 Query Language
@@ -465,10 +465,10 @@ performed on it using the :func:`db.query` function. ::
    >>> db.insert('Comment', {post: 0, author: 'Bob', text: 'Hi, Ann!'})
    >>> db.insert('Post', {author: 'Ann', text: 'Hey, Bob is onboard'})
 
-   
+
 Range Variables
 ---------------
-   
+
 The basic concept of the language is :dfn:`range variable`. A range
 variable is a named variable ranging over a relation, i.e., its values
 are the tuples of the relation. Range variables are declared by the
@@ -479,7 +479,7 @@ The relations of Bob's posts and posts commented by Bob could be
 retrieved by the queries::
 
    for (p in Post) p where p.author == "Bob"
-   
+
    for (p in Post)
      p where forsome (c in Comment) c.post == p.id && c.author == "Bob"
 
@@ -489,11 +489,11 @@ value of this relation variable. Using implicit declarations the
 previous examples could be rewritten::
 
    Post where Post.author == "Bob"
-   
+
    Post where forsome (Comment)
      Comment.post == Post.id && Comment.author == "Bob"
 
-     
+
 Prototype Tuples
 ----------------
 
@@ -542,10 +542,10 @@ comment texts could be retrieved by::
 
 
 .. _expressions:
-   
+
 Expressions
 -----------
-   
+
 Tuple selection expression is specified in the optional ``where``
 construction after a prototype tuple. The expression syntax and
 semantics mimics JavaScript whenever possible but the static nature of
@@ -563,7 +563,7 @@ their values. Supported operators are:
 
      Post where forsome (Comment)
        Comment.post == Post.id && Comment.author == Post.author
-  
+
      Post where forall (Comment)
        Comment.post != Post.id || Comment.text
 
@@ -573,7 +573,7 @@ their values. Supported operators are:
   equivalent::
 
      Post where Post.author == "Bob"
-     
+
      Post where author == "Bob"
 
   Subexpressions of one-relation ``forsome`` and ``forall``
@@ -582,7 +582,7 @@ their values. Supported operators are:
 
      Post where forsome (Comment)
        post == Post.id && author == Post.author
-  
+
      Post where forall (Comment)
        post != Post.id || text
 
@@ -594,7 +594,7 @@ their values. Supported operators are:
   pairs respectively::
 
      Comment where post->author == "Bob"
-     
+
      {postText: Comment.post->text, commentText: Comment.text}
 
 * The :dfn:`parameter operator` ``$n`` returns a value of *n*\ -th
@@ -623,7 +623,7 @@ their values. Supported operators are:
   unary ``-``, and unary ``+`` always return ``number``; their
   semantics mimics JavaScript.
 
-  
+
 Operator Precedence
 -------------------
 

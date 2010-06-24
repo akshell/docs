@@ -39,7 +39,7 @@ Object Functions
    Return an array of the *object* property values in the order
    determined by the ``for..in`` loop.
 
-   
+
 Function Methods
 ================
 
@@ -51,13 +51,13 @@ Function Methods
 
       Return a :term:`decorated<decorator>` function; *decorators* are
       applied in reverse order.
-   
+
    .. method:: wraps(func)
 
       Borrow the ``prototype``, ``__proto__``, and ``__name__``
       properties from *func*; return ``this``. Useful for writing
       :term:`decorators<decorator>`.
-   
+
    .. method:: subclass([constructor,] prototype={})
 
       Return a :term:`subclass` of this :term:`class`. ``subclass()``
@@ -101,12 +101,12 @@ Function Methods
       for advanced use only; do **not** use metaclasses unless you
       understand what you are doing and failed to find a simpler
       approach!
-   
+
    .. method:: subclassOf(base)
 
       Test if this class is a subclass of the class *base*.
 
-   
+
 Value Representation
 ====================
 
@@ -115,7 +115,7 @@ Value Representation
    Return a *value* representation. This function is targeted on
    debugging. One could add ``repr()`` support to his own class by
    adding the ``__repr__()`` method to it. ::
-   
+
       >>> repr(42)
       42
       >>> repr(true)
@@ -144,7 +144,7 @@ this shortcoming Akshell provides these comparison functions.
    1. if the values are equivalent (``lhs === rhs``) return ``0``;
 
    2. if *lhs* has a ``__cmp__`` method return ``lhs.__cmp__(rhs)``;
-      
+
    3. if *rhs* has a ``__cmp__`` method return ``-rhs.__cmp__(lhs)``;
 
    4. the values are incomparable -- throw ``CmpError(lhs, rhs)``.
@@ -157,7 +157,7 @@ this shortcoming Akshell provides these comparison functions.
    * return +1 if *this* is greater than *other*;
    * throw ``CmpError(this, other)`` if *this* and *other* are
      incomparable.
-     
+
    ::
 
       (function ()
@@ -199,7 +199,7 @@ this shortcoming Akshell provides these comparison functions.
       CmpError: ...
       >>> cmp(false, null)
       CmpError: ...
-      
+
    The ``__cmp__(other)`` method of ``Array`` perform a lexicographic
    comparison of array-like objects: it iterates over the objects and
    returns
@@ -222,9 +222,9 @@ this shortcoming Akshell provides these comparison functions.
    1. if the values are equivalent (``lhs === rhs``) return ``true``;
 
    2. if *lhs* has an ``__eq__`` method return ``lhs.__eq__(rhs)``;
-      
+
    3. if *rhs* has an ``__eq__`` method return ``rhs.__eq__(lhs)``;
-   
+
    4. return ``true`` if ``cmp(lhs, rhs) == 0``, ``false`` if it's
       non-zero or a :exc:`CmpError` was thrown.
 
@@ -247,10 +247,10 @@ this shortcoming Akshell provides these comparison functions.
       false
       >>> equal({__eq__: function () { return true; }}, null)
       true
-   
+
 
 .. _debug_tools:
-      
+
 Debug Tools
 ===========
 
@@ -308,8 +308,8 @@ properties to be used as generic functions on array-like objects:
    [2, 3]
    >>> Array.indexOf({0: 'a', 1: 'b', 2: 'c', length: 3}, 'b')
    1
-   
-   
+
+
 String Methods
 ==============
 
@@ -320,12 +320,12 @@ String Methods
    .. method:: startsWith(prefix)
 
       Test if the string starts with *prefix*.
-   
+
    .. method:: endsWith(suffix)
 
       Test if the string ends with *suffix*.
 
-      
+
 RegExp Escaping
 ===============
 

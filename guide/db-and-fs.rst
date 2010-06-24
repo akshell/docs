@@ -95,7 +95,7 @@ To permanently remove a relation variable from the database use the
    >>> rv.Post.drop()
    >>> rv.Post.exists()
    false
-   
+
 
 Types
 -----
@@ -135,7 +135,7 @@ Some numbers cannot be converted to integer::
    >>> rv.Room.insert({number: 1, capacity: 1e10})
    ConstraintError: ...
 
-   
+
 Default
 ~~~~~~~
 
@@ -182,8 +182,8 @@ sequence is used. Serial attributes can have only integer values. ::
    {s: 42}
    >>> repr(rv.Counter.insert({}))
    {s: 2}
-   
-   
+
+
 Constraints
 -----------
 
@@ -231,7 +231,7 @@ author will never have the same title::
 
 
 .. _foreign_key:
-         
+
 Foreign Key
 ~~~~~~~~~~~
 
@@ -265,7 +265,7 @@ try to break this rule, an error will be thrown::
    ConstraintError: ...
    >>> rv.Post.where({id: 0}).del()
    ConstraintError: ...
-         
+
 
 Check
 ~~~~~
@@ -339,10 +339,10 @@ Performing a database query is a two-step process:
   :class:`Selection` object returned on the previous step defining
   *how* you'd like to retrieve these tuples.
 
-  
+
 where()
 ~~~~~~~
-  
+
 :func:`~RelVar.where` accepts an expression the resulting tuples
 should match and positional arguments of this expression. They are
 substituted for ``$1``, ``$2``, etc. placeholders in the expression.
@@ -351,7 +351,7 @@ For example, this query returns posts of the given author with the
 given title::
 
    rv.Post.where('author == $1 && title == $2', 'Bob', 'Greeting').get()
-   
+
 For brevity a single ``$`` could be used instead of ``$1``, for
 example::
 
@@ -362,7 +362,7 @@ example::
    **Never** construct a query string manually: a malicious user could
    give a tricky input to form an illegal query and read data he is
    forbidden to read. **Always** use positional arguments.
-     
+
 Besides JavaScript operators Akshell also supports some additional
 operators in query expressions, including the reference operator
 "``->``" which provides a convenient access to attributes of a
@@ -405,7 +405,7 @@ the first 15 posts::
 
    rv.Post.all().get({by: '-id', start: 15, length: 42})
 
-   
+
 getOne()
 ~~~~~~~~
 
@@ -432,7 +432,7 @@ For example::
    display a 404 error page to a user, which is the desired behavior
    for the majority of cases.
 
-   
+
 Updating
 --------
 
@@ -468,8 +468,8 @@ values.
 For example, this sets texts of all Bob's comments::
 
    rv.Comment.where('author == $', 'Bob').set({text: '<censored>'})
-                        
-   
+
+
 Deleting
 --------
 
@@ -532,7 +532,7 @@ Here is an example of file storage usage:
    NoSuchEntryError: ...
 
 See the :doc:`file storage API reference </ref/core/fs>` for details.
-   
+
 
 Quotas
 ======

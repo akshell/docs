@@ -317,7 +317,7 @@ For example::
 
 If ``value`` is the object ``{a: 1, b: 2, c: 3}``, the output will
 be ``[['a', 1], ['b', 2], ['c', 3]]``.
-   
+
 
 .. filter:: join
 
@@ -374,7 +374,7 @@ the output will be::
 
 
 .. filter:: paragraph
-   
+
 paragraph
 =========
 
@@ -421,7 +421,7 @@ Example::
 
 
 .. filter:: removeTags
-   
+
 removeTags
 ==========
 
@@ -482,7 +482,7 @@ If ``value`` is:
      {name: 'amy', age: 22},
      {name: 'joe', age: 31}
    ]
-   
+
 ... then the output will be:
 
 .. code-block:: javascript
@@ -495,7 +495,7 @@ If ``value`` is:
 
 
 .. filter:: sortObjectsReversed
-   
+
 sortObjectsReversed
 ===================
 
@@ -630,4 +630,4 @@ For example::
 
    yes
    no way
-   
+

@@ -54,7 +54,7 @@ comment
 =======
 
 Ignore everything between ``{% comment %}`` and ``{% endcomment %}``.
-   
+
 
 .. tag:: csrfToken
 
@@ -63,7 +63,7 @@ csrfToken
 
    Output a hidden ``<input>`` tag with the value of the
    :term:`cross-site request forgery <CSRF>` protection token.
-   
+
 .. tag:: cycle
 
 cycle
@@ -94,14 +94,14 @@ from outside of a loop. To do this, just give the ``{% cycle %}`` tag
 a name, using "as", like this::
 
    {% cycle 'row1' 'row2' as rowcolors %}
-   
+
 From then on, you can insert the current value of the cycle wherever
 you'd like in your template::
 
    <tr class="{% cycle rowcolors %}">...</tr>
    <tr class="{% cycle rowcolors %}">...</tr>
 
-   
+
 .. tag:: extends
 
 extends
@@ -127,7 +127,7 @@ the expression syntax. ::
 
 
 .. tag:: firstOf
-   
+
 firstOf
 =======
 
@@ -231,7 +231,7 @@ will be displayed by the ``{{ athleteList.length }}`` expression.
 
 As you can see, the ``{% if %}`` tag can take an optional ``{% else
 %}`` clause that will be displayed if the condition is ``false``.
-   
+
 A :dfn:`condition` can consist of constants and variables combined by
 these JavaScript operators::
 
@@ -249,7 +249,7 @@ complex ``{% if %}`` tag::
 
 
 .. tag:: ifchanged
-   
+
 ifchanged
 =========
 
@@ -266,12 +266,12 @@ possible uses:
         {% ifchanged %}<h3>{{ date.getMonth }}</h3>{% endifchanged %}
         <a href="{{ date.getMonth }}/{{ data.getDay }}/">{{ date.getDay }}</a>
       {% endfor %}
-      
+
 2. If given an expression, check whether that expression has
    changed. For example, the following shows the date every time it
    changes, but only shows the hour if both the hour and the date have
    changed::
-   
+
       {% for date in days %}
         {% ifchanged date.getDate %} {{ date.getDate }} {% endifchanged %}
         {% ifchanged date.getHour date.getDate %}
@@ -294,7 +294,7 @@ clause that will be displayed if the value has not changed::
 
 
 .. tag:: include
-   
+
 include
 =======
 
@@ -370,10 +370,10 @@ For example::
 At the time of writing, it outputs::
 
    It's 5:48 PM
-   
+
 
 .. tag:: spaceless
-     
+
 spaceless
 =========
 
@@ -403,7 +403,7 @@ text. In this example the space around ``Hello`` won't be stripped::
 
 
 .. tag:: templateTag
-   
+
 templateTag
 ===========
 
@@ -475,7 +475,7 @@ They will output::
 Note, that if the URL you're reversing doesn't exist, you'll get a
 :exc:`ReverseError` exception raised, which will cause your
 application to display an error page.
-   
+
 If you'd like to retrieve a URL without displaying it, you can use a
 slightly different call::
 
@@ -494,7 +494,7 @@ handlers that are optional::
 
 
 .. tag:: widthRatio
-   
+
 widthRatio
 ==========
 

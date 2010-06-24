@@ -129,7 +129,7 @@ it instantly becomes available to users (this operation is atomic).
 By default, every developer has a *debug* spot. I employed it for
 writing code of ``simple-blog``.
 
-   
+
 Database
 --------
 
@@ -360,9 +360,9 @@ Here is ``index.html``, the template of the index page:
 .. code-block:: html+django
 
    {% extends 'base.html' %}
-   
+
    {% block title %}Simple Blog{% endblock %}
-   
+
    {% block content %}
      <h1>Blogs</h1>
      <ul>
@@ -403,7 +403,7 @@ redirects to the page of this post. Both methods receive the
                          posts: posts
                        });
        },
-   
+
        post: function (request, author) {
          if (request.user != author)
            throw Forbidden();
@@ -428,7 +428,7 @@ results in a 400 response.
 Every ``post()`` method should always redirect after a successful
 request processing. This tip isn't specific to Akshell -- it's a
 common web development practice.
-     
+
 
 Blog Template
 -------------
@@ -438,9 +438,9 @@ The ``blog.html`` template is also more complex than ``index.html``:
 .. code-block:: html+django
 
    {% extends 'base.html' %}
-   
+
    {% block title %}{{ author }}'s Blog{% endblock %}
-   
+
    {% block content %}
      <h1>{{ author }}'s Blog</h1>
      {% if request.user == author %}
@@ -497,7 +497,7 @@ database and redirects.
              comments: rv.Comment.where({post: this._post.id}).get({by: 'id'})
            });
        },
-   
+
        post: function (request, author, postId) {
          if (!request.user)
            throw Forbidden('Login first');
@@ -513,7 +513,7 @@ database and redirects.
          return redirect('.');
        }
      });
-     
+
 
 Post Template
 -------------
@@ -523,9 +523,9 @@ Here is the ``post.html`` template:
 .. code-block:: html+django
 
 	{% extends 'base.html' %}
- 
+
 	{% block title %}{{ post.title }}{% endblock %}
-	 
+
 	{% block content %}
 	  <a href="{% url 'blog' post.author %}">{{ post.author }}'s Blog</a>
 	  <h1>{{ post.title }}</h1>

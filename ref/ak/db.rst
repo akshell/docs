@@ -15,10 +15,10 @@ module.
    objects representing correspondent relation variables. It's an
    entry point of all database interactions.
 
-   
+
 RelVar
 ======
-   
+
 .. class:: RelVar
 
    A ``RelVar`` object represents a relation variable. It cannot be
@@ -45,28 +45,28 @@ RelVar
       (the order is unimportant). An attribute with a default value
       should be described by a ``[typeDescription, defaultValue]``
       pair, e.g., ``['number', 42]``.
-       
+
       The type names are:
-       
+
       * ``number``;
       * ``string``;
       * ``bool``;
       * ``date``;
       * ``json``.
-       
+
       The type constraints are:
-       
+
       * ``integer``;
       * ``serial``;
       * ``unique``;
       * :samp:`-> {referencedRelVarName}.{referencedAttrName}`;
       * :samp:`check ({expr})`.
-      
+
       If the ``integer`` or ``serial`` constraint is specified, the
       type name can be omitted -- it defaults to ``number``.
 
 .. _constraint_description:
-      
+
       A constraint description is a ``string`` of one of the forms:
 
       * :samp:`check ({expr})`;
@@ -83,14 +83,14 @@ RelVar
              price: 'number check (price > 0)'
            },
            'unique [floor, number]');
-                   
+
          rv.Client.create(
            {
              id: 'unique serial',
              name: 'string',
              discount: 'number check (discount >= 0 && discount < 1)'
            });
-                   
+
          rv.Book.create(
            {
              floor: 'integer',
@@ -101,12 +101,12 @@ RelVar
            },
            '[floor, number] -> Room[floor, number]',
            'check (arrival < departure)');
-             
+
       .. note::
 
          In real-world applications :term:`surrogate key` should be
          preferred to multiattribute foreign key.
-   
+
    .. method:: drop()
 
       Drop the relation variable; fail if there are references to it.
@@ -146,7 +146,7 @@ RelVar
          ["the answer"]
          >>> repr(rv.X.where({n: 42, b: true}).get({attr: 's'})) // the same
          ["the answer"]
-         
+
    .. method:: all()
 
       Return a :class:`Selection` of all tuples of the relation
@@ -256,7 +256,7 @@ RelVar
          >>> rv.X.dropDefault('n', 's')
          >>> repr(rv.X.getDefault())
          {}
-         
+
    .. method:: addConstrs(constrs...)
 
       Add constraints to the relation variable. *constrs* are
@@ -279,19 +279,19 @@ RelVar
          [["n", "s"]]
          >>> repr(rv.X.insert({n: 42, s: ''}))
          {n: 42, s: ""}
-         
+
    .. exception:: DoesNotExist
 
       Tuple was not found. The :meth:`~Selection.getOne`
       :class:`Selection` method throws this exception if a query
       returns an empty relation.
-      
+
    .. exception:: IsAmbiguous
 
       Tuple is ambiguous. The :meth:`~Selection.getOne`
       :class:`Selection` method throws this exception if a query
       returns more than one tuple.
-      
+
 .. exception:: TupleDoesNotExist
 
    A base class of all ``DoesNotExist`` exceptions of ``RelVar``
@@ -302,10 +302,10 @@ RelVar
    A base class of all ``IsAmbiguous`` exceptions of
    ``RelVar`` instances.
 
-   
+
 Selection
 =========
-      
+
 .. class:: Selection
 
    A ``Selection`` object represents a subset of relation variable
@@ -339,17 +339,17 @@ Selection
       attr
          a name of an attribute to fetch, if *attr* option is used,
          ``get()`` returns an array of attribute values;
-         
+
       by
          an expression or a list of expressions to order resulting
          tuples;
-    
+
       start
          a number of tuples to skip before starting to return tuples; and
-    
+
       length
          a maximum number of tuples to return.
-         
+
       *byParams* is a list of *by* expression parameters. See the
       corresponding :func:`db.query` options for details. Unless *by*
       option is specified the order of the returned tuples is
@@ -375,7 +375,7 @@ Selection
       :attr:`~Selection.relVar`.\ :exc:`~RelVar.DoesNotExist`
       exception; if there is more than one tuple, throw a
       :attr:`~Selection.relVar`.\ :exc:`IsAmbiguous` exception. ::
-      
+
          >>> rv.X.create({n: 'number'})
          >>> rv.X.insert({n: 0})
          >>> rv.X.insert({n: 15})
@@ -386,7 +386,7 @@ Selection
          rv.X.IsAmbiguous: ...
          >>> rv.X.where('n < 0').getOne()
          rv.X.DoesNotExist: ...
-         
+
    .. method:: count()
 
       Return the number of the selection tuples not loading them from
