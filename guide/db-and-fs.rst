@@ -270,7 +270,7 @@ try to break this rule, an error will be thrown::
 Check
 ~~~~~
 
-A check constraint simply checks than a given expression holds
+A check constraint simply checks that a given expression holds
 ``true`` for each tuple of a relation variable. You could add a check
 inside a type declaration or in a separate check declaration.
 
