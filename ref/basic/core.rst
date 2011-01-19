@@ -1,6 +1,6 @@
-==================
-Miscellaneous APIs
-==================
+====
+Core
+====
 
 Miscellaneous low-level tools.
 

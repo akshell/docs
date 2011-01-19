@@ -2,10 +2,10 @@
 Reference
 =========
 
-These documents describe the basic Akshell APIs in detail.
+These documents describe the Akshell API in detail.
 
 .. toctree::
    :maxdepth: 2
 
-   core/index
+   basic/index
    ak/index
