@@ -12,7 +12,7 @@ Glossary
       A function intended for creating objects via the ``new`` operator.
 
    CSRF
-      `Cross-site request forgery`_. This type of attack occurs when a
+      `Cross-Site Request Forgery`_. This type of attack occurs when a
       malicious web site contains a link, a form button, or some
       client JavaScript that is intended to perform some action on
       your web site, using the credentials of a logged-in user who
@@ -23,7 +23,7 @@ Glossary
       usually used as a function transformation.
 
    DRY
-      `Don't repeat yourself`_ principle of software development:
+      `Don't Repeat Yourself`_ principle of software development:
       every piece of knowledge must have a single, unambiguous,
       authoritative representation within a system.
 
@@ -36,7 +36,7 @@ Glossary
       behavior of certain classes and their instances.
 
    MVC
-      `Model–view–controller`_. A software architecture isolating
+      `Model–View–Controller`_. A software architecture isolating
       domain logic from input and presentation, permitting independent
       development, testing, and maintenance of each.
 
@@ -80,9 +80,9 @@ Glossary
    Tuple
       A set of uniquely named attributes with their values.
 
-.. _Cross-site request forgery: http://en.wikipedia.org/wiki/Csrf
-.. _Don't repeat yourself: http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
+.. _Cross-Site Request Forgery: http://en.wikipedia.org/wiki/Csrf
+.. _Don't Repeat Yourself: http://en.wikipedia.org/wiki/Don%27t_repeat_yourself
 .. _JavaScript Gateway Interface: http://wiki.commonjs.org/wiki/JSGI/Level0/A/Draft2
-.. _Model–view–controller: http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
+.. _Model–View–Controller: http://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
 .. _Wikipedia page: http://en.wikipedia.org/wiki/Relational_model
 .. _Representational State Transfer: http://en.wikipedia.org/wiki/REST
