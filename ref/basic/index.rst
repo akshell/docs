@@ -20,3 +20,10 @@ interaction.
    git
    http-parser
    jsgi
+
+.. note::
+
+   The ``core``, ``binary``, and ``jsgi`` modules are loaded by the
+   ``ak`` library; the ``db``, ``fs``, ``proxy``, ``script``,
+   ``socket``, ``git``, and ``http-parser`` modules must be
+   :func:`required <require>` explicitly.
