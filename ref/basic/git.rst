@@ -34,9 +34,10 @@ Classes for reading app's Git repositories.
 
 .. class:: GitStorage(repo, ref)
 
-   A ``GitStorage`` object provides a :class:`Storage`-like interface
-   to the *repo's* commit tree referenced by *ref*. The constructor
-   throws a :exc:`ValueError` if such commit doesn't exist.
+   A ``GitStorage`` object provides a :class:`FileStorage`-like
+   interface to the *repo's* commit tree referenced by *ref*. The
+   constructor throws a :exc:`ValueError` if such commit doesn't
+   exist.
 
    .. attribute:: repo
 
