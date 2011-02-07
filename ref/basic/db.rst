@@ -2,10 +2,8 @@
 Database
 ========
 
-.. module:: db
-
 This document describes Akshell database model, an API for managing an
-application database, and a language for querying it.
+app's database, and a language for querying it.
 
 
 Relational Model
@@ -13,23 +11,22 @@ Relational Model
 
 Akshell database management is based on the :term:`relational
 model` which provides robust time-proved foundation for storing
-structured data in applications.
+structured data.
 
 
 Concepts
 --------
 
-A basic database unit is a type. Akshell database types are borrowed
-from JavaScript: they are :data:`number`, :data:`string`,
-:data:`bool`, and :data:`date`. An :dfn:`attribute` is a pair of a
-name and a type; an :dfn:`attribute value` is a specific valid value
-for the type of the attribute. A :dfn:`tuple` is a set of uniquely
-named attributes with their values. A :dfn:`header` of a tuple is a
-set of its attributes. A :dfn:`relation` is a pair of a header and a
-body. A :dfn:`relation header` is a tuple header; a :dfn:`relation
-body` is a set of tuples with a header matching the relation header. A
-:dfn:`relation variable` is a named relation. A :dfn:`relational
-database` is a set of relation variables with unique names.
+A basic database unit is a :dfn:`type`, i.e., a collection of
+values. An :dfn:`attribute` is a pair of a name and a type; an
+:dfn:`attribute value` is a specific valid value for the type of the
+attribute. A :dfn:`tuple` is a set of uniquely named attributes with
+their values. A :dfn:`header` of a tuple is a set of its attributes. A
+:dfn:`relation` is a pair of a header and a body. A :dfn:`relation
+header` is a tuple header; a :dfn:`relation body` is a set of tuples
+with a header matching the relation header. A :dfn:`relation variable`
+is a named relation. A :dfn:`relational database` is a set of relation
+variables with unique names.
 
 
 Example
@@ -40,12 +37,11 @@ writing a blog application; you'll need to define a data model for
 it. As the users of your application will write posts and comment
 posts of each other, you'll need to have two relation variables:
 ``Post`` and ``Comment``. The header of the relation of the ``Post``
-variable will consist of the ``<"id", number>``, ``<"author",
-string>``, and ``<"text", string>`` attributes (``id`` is a unique
-identifier of a post also known as a :term:`surrogate key`). The
-header of the relation of the ``Comment`` variable will consist of the
-``<"post", number>``, ``<"author", string>``, and ``<"text", string>``
-attributes.
+variable will consist of the ``id:'serial'``, ``author:'string'``, and
+``text:'string'`` attributes (``id`` is a unique identifier of a post
+also known as a :term:`surrogate key`). The header of the relation of
+the ``Comment`` variable will consist of the ``post:'integer'``,
+``author:'string'``, and ``text:'string'`` attributes.
 
 .. note::
 
@@ -57,12 +53,12 @@ Initially both relation variables will have an empty body. When the
 user Bob writes his first post, the tuple will be added to the body of
 ``Post``::
 
-   <"id", number, 0>, <"author", string, "Bob">, <"text", string, "Hello, world!">
+   {id: 0, author: 'Bob', text: 'Hello world!'}
 
 When Ann replies him, the tuple will be added to the body of
 ``Comment``::
 
-   <"post", number, 0>, <"author", string, "Ann">, <"text", string, "Hi, Bob!">
+   {post: 0, author: 'Ann', text: 'Hi Bob!'}
 
 
 Relations as Tables
@@ -70,27 +66,27 @@ Relations as Tables
 
 A relation can be imagined as a table with a header matching the
 relation header and rows containing the tuple attribute values. If Bob
-replies Ann: "Hi, Ann!" and she writes in her blog: "Hey, Bob is
+replies Ann: "Hi Ann!" and she writes in her blog: "Hey, Bob is
 onboard," the ``Post`` relation variable will have the following
 representation:
 
 +----+--------+---------------------+
 | id | author | text                |
 +====+========+=====================+
-|  0 | Bob    | Hello, world!       |
+|  0 | Bob    | Hello world!        |
 +----+--------+---------------------+
 |  1 | Ann    | Hey, Bob is onboard |
 +----+--------+---------------------+
 
 And ``Comment`` will have the following:
 
-+------+--------+----------+
-| post | author | text     |
-+======+========+==========+
-|    0 | Ann    | Hi, Bob! |
-+------+--------+----------+
-|    0 | Bob    | Hi, Ann! |
-+------+--------+----------+
++------+--------+---------+
+| post | author | text    |
++======+========+=========+
+|    0 | Ann    | Hi Bob! |
++------+--------+---------+
+|    0 | Bob    | Hi Ann! |
++------+--------+---------+
 
 The two main caveats of representing relations as tables are:
 
@@ -98,23 +94,23 @@ The two main caveats of representing relations as tables are:
 * a table can have duplicate rows but relation tuples are unique.
 
 A relation should be considered as a set of statements about some
-subject. In the example these statements are "Bob's written 'Hello,
-world' in post 0," "Ann's replied 'Hi, Bob!' to post 0," etc. The
-order of statements doesn't matter; repeating the same statement twice
+subject. In the example these statements are "Bob's written 'Hello
+world' in post 0," "Ann's replied 'Hi Bob!' to post 0," etc. The order
+of statements doesn't matter; repeating the same statement twice
 doesn't add truth to it.
 
-This approach forbids Ann to reply "Hi, Bob!" to post 0 again which is
-unnatural for blogs. Addition of a unique identifier attribute to
+This approach forbids Ann to reply "Hi Bob!" to post 0 again which is
+unnatural for blogs. Addition of a unique serial attribute to
 ``Comment`` will solve the problem:
 
 +----+------+--------+-----------------------+
 | id | post | author | text                  |
 +====+======+========+=======================+
-|  0 |    0 | Ann    | Hi, Bob!              |
+|  0 |    0 | Ann    | Hi Bob!               |
 +----+------+--------+-----------------------+
-|  1 |    0 | Bob    | Hi, Ann!              |
+|  1 |    0 | Bob    | Hi Ann!               |
 +----+------+--------+-----------------------+
-|  2 |    0 | Ann    | Hi, Bob!              |
+|  2 |    0 | Ann    | Hi Bob!               |
 +----+------+--------+-----------------------+
 |  3 |    0 | Ann    | Sorry for double post |
 +----+------+--------+-----------------------+
@@ -148,171 +144,90 @@ Foreign key constraint
 
 Check constraint
    An expression which must evaluate to ``true`` for each tuple of the
-   relation variable body. ``text`` (``text`` is not empty) or ``id
-   % 1 == 0`` (``id`` is integer) can be check constraints of the
-   ``Post`` variable.
+   relation variable body. ``(text != '')`` can be a check constraint of
+   the ``Post`` variable.
 
 
 Database Management
 ===================
 
-.. _types:
-
 Types
 -----
 
-Akshell has four database types; they are represented by instances of
-the :class:`db.Type` class.
+Akshell database supports eight types:
 
-.. data:: number
+``'number'``
+   The double precision number type.
 
-   The double precision number type. Could be constrained to
-   :meth:`integer<Type.integer>` values or made
-   :meth:`serial<Type.serial>`.
+``'integer'``
+   The integer number type.
 
-.. data:: string
+``'serial'``
+   The integer number type with values generated from a sequence 0, 1,
+   2, etc.
 
+``'string'``
    The string type.
 
-.. data:: bool
-
+``'boolean'``
    The boolean type.
 
-.. data:: date
+``'date'``
+   The date type; represented by ``Date`` objects.
 
-   The date type storing JavaScript ``Date`` objects.
+``'json'``
+   The JSON type; can hold any serializable JavaScript object.
 
-.. data:: json
-
-   The data type storing arbitrary JavaScript objects by serializing
-   them into JSON.
-
-.. class:: Type
-
-   The class of type objects. Provides methods returning modified
-   type. Could not be instantiated manually, use predefined type
-   objects instead.
-
-   .. method:: integer()
-
-      Return a type constrained to integer values; applicable only to
-      :data:`number`.
-
-   .. method:: serial()
-
-      Return a serial-generated type constrained to integer values;
-      applicable only to :data:`number`. ::
-
-         >>> db.create('X', {s: db.number.serial()})
-         >>> repr(db.insert('X', {}))
-         {s: 0}
-         >>> repr(db.insert('X', {}))
-         {s: 1}
-         >>> repr(db.insert('X', {s: 42}))
-         {s: 42}
-         >>> repr(db.insert('X', {}))
-         {s: 2}
-
-   .. method:: unique()
-
-      Return a type with a unique constraint. ::
-
-         >>> db.create('X', {n: db.number.unique(), s: db.string})
-         >>> db.insert('X', {n: 42, s: 'the answer'})
-         >>> db.insert('X', {n: 42, s: 'forty two'})
-         ConstraintError: ...
-
-   .. method:: foreign(refRelVarName, refAttrName)
-
-      Return a type with a foreign key constraint, i.e., a reference
-      to a unique attribute in another or the same relation variable.
-
-         >>> db.create('X', {u: db.number}) // u is unique because it's lonely
-         >>> db.create('Y', {f: db.number.foreign('X', 'u')})
-         >>> db.insert('X', {u: 0})
-         >>> db.insert('Y', {f: 0})
-         >>> db.insert('Y', {f: 42})
-         ConstraintError: ...
-
-   .. method:: check(expr)
-
-      Return a type with a check constraint, i.e., *expr* must
-      evaluate to ``true`` for each tuple of a relation with an
-      attribute of this type. ::
-
-         >>> db.create('X', {n: db.number.check('n > 0')})
-         >>> db.insert('X', {n: -1})
-         ConstraintError: ...
-
-   .. method:: default_(value)
-
-      Return a type with a default value attached.
-
-         >>> db.create('X', {n: db.number.default_(42)})
-         >>> db.insert('X', {}))
-         {n: 42}
+``'binary'``
+   The binary type; represented by :class:`Binary` objects.
 
 
 Functions
 ---------
 
-These functions constitute the low-level database interface. The basic
-library offers a :doc:`convenient object-oriented wrapper <../ak/db>`
-of it.
+These functions constitute the low-level database interface. The
+``ak`` library offers a :doc:`convenient object-oriented wrapper
+<../ak/rv>` of it.
 
-.. function:: create(name, header, constrs={})
+.. function:: create(name, header, [uniqueKeys, foreignKeys, checks])
 
-   Create a relation variable. *header* must be an object mapping
-   attribute names to their types; The *constrs* object can have the
-   fields:
-
-   ``unique``
-      A list of unique keys represented by lists of attribute names.
-
-   ``foreign``
-      A list of foreign keys represented by three-element lists: the
-      first item of such list is itself a list of referencing
-      attribute names, the second is a referenced relation variable
-      name, and the third is a list of referenced attribute names.
-
-   ``check``
-      A list of check expressions.
-
-   One-attribute constraints can be specified either by a
-   :class:`db.Type` method or by the *constr* argument. The first way
-   is more expressive.
+   Create a relation variable. *header* is an object mapping attribute
+   names to their types; attributes with default values are defined by
+   ``[type, value]`` pairs. *uniqueKeys*, *foreignKeys*, and *checks*
+   are arrays with constraint definitions.
 
    ::
 
-      >>> db.create('Post',
-                    {
-                      id: db.number.serial(),
-                      author: db.string,
-                      text: db.string
-                    },
-                    {unique: [['author', 'text'], ['id']]})
-      >>> db.create('Comment',
-                    {
-                      id: db.number.serial().unique(),
-                      post: db.number.integer(),
-                      author: db.string,
-                      text: db.string,
-                    },
-                    {
-                      foreign: [[['post'], 'Post', ['id']]],
-                      check: ['text != "+1"']
-                    })
+      >>> create(
+            'Post',
+            {
+              id: 'serial',
+              author: 'string',
+              text: 'string'
+            },
+            [['id'], ['author', 'text']])
+      >>> create(
+            'Comment',
+            {
+              id: 'serial',
+              post: 'integer',
+              author: 'string',
+              text: 'string',
+            },
+            [['id']],
+            [[['post'], 'Post', ['id']]],
+            ['text != "+1"'])
 
 .. function:: drop(names)
 
    Drop relation variables. Drop fails if any of them is referenced by
    a variable not being dropped.
 
-      >>> db.create('X', {u: db.number})
-      >>> db.create('Y', {f: db.number.foreign('X', 'u')})
-      >>> db.drop(['X'])
+      >>> create('X', {u: 'number'})
+      >>> create('Y', {f: 'number'}, [], [[['f'], 'X', ['u']]])
+      >>> drop(['X'])
       RelVarDependencyError: ...
-      >>> db.drop(['X', 'Y'])
+      >>> drop(['X', 'Y'])
       undefined
 
 
@@ -352,15 +267,15 @@ of it.
 
    ::
 
-      >>> db.create('X', {n: db.number})
-      >>> for (var i = 0; i < 6; ++i) db.insert('X', {n: i});
-      >>> repr(db.query('X', [], '-n'))
+      >>> create('X', {n: 'number'})
+      >>> for (var i = 0; i < 6; ++i) insert('X', {n: i});
+      >>> repr(query('X', [], '-n'))
       [{n: 5}, {n: 4}, {n: 3}, {n: 2}, {n: 1}, {n: 0}]
-      >>> repr(db.query('X', [], 'n', [], 2, 3))
+      >>> repr(query('X', [], 'n', [], 2, 3))
       [{n: 2}, {n: 3}, {n: 4}]
-      >>> repr(db.query('X where n < $', [4], 'n'))
+      >>> repr(query('X where n < $', [4], 'n'))
       [{n: 0}, {n: 1}, {n: 2}, {n: 3}]
-      >>> repr(db.query('X', [], ['n % $', 'n'], [3]))
+      >>> repr(query('X', [], ['n % $', 'n'], [3]))
       [{n: 0}, {n: 3}, {n: 1}, {n: 4}, {n: 2}, {n: 5}]
 
 .. function:: count(query, params=[])
@@ -368,23 +283,21 @@ of it.
    Return a number of tuples matching *query* not loading them. Useful
    for big relations. ::
 
-      >>> db.create('X', {n: db.number})
-      >>> for (var i = 0; i < 1000; ++i) db.insert('X', {n: i});
-      >>> db.count('X')
+      >>> create('X', {n: 'number'})
+      >>> for (var i = 0; i < 1000; ++i) insert('X', {n: i});
+      >>> count('X')
       1000
-      >>> db.count('X where n % $1 == $2', [4, 1])
+      >>> count('X where n % $1 == $2', [4, 1])
       250
 
 .. function:: rollback()
 
    Roll back the :term:`transaction` of the current request. See
-   :doc:`request` for details.
+   :doc:`../ak/request` for details.
 
 
 Exceptions
 ----------
-
-.. currentmodule:: None
 
 .. exception:: DBError
 
@@ -414,18 +327,10 @@ Exceptions
 
    Relation variable attribute doesn't exist.
 
-.. exception:: AttrValueRequiredError
-
-   Value of a relation variable attribute must be supplied.
-
-.. exception:: RelVarDependencyError
+.. exception:: DependencyError
 
    Relation variable cannot be dropped because other variable depends
    on it.
-
-.. exception:: DBQuotaError
-
-   Database quota exceeded.
 
 
 .. _query_language:
@@ -444,25 +349,30 @@ Example
 -------
 
 Let me define a familiar blog database. All example queries could be
-performed on it using the :func:`db.query` function. ::
+performed on it using the :func:`query` function. ::
 
-   >>> db.create('Post',
-                 {
-                   id: db.number.serial().unique(),
-                   author: db.string,
-                   text: db.string
-                 })
-   >>> db.create('Comment',
-                 {
-                   id: db.number.serial().unique(),
-                   post: db.number.integer().foreign('Post', 'id'),
-                   author: db.string,
-                   text: db.string,
-                 })
-   >>> db.insert('Post', {author: 'Bob', text: 'Hello, world!'})
-   >>> db.insert('Comment', {post: 0, author: 'Ann', text: 'Hi, Bob!'})
-   >>> db.insert('Comment', {post: 0, author: 'Bob', text: 'Hi, Ann!'})
-   >>> db.insert('Post', {author: 'Ann', text: 'Hey, Bob is onboard'})
+   >>> create(
+         'Post',
+         {
+           id: 'serial',
+           author: 'string',
+           text: 'string'
+          },
+          [['id']])
+   >>> create(
+         'Comment',
+         {
+           id: 'serial',
+           post: 'integer',
+           author: 'string',
+           text: 'string'
+         },
+         [['id']],
+         [[['post'], 'Post', ['id']]])
+   >>> insert('Post', {author: 'Bob', text: 'Hello, world!'})
+   >>> insert('Comment', {post: 0, author: 'Ann', text: 'Hi, Bob!'})
+   >>> insert('Comment', {post: 0, author: 'Bob', text: 'Hi, Ann!'})
+   >>> insert('Post', {author: 'Ann', text: 'Hey, Bob is onboard'})
 
 
 Range Variables
@@ -480,7 +390,8 @@ retrieved by the queries::
    for (p in Post) p where p.author == "Bob"
 
    for (p in Post)
-     p where forsome (c in Comment) c.post == p.id && c.author == "Bob"
+     p where forsome (c in Comment)
+       c.post == p.id && c.author == "Bob"
 
 Range variables can also be specified implicitly: an undeclared range
 variable with a name of an existing relation variable ranges over the
@@ -608,10 +519,10 @@ their values. Supported operators are:
   - ``number`` otherwise.
 
 * The :dfn:`logical operators` ``||``, ``&&``, and ``!`` always return
-  ``bool``.
+  ``boolean``.
 
 * The :dfn:`comparison operators` ``==``, ``!=``, ``<=``, ``>=``,
-  ``<``, and ``>`` always return ``bool``; operands are coerced to
+  ``<``, and ``>`` always return ``boolean``; operands are coerced to
   ``number`` if they have different types.
 
 * The :dfn:`addition operator` ``+`` performs the string concatenation
@@ -651,7 +562,8 @@ __ http://en.wikipedia.org/wiki/Ebnf
    relation: 'for' rangevars relation | union | select
    rangevars: '(' NAME  (',' NAME)* 'in' relation ')'
    union: 'union' '(' relation (',' relation)* ')'
-   select: ('{' [prototype (',' prototype)*] '}' | field_expr | NAME)
+   select: ('{' [prototype (',' prototype)*] '}' |
+         :  field_expr | NAME)
          : ['where' expression]
    prototype: NAME ':' expr | field_expr | NAME
    expr: (('forsome' | 'forall')
