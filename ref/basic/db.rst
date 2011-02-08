@@ -194,9 +194,7 @@ These functions constitute the low-level database interface. The
    Create a relation variable. *header* is an object mapping attribute
    names to their types; attributes with default values are defined by
    ``[type, value]`` pairs. *uniqueKeys*, *foreignKeys*, and *checks*
-   are arrays with constraint definitions.
-
-   ::
+   are arrays with constraint definitions. ::
 
       >>> create(
             'Post',
@@ -221,7 +219,7 @@ These functions constitute the low-level database interface. The
 .. function:: drop(names)
 
    Drop relation variables. Drop fails if any of them is referenced by
-   a variable not being dropped.
+   a variable not being dropped. ::
 
       >>> create('X', {u: 'number'})
       >>> create('Y', {f: 'number'}, [], [[['f'], 'X', ['u']]])
@@ -230,6 +228,21 @@ These functions constitute the low-level database interface. The
       >>> drop(['X', 'Y'])
       undefined
 
+.. function:: dropAll()
+
+   Drop all relation variables.
+
+.. function:: list()
+
+   Return a sorted array of relation variable names. ::
+
+      >>> create('X', {})
+      >>> create('Y', {})
+      >>> repr(list())
+      ["X", "Y"]
+      >>> dropAll()
+      >>> repr(list())
+      []
 
 .. function:: query(query, queryParams=[], by=[], byParams=[], start=0[, length])
 
