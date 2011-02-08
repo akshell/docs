@@ -2,14 +2,23 @@
 Base
 ====
 
-In the `base.js`_ file the library extends standard JavaScript by some
+In the base_ module the library extends standard JavaScript by some
 features borrowed mainly from Python_ making it more suitable for
 creating modular server-side applications. The code was inspired by
 the MochiKit_ client-side JavaScript library, by Bob Ippolito.
 
-.. _base.js: http://www.akshell.com/apps/ak/code/0.2/base.js
+.. _base: https://github.com/akshell/ak/blob/0.3/base.js
 .. _Python: http://python.org/
 .. _MochiKit: http://mochikit.com/
+
+
+Global Object
+=============
+
+.. data:: global
+
+   The global object reference; an analog of the window property in
+   client-side JavaScript.
 
 
 Object Functions
@@ -21,7 +30,7 @@ Object Functions
    from *objects* (key:value pairs from later objects will overwrite
    those from earlier ones); return *self*. Property setting is done
    via the :func:`set` function called with *attributes*; if
-   *attributes* are not specified they default to :data:`COMMON`.
+   *attributes* are not specified, they default to :data:`COMMON`.
 
 .. function:: items(object)
 
@@ -81,7 +90,8 @@ Function Methods
 
          var Rectangle = Figure.subclass(
            function (a, b) {
-             this._a = a; // leading underscore marks private attributes
+             // Leading underscore marks private attributes
+             this._a = a;
              this._b = b;
            },
            {
@@ -121,7 +131,7 @@ Value Representation
       true
       >>> repr("Some\" tricky\n\t'string'")
       "Some\" tricky\n\t'string'"
-      >>> repr({n: 42, s: "string"})
+      >>> repr({n: 42, s: 'string'})
       {n: 42, s: "string"}
       >>> repr({__repr__: function () { return 'My own repr!'; }})
       My own repr!
@@ -255,7 +265,7 @@ Debug Tools
 
 .. exception:: AssertionError
 
-   Assertion failed. Subclass of :exc:`BaseError`.
+   Assertion failed.
 
 .. function:: assert(value[, message])
 
@@ -303,7 +313,10 @@ properties to be used as generic functions on array-like objects:
 
    >>> (function () { return Array.shift(arguments); })(1, 2, 3, 4)
    1
-   >>> repr((function () { return Array.splice(arguments, 1, 2); })(1, 2, 3, 4))
+   >>> repr(
+         (function () {
+           return Array.splice(arguments, 1, 2);
+         })(1, 2, 3, 4))
    [2, 3]
    >>> Array.indexOf({0: 'a', 1: 'b', 2: 'c', length: 3}, 'b')
    1
@@ -331,6 +344,8 @@ RegExp Escaping
 .. function:: RegExp.escape(string)
 
    Return a string escaped for embedding into a regular expression.
+
+::
 
    >>> RegExp.escape('.*')
    \.\*
