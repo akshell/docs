@@ -3,16 +3,16 @@ Testing
 =======
 
 To make your application reliable you should provide it with an
-extensive set of tests. The Akshell unit testing framework (file
-`unittest.js`_) targets at facilitation of this task. It supports test
-automation, sharing of setup and shutdown code for tests, aggregation
-of tests into collections, and independence of the tests from the
-reporting machinery. It also has means of emulating field application
-environment. The framework is a port of the Python unit testing
-framework, which is, in turn, a port of JUnit, by Kent Beck and Erich
-Gamma.
+extensive set of tests. The Akshell unit testing framework (the
+unittest_ module) targets at facilitation of this task. It supports
+test automation, sharing of setup and shutdown code for tests,
+aggregation of tests into collections, and independence of the tests
+from the reporting machinery. It also has means of emulating field
+application environment. The framework is a port of the Python unit
+testing framework, which is, in turn, a port of JUnit, by Kent Beck
+and Erich Gamma.
 
-.. _unittest.js: http://www.akshell.com/apps/ak/code/0.2/unittest.js
+.. _unittest: https://github.com/akshell/ak/blob/0.3/unittest.js
 
 Overview
 ========
@@ -123,10 +123,11 @@ TestCase
         var result = new TestResult();
         loadTestSuite(Test).run(result);
         assertSame(result.testsRun, 3);
-        assertSame(repr(result.errors),
-                   '[[<TestCase testError>, "error"]]');
-        assertSame(repr(result.failures),
-                   '[[<TestCase testFailure>, AssertionError: 4 !== 5]]');
+        assertSame(
+          repr(result.errors), '[[<TestCase testError>, "error"]]');
+        assertSame(
+          repr(result.failures),
+          '[[<TestCase testFailure>, AssertionError: 4 !== 5]]');
       })()
 
 
@@ -166,13 +167,16 @@ TestSuite
             test3: function () {}
           });
         var suite = new TestSuite();
-        var subsuite = new TestSuite([new Test('test1'), new Test('test2')]);
-        assertSame(repr(subsuite),
-                   '<TestSuite test1(fixture), test2(fixture)>');
+        var subsuite = new TestSuite(
+          [new Test('test1'), new Test('test2')]);
+        assertSame(
+          repr(subsuite),
+          '<TestSuite test1(fixture), test2(fixture)>');
         suite.addTest(new Test('test3'));
         suite.addTest(subsuite);
-        assertSame(suite + '',
-                   'test3(fixture), test1(fixture), test2(fixture)');
+        assertSame(
+          suite + '',
+          'test3(fixture), test1(fixture), test2(fixture)');
       })()
 
 
@@ -353,38 +357,19 @@ Functions
 TestClient
 ==========
 
-.. class:: TestClient(users=[], apps={})
+.. class:: TestClient
 
-   A ``TestClient`` object emulates a real application client, a
-   browser or another application. Via ``TestClient`` methods one
-   could make requests and check for expected responses. A client is
-   usually created in the :meth:`~TestCase.setUp` method of a
-   particular :class:`TestCase` subclass.
+   A ``TestClient`` object emulates a real application client. Via
+   ``TestClient`` methods one could make requests and check for
+   expected responses. A client is usually created in the
+   :meth:`~TestCase.setUp` method of a particular :class:`TestCase`
+   subclass.
 
    The :meth:`request` ``TestClient`` method creates a sandbox
-   environment throughout a handling of a test request. It temporarily
-   substitutes the :func:`describeApp`, :func:`getAdminedApps`,
-   :func:`getDevelopedApps` functions and instrument the
-   :meth:`~Template.render` :class:`Template` method, the
-   :meth:`~Handler.handle` :class:`Handler` method, and the
+   environment throughout a handling of a test request. It temporary
+   instruments the :meth:`~Template.render` :class:`Template` method,
+   the :meth:`~Handler.handle` :class:`Handler` method, and the
    ``require.main.exports.main()`` function.
-
-   The sandbox environment is described by the ``TestClient``
-   constructor arguments. *users* should be an array of user names to
-   use in test requests. *apps* should be an object mapping
-   application names to application descriptions. Each description
-   should have an ``admin`` property (``string``) and may have a
-   ``developers`` property (``Array``).
-
-   .. method:: login(user)
-
-      Log in the user with the name *user*. Subsequent test requests
-      will be sent in the name of this user.
-
-   .. method:: logout()
-
-      Log out the logged in user. Subsequent test requests will be
-      sent in the name of the anonymous user.
 
    .. method:: request(request)
 
@@ -392,14 +377,10 @@ TestClient
       have the following properties:
 
       method
-         The request method; defaults to ``'get'``.
+         The request method; defaults to ``'GET'``.
 
       path
          The path of the requested resource; defaults to ``'/'``.
-
-      user
-         The name of the user of the request; defaults to the name of
-         the logged in user or an empty string if nobody is logged in.
 
       get
          An object mapping GET parameter names to their values;
@@ -413,9 +394,8 @@ TestClient
          An object mapping the request header names to their values;
          defaults to ``{}``.
 
-      files
-         An object mapping the uploaded file names to
-         :class:`TempFile` objects or file paths; defaults to ``{}``.
+      data
+         A :class:`Binary` representing the request data.
 
    .. method:: get(request)
 
@@ -440,9 +420,10 @@ TestClient
    ::
 
       exports.main = function (request) {
-        return (request.user
-                ? new Response('Hi, ' + request.user + '!')
-                : new Response('Please, log in', http.UNAUTHORIZED));
+        return (
+          request.path == '/'
+          ? new Response('Hello World')
+          : new Response('Not found', http.NOT_FOUND));
       }
 
       exports.tests = {};
@@ -450,21 +431,18 @@ TestClient
       exports.tests.MyTestCase = TestCase.subclass(
         {
           setUp: function () {
-            this.client = new TestClient(['Bob', 'Alice']);
-            this.client.login('Bob');
+            this.client = new TestClient();
           },
 
           testGreeting: function () {
             var response = this.client.get({});
             assertSame(response.status, http.OK);
-            assertSame(response.content, 'Hi, Bob!');
-            assertSame(this.client.get({user: 'Alice'}).content, 'Hi, Alice!');
+            assertSame(response.content, 'Hello World');
           },
 
           testError: function () {
-            this.client.logout();
-            var response = this.client.get({});
-            assertSame(response.status, http.UNAUTHORIZED);
-            assertSame(response.content, 'Please, log in');
+            var response = this.client.get({path: '/bad'});
+            assertSame(response.status, http.NOT_FOUND);
+            assertSame(response.content, 'Not found');
           }
         });
