@@ -1,12 +1,15 @@
-==================
-Database Interface
-==================
+========
+Database
+========
 
-The `db.js`_ file provides a convenient object-oriented interface to
-the database. Facilitation of database management is the goal of this
-module.
+The rv_ module provides a convenient object-oriented interface to the
+database. Facilitation of database management is the goal of it.
 
-.. _db.js: http://www.akshell.com/apps/ak/code/0.2/db.js
+.. _rv: https://github.com/akshell/ak/blob/0.3/rv.js
+
+
+``rv`` Object
+=============
 
 .. data:: rv
 
@@ -48,21 +51,19 @@ RelVar
       The type names are:
 
       * ``number``;
+      * ``integer``;
+      * ``serial``;
       * ``string``;
-      * ``bool``;
+      * ``boolean``;
       * ``date``;
-      * ``json``.
+      * ``json``;
+      * ``binary``.
 
       The type constraints are:
 
-      * ``integer``;
-      * ``serial``;
       * ``unique``;
       * :samp:`-> {referencedRelVarName}.{referencedAttrName}`;
       * :samp:`check ({expr})`.
-
-      If the ``integer`` or ``serial`` constraint is specified, the
-      type name can be omitted -- it defaults to ``number``.
 
 .. _constraint_description:
 
@@ -138,12 +139,14 @@ RelVar
 
       ::
 
-         >>> rv.X.create({n: 'number', b: 'bool', s: 'string'})
+         >>> rv.X.create({n: 'number', b: 'boolean', s: 'string'})
          >>> rv.X.insert({n: 0, b: false, s: 'zero'})
          >>> rv.X.insert({n: 42, b: true, s: 'the answer'})
-         >>> repr(rv.X.where('n == $1 && b == $2', 42, true).get({attr: 's'}))
+         >>> repr(
+               rv.X.where('n == $1 && b == $2', 42, true).get(
+                 {attr: 's'}))
          ["the answer"]
-         >>> repr(rv.X.where({n: 42, b: true}).get({attr: 's'})) // the same
+         >>> repr(rv.X.where({n: 42, b: true}).get({attr: 's'}))
          ["the answer"]
 
    .. method:: all()
@@ -157,33 +160,18 @@ RelVar
       object mapping the attribute names to the attribute type
       names. ::
 
-         >>> rv.X.create({n: 'number', s: 'string', b: 'bool', d: 'date'})
+         >>> rv.X.create({n: 'number', s: 'string'})
          >>> repr(rv.X.getHeader())
-         {b: "bool", d: "date", n: "number", s: "string"}
-
-   .. method:: getInteger()
-
-      Return an array of the integer attribute names. ::
-
-         >>> rv.X.create({i: 'integer', s: 'serial'})
-         >>> repr(rv.X.getInteger())
-         ["i", "s"]
-
-   .. method:: getSerial()
-
-      Return an array of the serial attribute names. ::
-
-         >>> rv.X.create({i: 'integer', s: 'serial'})
-         >>> repr(rv.X.getSerial())
-         ["s"]
+         {n: "number", s: "string"}
 
    .. method:: getUnique()
 
       Return an array of the unique keys represented by name
       arrays. ::
 
-         >>> rv.X.create({a: 'unique number', b: 'number', c: 'number'},
-                         'unique [b, c]')
+         >>> rv.X.create(
+               {a: 'unique number', b: 'number', c: 'number'},
+               'unique [b, c]')
          >>> repr(rv.X.getUnique())
          [["a"], ["b", "c"]]
 
@@ -196,8 +184,8 @@ RelVar
       referenced attribute names. ::
 
          >>> rv.X.create({a: 'number', b: 'number'})
-         >>> rv.Y.create({c: 'number', d: 'number'},
-                         '[c, d] -> X[a, b]')
+         >>> rv.Y.create(
+               {c: 'number', d: 'number'}, '[c, d] -> X[a, b]')
          >>> repr(rv.Y.getForeign())
          [[["c", "d"], "X", ["a", "b"]]]
 
@@ -214,22 +202,22 @@ RelVar
 
       Add new attributes to the relation variable. Each attribute is
       described by a ``[type, value]`` pair where ``type`` is
-      ``'number'``, ``'string'``, ``'bool'``, ``'date'``, ``'json'``,
-      or ``'integer'`` and ``value`` is used to extend existing
-      tuples. ::
+      ``'number'``, ``'string'``, ``'boolean'``, ``'date'``,
+      ``'json'``, or ``'integer'`` and ``value`` is used to extend
+      existing tuples. ::
 
          >>> rv.X.create({n: 'number'})
          >>> rv.X.insert({n: 0})
          >>> rv.X.insert({n: 1})
-         >>> rv.X.addAttrs({i: ['integer', 42], s: ['string', 'the answer']})
+         >>> rv.X.addAttrs({i: ['integer', 42], b: ['boolean', true]})
          >>> repr(rv.X.all().get())
-         [{n: 0, i: 42, s: "the answer"}, {n: 1, i: 42, s: "the answer"}]
+         [{n: 0, i: 42, b: true}, {n: 1, i: 42, b: true}]
 
    .. method:: dropAttrs(names...)
 
       Drop some attributes of the relation variable. ::
 
-         >>> rv.X.create({n: 'number', s: 'string', b: 'bool'})
+         >>> rv.X.create({n: 'number', s: 'string', b: 'boolean'})
          >>> rv.X.dropAttrs('s', 'b')
          >>> repr(rv.X.getHeader())
          {n: "number"}
@@ -262,7 +250,8 @@ RelVar
       ``string`` :ref:`constraint descriptions
       <constraint_description>`. ::
 
-         >>> rv.X.create({n: 'unique number', s: 'string', b: 'bool'})
+         >>> rv.X.create(
+               {n: 'unique number', s: 'string', b: 'boolean'})
          >>> rv.X.addConstrs('unique [s, b]')
          >>> repr(rv.X.getUnique())
          [["n"], ["s", "b"]]
@@ -272,7 +261,8 @@ RelVar
       Drop all constraints and add a unique constraint on all
       attributes. ::
 
-         >>> rv.X.create({n: 'number unique check (n != 42)', s: 'string'})
+         >>> rv.X.create(
+               {n: 'number unique check (n != 42)', s: 'string'})
          >>> rv.X.dropAllConstrs()
          >>> repr(rv.X.getUnique())
          [["n", "s"]]
@@ -350,11 +340,11 @@ Selection
          a maximum number of tuples to return.
 
       *byParams* is a list of *by* expression parameters. See the
-      corresponding :func:`db.query` options for details. Unless *by*
+      corresponding :func:`query` options for details. Unless *by*
       option is specified the order of the returned tuples is
       undefined. ::
 
-         >>> rv.X.create({n: 'number', b: 'bool', s: 'string'})
+         >>> rv.X.create({n: 'number', b: 'boolean', s: 'string'})
          >>> rv.X.insert({n: 0, b: false, s: 'zero'})
          >>> rv.X.insert({n: 1, b: false, s: 'one'})
          >>> rv.X.insert({n: 42, b: true, s: 'the answer'})
@@ -362,10 +352,10 @@ Selection
          [{b: false, n: 1, s: "one"}]
          >>> repr(rv.X.all().get({attr: 'n', by: 'n * $'}, -1))
          [42, 1, 0]
-         >>> repr(rv.X.where('!b').get({only: ['n', 's']})) // undefined order
-         [{n: 0, s: "zero"}, {n: 1, s: "one"}]
-         >>> repr(rv.X.all().get({attr: 'b', by: 'b'})) // tuples are unique
-         [false, true]
+         >>> repr(rv.X.where('!b').get({only: ['n', 's']}))
+         [{n: 0, s: "zero"}, {n: 1, s: "one"}]  // undefined order
+         >>> repr(rv.X.all().get({attr: 'b', by: 'b'}))
+         [false, true] // tuples are unique
 
    .. method:: getOne(options={} [, byParams...])
 

@@ -12,7 +12,7 @@ development and a :term:`Model-View-Controller <MVC>` framework.
    base
    utils
    format
-   db
+   rv
    http
    url
    rest
