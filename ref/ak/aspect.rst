@@ -2,7 +2,7 @@
 Aspect-Oriented Programming
 ===========================
 
-The `aspect.js`_ file provides simple means of the `Aspect-Oriented
+The aspect_ module provides simple means of the `Aspect-Oriented
 Programming`__ (AOP). They are designed to modify a behavior of an
 application on the fly by weaving :dfn:`advices` to functions and
 methods. An advice is a piece of code altering a function by adding
@@ -13,8 +13,8 @@ completely unweaved. When a function is advised several times, an
 original function and each following advice is weaved to the previous
 aspect. Each aspect of the chain can be disabled or unweaved.
 
+.. _aspect: https://github.com/akshell/ak/blob/0.3/aspect.js
 __ http://en.wikipedia.org/wiki/Aspect-Oriented_Programming
-.. _aspect.js: http://www.akshell.com/apps/ak/code/0.2/aspect.js
 
 AOP aims to increase modularity by the separation of accessory logic
 from business logic of an application. Aspects form an agile web of
@@ -27,8 +27,8 @@ advices stretching through the whole program.
    specially target this task.
 
 
-Aspect
-======
+``Aspect``
+==========
 
 .. class:: Aspect(holder, name, advice)
 
@@ -62,8 +62,8 @@ Aspect
       from the aspect chain and return the top aspect of the chain.
 
 
-AspectArray
-===========
+``AspectArray``
+===============
 
 .. class:: AspectArray
 
@@ -83,8 +83,8 @@ AspectArray
       Disable all aspects of the array.
 
 
-weave()
-=======
+``weave()``
+===========
 
 .. function:: weave(aspectClass, holder, names, advice, directly=false)
 
@@ -134,8 +134,8 @@ weave()
       })()
 
 
-Aspect Subclasses
-=================
+``Aspect`` Subclasses
+=====================
 
 Concrete :class:`Aspect` subclasses implement various kinds of
 aspects. They should be instantiated only via the :func:`weave`
