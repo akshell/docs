@@ -2,10 +2,10 @@
 Utilities
 =========
 
-In the `utils.js`_ file various utility functions and classes are
+In the utils_ module various utility functions and classes are
 defined.
 
-.. _utils.js: http://www.akshell.com/apps/ak/code/0.2/utils.js
+.. _utils: https://github.com/akshell/ak/blob/0.3/utils.js
 
 
 Function Utilities
@@ -26,8 +26,9 @@ Function Utilities
    called will behave like *func* called with *args*. If more
    arguments are supplied to the call, they are appended to *args*. ::
 
-      >>> partial(function () { return Array.join(arguments, ', '); },
-                  1, 2)(3, 4)
+      >>> partial(
+            function () { return Array.join(arguments, ', '); },
+            1, 2)(3, 4)
       1, 2, 3, 4
 
 
@@ -159,7 +160,9 @@ Dict
            var d = new Dict();
            d.set({x: 0}, 'zero');
            d.set({x: 1}, 'one');
-           var f = function (key, value) { return key.x + ':' + value; };
+           var f = function (key, value) {
+             return key.x + ':' + value;
+           };
            assertEqual(d.map(f).sort(), ['0:zero', '1:one']);
          })()
 
