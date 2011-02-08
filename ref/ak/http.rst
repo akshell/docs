@@ -1,11 +1,11 @@
-============
-HTTP Goodies
-============
+====
+HTTP
+====
 
-In the `http.js`_ file HTTP exception classes and status codes are
+In the http_ module HTTP exception classes and status codes are
 defined.
 
-.. _http.js: http://www.akshell.com/apps/ak/code/0.2/http.js
+.. _http: https://github.com/akshell/ak/blob/0.3/http.js
 
 
 Exceptions
@@ -38,12 +38,12 @@ Status Codes
 
 .. module:: http
 
-HTTP status code constants are properties of the :mod:`http`
-module. The most popular constants a described here. You are unlikely
-to need other constants, but if you do, see the `source code`_ and the
-`List of HTTP status codes`__ Wikipedia page.
+HTTP status code constants are properties of the ``http`` module. The
+most popular constants a described here. You are unlikely to need
+other constants, but if you do, see the `source code`_ and the `List
+of HTTP status codes`__ Wikipedia page.
 
-.. _source code: http.js_
+.. _source code: http_
 __ http://en.wikipedia.org/wiki/List_of_HTTP_status_codes
 
 
