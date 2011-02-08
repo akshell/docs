@@ -2,14 +2,14 @@
 Formatting
 ==========
 
-In the `format.js`_ file the ``format()`` ``String`` method and the
+In the format_ module the ``format()`` ``String`` method and the
 ``toString()`` ``Number`` and ``Date`` methods are defined. They
 significantly facilitate string formatting in JavaScript. The
 interface is inspired by the .NET Framework; the implementation is
 based on the `String.format for JavaScript`__ by Daniel Mester
 Pirttijärvi.
 
-.. _format.js: http://www.akshell.com/apps/ak/code/0.2/format.js
+.. _format: https://github.com/akshell/ak/blob/0.3/format.js
 __ http://www.masterdata.dyndns.org/r/string_format_for_javascript/
 
 
@@ -40,7 +40,8 @@ format()
       ``toString()`` method. Its syntax is specific to the object being
       formatted. ::
 
-         >>> '{0:dd MMMM}: {1,6:0.00%}'.format(new Date('03/26/2010'), .012)
+         >>> '{0:dd MMMM}: {1,6:0.00%}'.format(
+               new Date('03/26/2010'), .012)
          26 March:  1.20%
 
 
