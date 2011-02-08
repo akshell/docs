@@ -2,11 +2,11 @@
 URL Mapping
 ===========
 
-The `url.js`_ file supplies the main tool for handling URLs in your
-application, the ``URLMap`` class, along with the corresponding
+The url_ module supplies the main tool for handling URLs in your
+application, the :class:`URLMap` class, along with the corresponding
 functions and error classes.
 
-.. _url.js: http://www.akshell.com/apps/ak/code/0.2/url.js
+.. _url: https://github.com/akshell/ak/blob/0.3/url.js
 
 
 URLMap
@@ -39,7 +39,7 @@ URLMap
    ``/([^\/]+)\//``. It's the most straightforward way of defining
    variable parts of URLs.
 
-   .. _urlmap_example:
+   .. _blog_url_mapping:
 
    Example::
 
@@ -118,7 +118,7 @@ Functions
    array of positional arguments retrieved from the ``RegExp`` pattern
    match groups. Throw a :exc:`ResolveError` on failure.
 
-   Example usage (for the :ref:`example mapping <urlmap_example>`)::
+   Example for the :ref:`blog URL mapping <blog_url_mapping>`::
 
       >>> repr(resolve('/'))
       [<function IndexHandler>, []]
@@ -144,7 +144,7 @@ Functions
    specified by the second ``reverse()`` argument (to redirect a user
    back to the current page, use ``request.fullPath``).
 
-   Example usage (for the :ref:`example mapping <urlmap_example>`)::
+   Example for the :ref:`blog URL mapping <blog_url_mapping>`::
 
       >>> reverse('index')
       /
