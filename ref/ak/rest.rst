@@ -2,10 +2,10 @@
 REST Framework
 ==============
 
-The `rest.js`_ file defines tools for convenient, robust, and
+The rest_ module defines tools for convenient, robust, and
 :term:`RESTful <REST>` request handling.
 
-.. _rest.js: http://www.akshell.com/apps/ak/code/0.2/rest.js
+.. _rest: https://github.com/akshell/ak/blob/0.3/rest.js
 
 
 Handler
@@ -67,7 +67,6 @@ provides a class facilitating development of a robust handler:
         },
         {
           get: function () { /* Return a post representation */ }
-          // PostsHandler.prototype.post won't interfere with PostHandler
         });
 
       exports.root = new URLMap(
@@ -78,28 +77,6 @@ provides a class facilitating development of a robust handler:
           ]
          ]
         ]);
-
-
-Handler Decorators
-==================
-
-Handler decorators can decorate :class:`Handler` subclasses, RESTful
-methods of these subclasses, or plain JavaScript functions used as
-controllers.
-
-.. function:: loggingIn(handler)
-
-   Decorate *handler* to redirect anonymous users to the Akshell login
-   page. After the login Akshell redirects a user back to the page he
-   came from.
-
-.. function:: obtainingSession(handler)
-
-   Decorate *handler* to redirect visitors who doesn't have a session
-   cookie to the session generator URL. Akshell will set a session
-   cookie and redirect a user back to the page he came from. If
-   cookies are disabled in the user's browser, he'll get an error
-   message asking to enable them.
 
 
 Shortcut Functions
@@ -159,13 +136,6 @@ Default Middleware
 
 The library provides these middleware:
 
-.. function:: serve.protectingFromICAR(func)
-
-   Protect the application from illegal cross-application
-   requests. This decorator blocks all cross-application request which
-   were not marked as legal, i.e., have a false ``request.legal``
-   property.
-
 .. function:: serve.protectingFromCSRF(func)
 
    Protect the application from :term:`CSRF` attacks.
@@ -175,6 +145,10 @@ The library provides these middleware:
    Catch a :exc:`Failure` thrown by a handler; render the
    ``error.html`` template for the error; return a :class:`Response`
    object with the appropriate status code.
+
+.. function:: serve.servingStaticFiles(func)
+
+   Serve static files from the ``/static/`` path.
 
 .. function:: serve.catchingTupleDoesNotExist(func)
 
@@ -189,5 +163,5 @@ The library provides these middleware:
 
 .. function:: serve.rollbacking(func)
 
-   :func:`Roll back <db.rollback>` the current transaction if the
+   :func:`Roll back <rollback>` the current transaction if the
    handler has thrown an exception.
