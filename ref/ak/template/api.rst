@@ -27,7 +27,11 @@ Example template with block tags:
 
 .. code-block:: html+django
 
-   {% if isLoggedIn %}Thanks for logging in!{% else %}Please log in.{% endif %}
+   {% if isLoggedIn %}
+     Thanks for logging in!
+   {% else %}
+     Please log in.
+   {% endif %}
 
 A :dfn:`template expression` is a symbol within a template that
 outputs a value.
@@ -76,7 +80,8 @@ Usage of the template system is a two-step process:
 
    ::
 
-      >>> (new Template('My name is {{ name }}.')).render({name: 'Anton'})
+      >>> (new Template('My name is {{ name }}.')).render(
+            {name: 'Anton'})
       My name is Anton.
 
 .. exception:: TemplateSyntaxError
@@ -111,7 +116,8 @@ When lookup fails, an empty string is returned::
 Lookup calls methods without arguments. Exceptions thrown by methods
 are propagated::
 
-   >>> (new Template('{{ func }}')).render({func: function () { throw 42; }})
+   >>> (new Template('{{ func }}')).render(
+         {func: function () { throw 42; }})
    Line 1, column 57
    Uncaught 42
 
@@ -132,7 +138,8 @@ pages. Sometimes you need to disable this behavior.
 
    For example::
 
-      >>> (new Template('{{ text }}')).render({text: safe('<h1>Header</h1>')})
+      >>> (new Template('{{ text }}')).render(
+            {text: safe('<h1>Header</h1>')})
       <h1>Header</h1>
 
 
@@ -453,7 +460,8 @@ Template tags can accept arguments. They could be cut from the
    Split text by white spaces regarding string constants and template
    expressions. ::
 
-      >>> repr(template.smartSplit('1 2\t "a b c" value|some|filters'))
+      >>> repr(
+            template.smartSplit('1 2\t "a b c" value|some|filters'))
       ["1", "2", "\"a b c\"", "value|some|filters"]
 
 Let me illustrate this function by a more complex example. The
@@ -485,8 +493,9 @@ template expressions and renders itself into an unordered list,
 
 Example usage::
 
-   >>> (new Template('{% ul 42 "string constant" variable %}')).render(
-         {variable: 'variable value'})
+   >>> (new Template(
+         '{% ul 42 "string constant" variable %}')).render(
+           {variable: 'variable value'})
    <ul>
    <li>42</li>
    <li>string constant</li>

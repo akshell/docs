@@ -17,36 +17,6 @@ Define a block that can be overridden by child templates. See
 :ref:`template_inheritance` for more information.
 
 
-.. tag:: code
-
-code
-====
-
-Return an URL of the given code file to be served by the web server as
-a static file.
-
-If the ``timestamp`` option is given, append a timestamp to the URL as
-a GET parameter. If the ``no-timestamp`` option is given, don't append
-a timestamp. By default, a timestamp is appended to ``.css`` and
-``.js`` files.
-
-For example::
-
-   {% code '0.2/main.js' %}
-   {% code '0.2/main.js' no-timestamp %}
-   {% code 'example' path %}
-   {% code 'example' path timestamp %}
-
-These tags produced the following output in the release version of the
-``ak`` application (the ``path`` variable was set to
-``'templates/base.html'``)::
-
-   http://static.akshell.com/code/release/ak/0.2/main.js?1266400939
-   http://static.akshell.com/code/release/ak/0.2/main.js
-   http://static.akshell.com/code/release/example/templates/base.html
-   http://static.akshell.com/code/release/example/templates/base.html?1266305202
-
-
 .. tag:: comment
 
 comment
@@ -263,7 +233,9 @@ possible uses:
 
       {% for date in days %}
         {% ifchanged %}<h3>{{ date.getMonth }}</h3>{% endifchanged %}
-        <a href="{{ date.getMonth }}/{{ data.getDay }}/">{{ date.getDay }}</a>
+        <a href="{{ date.getMonth }}/{{ data.getDay }}/">
+          {{ date.getDay }}
+        </a>
       {% endfor %}
 
 2. If given an expression, check whether that expression has
@@ -272,7 +244,9 @@ possible uses:
    changed::
 
       {% for date in days %}
-        {% ifchanged date.getDate %} {{ date.getDate }} {% endifchanged %}
+        {% ifchanged date.getDate %}
+          {{ date.getDate }}
+        {% endifchanged %}
         {% ifchanged date.getHour date.getDate %}
           {{ date.getHour }}
         {% endifchanged %}
@@ -324,36 +298,6 @@ John"``:
      Hello, {{ person }}
 
 
-.. tag:: media
-
-media
-=====
-
-Return an URL of the given file from the :doc:`file storage
-</ref/core/fs>`.
-
-If the ``timestamp`` option is given, append a timestamp to the URL as
-a GET parameter. If the ``no-timestamp`` option is given, don't append
-a timestamp. By default, a timestamp is appended to ``.css`` and
-``.js`` files.
-
-For example::
-
-   {% media 'test.css' %}
-   {% media 'test.css' no-timestamp %}
-   {% media 'example' path %}
-   {% media 'example' path timestamp %}
-
-These tags produced the following output in the release version of the
-``ak`` application (the ``path`` variable was set to
-``'image.png'``)::
-
-   http://static.akshell.com/media/release/ak/test.css?1266512248
-   http://static.akshell.com/media/release/ak/test.css
-   http://static.akshell.com/media/release/example/image.png
-   http://static.akshell.com/media/release/example/image.png?1266512254
-
-
 .. tag:: now
 
 now
@@ -399,6 +343,23 @@ text. In this example the space around ``Hello`` won't be stripped::
        Hello
      </strong>
    {% endspaceless %}
+
+
+.. tag:: static
+
+static
+======
+
+Return the escaped URL of the given static file. In the release
+environment static files are served with far future Expires header; so
+the URL includes Git commit ID. For example, the following tag::
+
+   {% static 'main.css' %}
+
+... outputs ``'/static/main.css'`` in a non-release environment and
+something like
+``'/static/223a0f84dc788a772d7e9650632a0f4a88ef51e5/main.css'`` in the
+release environment.
 
 
 .. tag:: templateTag
@@ -503,7 +464,8 @@ expression.
 
 For example::
 
-   <img src="bar.gif" height="10" width="{% widthRatio value max 100 %}">
+   <img src="bar.gif" height="10"
+        width="{% widthRatio value max 100 %}">
 
 Above, if ``value`` is 175 and ``max`` is 200, the image in the above
 example will be 88 pixels wide (because 175/200 = .875; .875 * 100 =
