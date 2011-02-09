@@ -8,8 +8,84 @@ The rest_ module defines tools for convenient, robust, and
 .. _rest: https://github.com/akshell/ak/blob/0.3/rest.js
 
 
-Handler
-=======
+``Request``
+===========
+
+.. class:: Request
+
+   A ``Request`` object represents an HTTP request sent to your app.
+
+   .. attribute:: method
+
+      The request HTTP method in uppercase.
+
+   .. attribute:: path
+
+      The request path.
+
+   .. attribute:: fullPath
+
+      The request path with GET parameters.
+
+   .. attribute:: uri
+
+      The request URI.
+
+   .. attribute:: get
+
+      An object mapping GET parameter names to their values.
+
+   .. attribute:: post
+
+      An object mapping POST parameter names to their values.
+
+   .. attribute:: headers
+
+      An object mapping HTTP header names to their values.
+
+   .. attribute:: cookies
+
+      An object mapping cookie names to their values.
+
+
+``Response``
+============
+
+.. class:: Response(content='', status=http.OK[, headers])
+
+   A ``Response`` object represents an app's response. *content* is a
+   :class:`Binary` or a ``string`` representing the response content;
+   *status* is an HTTP status code (the ``ak`` library defines
+   :ref:`constants for status codes <status_codes>`); *headers* are
+   HTTP headers, which default to::
+
+      {'Content-Type': 'text/html; charset=utf-8'}
+
+   the ``main()`` function exported by the ``main`` module should
+   return a Response object.
+
+   .. method:: setCookie(name, value='', options={})
+
+      Set the cookie *name* to *value*. The following *options* are
+      available:
+
+      ``domain``
+         The cookie domain; defaults to the current host.
+
+      ``path``
+         The cookie path; defaults to ``/``.
+
+      ``expires``
+         The cookie expiry date; if unset, the cookie only lasts for
+         the duration of users using the app.
+
+      ``httpOnly``
+         If set, the cookie value won't be available to a client side
+         script.
+
+
+``Handler``
+===========
 
 A :dfn:`handler` is a controller of a particular resource. For each
 request the :doc:`URL mapping <url>` determines which handler to use,
