@@ -3,31 +3,29 @@ Request Handling
 ================
 
 There are only two ways of communicating with your application:
-evaluate an expression in it and send a request to it. The first way
-is available only to the developers; the second -- to all users and to
-other application. This document describes the means Akshell offer for
-request handling.
+evaluate an expression in it and send a request to it. This document
+describes the means Akshell offers for request handling.
 
 
-Serve Function
-==============
+``main`` Function
+=================
 
 Each request handling starts from the ``main()`` function exported by
-the ``main.js`` file of your application. ``main()`` receives a
+the ``main`` module of your application. ``main()`` receives a
 :class:`Request` object as an argument; it should handle the request
 and return a :class:`Response` object.
 
-Here is the full code of the hello-world_ application::
+Here is the ``main.js`` file of the hello-world_ app::
 
-   require('ak', '0.2').setup();
+   require('ak').setup();
 
    exports.main = function (request) {
-     return new Response('Hello, world!');
+     return new Response('Hello world!');
    };
 
 It returns the same text for all requests. `Test it`_!
 
-.. _hello-world: http://www.akshell.com/apps/hello-world/
+.. _hello-world: https://github.com/akshell/hello-world
 .. _Test it: http://hello-world.akshell.com/
 
 
