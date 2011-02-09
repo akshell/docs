@@ -1,11 +1,4 @@
-=========================
-Database and File Storage
-=========================
-
-An application has two places to store persistent information: a
-database and a file storage. This document describes their interfaces.
-
-
+========
 Database
 ========
 
@@ -14,7 +7,7 @@ their integrity.
 
 
 Overview
---------
+========
 
 The Akshell database system is based on the :term:`relational
 model`. A database consists of named :dfn:`relation variables`. Each
@@ -56,7 +49,7 @@ knowledge on a number of levels:
 
 
 Relation Variables
-------------------
+==================
 
 Properties of the :data:`rv` object provide your program with an
 interface to the relation variables. Each property is an instance of
@@ -74,14 +67,14 @@ the :class:`RelVar` class. To create a new relation variable, call the
 The ``Post`` relation variable could be managed as follows::
 
    >>> rv.Post.insert(
-         {author: 'Bob', title: 'Greeting', text: 'Hello, world!'})
+         {author: 'Bob', title: 'Greeting', text: 'Hello world!'})
    >>> rv.Post.insert(
-         {author: 'Alice', title: 'Declaration', text: 'I love Akshell'})
+         {author: 'Alice', title: 'Akshell', text: 'I love Akshell'})
    >>> rv.Post.insert(
          {author: 'Bob', title: 'The Answer', text: '42'})
    >>> rv.Post.all().get({by: 'id'}).map(repr).join('\n')
-   {author: "Bob", id: 0, text: "Hello, world!", title: "Greeting"}
-   {author: "Alice", id: 1, text: "I love Akshell", title: "Declaration"}
+   {author: "Bob", id: 0, text: "Hello world!", title: "Greeting"}
+   {author: "Alice", id: 1, text: "I love Akshell", title: "Akshell"}
    {author: "Bob", id: 2, text: "42", title: "The Answer"}
 
 Each tuple is represented by a plain ``Object`` instance; a relation
@@ -97,46 +90,37 @@ To permanently remove a relation variable from the database use the
 
 
 Types
------
+=====
 
-Akshell provides four database types: ``number``, ``string``,
-``bool``, and ``date``. Yes, they are borrowed from JavaScript -- the
-database system was specifically designed to integrate seamlessly into
-this language.
+Akshell provides eight database types: ``number``, ``integer``,
+``serial``, ``string``, ``boolean``, ``date``, ``json``, and
+``binary``. The database type system was specifically designed to
+integrate seamlessly into JavaScript:
 
+* ``number``, ``integer``, and ``serial`` are represented by
+  JavaScript numbers;
 
-Integer
-~~~~~~~
+* ``string``, ``boolean``, and ``date`` correspond to ``string``,
+  ``boolean``, and ``Date`` JavaScript types respectively;
 
-In the majority of cases when you store numbers in the database, these
-numbers can have only integer values: a blog post could not have 3.14
-comments, neither can a group have 2.72 members. To designate this
-restriction, use the ``'integer number'`` type description or just
-``'integer'`` -- Akshell is rather shrewd.
+* ``json`` stores arbitrary serializable JavaScript objects;
 
-For example, this relation variable could be used in a hotel
-management application::
+* ``binary`` stores :class:`Binary` values.
 
-   >>> rv.Room.create({number: 'integer', capacity: 'integer'})
+Use the ``serial`` type to maintain uniqueness of tuples and to have a
+way of referencing them. Whenever a value of a ``serial`` attribute is
+omitted, the next number of a sequence 0, 1, 2, etc. is used. Serial
+attributes can have only integer values. ::
 
-Fractional numbers will be rounded when inserted as values of an
-integer attribute::
-
-   >>> repr(rv.Room.insert({number: 3.001, capacity: 1.5}))
-   {capacity: 2, number: 3}
-
-Some numbers cannot be converted to integer::
-
-   >>> rv.Room.insert({number: 1, capacity: Infinity})
-   ConstraintError: ...
-   >>> rv.Room.insert({number: 1, capacity: NaN})
-   ConstraintError: ...
-   >>> rv.Room.insert({number: 1, capacity: 1e10})
-   ConstraintError: ...
-
-
-Default
-~~~~~~~
+   >>> rv.Counter.create({s: 'serial'})
+   >>> repr(rv.Counter.insert({}))
+   {s: 0}
+   >>> repr(rv.Counter.insert({}))
+   {s: 1}
+   >>> repr(rv.Counter.insert({s: 42}))
+   {s: 42}
+   >>> repr(rv.Counter.insert({}))
+   {s: 2}
 
 Some relation variable attributes have the same value in the majority
 of cases. In order to avoid repetitions, you could attach a
@@ -151,40 +135,16 @@ attributes will naturally have default values::
          {
            name: 'unique string',
            description: ['string', ''],
-           banned: ['bool', false]
+           banned: ['boolean', false]
          })
    >>> repr(rv.Profile.insert({name: 'Bob'}))
    {banned: false, description: "", name: "Bob"}
-   >>> repr(rv.Profile.insert({name: 'Anton', description: "That's me"}))
-   {banned: false, description: "That's me", name: "Anton"}
-
-
-.. _serial:
-
-Serial
-~~~~~~
-
-To maintain uniqueness of tuples and to have a way of referencing
-them, it's often necessary to add a :dfn:`serial` attribute counting
-tuples: 0, 1, 2, etc. Use ``'number serial'`` or just ``'serial'``
-type description for this purpose.
-
-Whenever a value of such attribute is omitted, the next number of a
-sequence is used. Serial attributes can have only integer values. ::
-
-   >>> rv.Counter.create({s: 'serial'})
-   >>> repr(rv.Counter.insert({}))
-   {s: 0}
-   >>> repr(rv.Counter.insert({}))
-   {s: 1}
-   >>> repr(rv.Counter.insert({s: 42}))
-   {s: 42}
-   >>> repr(rv.Counter.insert({}))
-   {s: 2}
+   >>> repr(rv.Profile.insert({name: 'Anton', description: "Me"}))
+   {banned: false, description: "Me", name: "Anton"}
 
 
 Constraints
------------
+===========
 
 Constraints are the main tool for maintaining logical consistency in a
 database. Akshell provides the :dfn:`unique`, :dfn:`foreign key`, and
@@ -194,7 +154,7 @@ database. Akshell provides the :dfn:`unique`, :dfn:`foreign key`, and
 .. _unique:
 
 Unique
-~~~~~~
+------
 
 If a set of relation variable attributes has a unique constraint,
 these attributes must have unique sets of values across all tuples of
@@ -219,10 +179,10 @@ All posts will have a unique ``id`` attribute; posts of the same
 author will never have the same title::
 
    >>> rv.Post.insert(
-         {author: 'Bob', title: 'Greeting', text: 'Hello, world!'}).id
+         {author: 'Bob', title: 'Greeting', text: 'Hello'}).id
    0
    >>> rv.Post.insert(
-         {id: 0, author: 'Alice', title: 'Declaration', text: 'I love Akshell'})
+         {id: 0, author: 'Alice', title: 'Greeting', text: 'Hi'})
    ConstraintError: ...
    >>> rv.Post.insert(
          {author: 'Bob', title: 'Greeting', text: 'Hello again!'})
@@ -232,7 +192,7 @@ author will never have the same title::
 .. _foreign_key:
 
 Foreign Key
-~~~~~~~~~~~
+-----------
 
 It's very common relation variables to be interconnected. A foreign
 key is a reference from one relation variable to another, i.e., a
@@ -255,7 +215,7 @@ tuple referenced tuple exists, i.e., a reference makes sense. If you
 try to break this rule, an error will be thrown::
 
    >>> rv.Post.insert(
-         {author: 'Bob', title: 'Greeting', text: 'Hello, world!'}).id
+         {author: 'Bob', title: 'Greeting', text: 'Hello'}).id
    0
    >>> rv.Comment.insert(
          {post: 0, author: 'Alice', text: 'Hi, Bob'})
@@ -267,7 +227,7 @@ try to break this rule, an error will be thrown::
 
 
 Check
-~~~~~
+-----
 
 A check constraint simply checks that a given expression holds
 ``true`` for each tuple of a relation variable. You could add a check
@@ -303,18 +263,18 @@ If you try to break a check, an error will be thrown::
 
 
 Transactions
-------------
+============
 
 Akshell wraps each request handling by a transaction. If an
 application fails to handle a request and throws an exception, the
 changes it has made to the database are :dfn:`rolled back`. If the
 handling succeeds, the changes are stored permanently. You could also
 roll back changes of the current transaction manually via the
-:func:`db.rollback` function.
+:func:`rollback` function.
 
 
 Querying
---------
+========
 
 The main point of a database is handy retrieving information from
 it. Akshell provides a sophisticated yet simple tool for this purpose
@@ -340,7 +300,7 @@ Performing a database query is a two-step process:
 
 
 where()
-~~~~~~~
+-------
 
 :func:`~RelVar.where` accepts an expression the resulting tuples
 should match and positional arguments of this expression. They are
@@ -349,7 +309,8 @@ substituted for ``$1``, ``$2``, etc. placeholders in the expression.
 For example, this query returns posts of the given author with the
 given title::
 
-   rv.Post.where('author == $1 && title == $2', 'Bob', 'Greeting').get()
+   rv.Post.where(
+     'author == $1 && title == $2', 'Bob', 'Greeting').get()
 
 For brevity a single ``$`` could be used instead of ``$1``, for
 example::
@@ -383,7 +344,7 @@ There is a shortcut for retrieving all tuples of a relation variable
 
 
 get()
-~~~~~
+-----
 
 :meth:`~Selection.get` accepts an optional object describing the way
 to retrieve tuples. It could define:
@@ -397,7 +358,8 @@ The following query returns authors and titles of all posts. Resulting
 tuples are ordered by author; tuples with the same author are ordered
 by title::
 
-   rv.Post.all().get({only: ['author', 'title'], by: ['author', 'title']})
+   rv.Post.all().get(
+     {only: ['author', 'title'], by: ['author', 'title']})
 
 This query returns at most 42 posts in descending order by id omitting
 the first 15 posts::
@@ -406,7 +368,7 @@ the first 15 posts::
 
 
 getOne()
-~~~~~~~~
+--------
 
 Some queries should return one and only one tuple. For such cases the
 :meth:`getOne` method is useful: it performs a query and returns an
@@ -433,7 +395,7 @@ For example::
 
 
 Updating
---------
+========
 
 Changing values of already existing tuples of a relation variable is
 called :dfn:`updating`. As well as querying, it's a two-step process:
@@ -446,7 +408,8 @@ called :dfn:`updating`. As well as querying, it's a two-step process:
 
 For example, the following code adds a signature to all Bob's posts::
 
-   rv.Post.where('author == $', 'Bob').update({text: 'text + $'}, '\n--\nBob')
+   rv.Post.where('author == $', 'Bob').update(
+     {text: 'text + $'}, '\n--\nBob')
 
 This code changes posts with empty texts::
 
@@ -470,7 +433,7 @@ For example, this sets texts of all Bob's comments::
 
 
 Deleting
---------
+========
 
 I doubt you'll be surprised to know that deleting of tuples is also a
 two-step process:
@@ -488,61 +451,3 @@ beforehand::
 
    rv.Comment.where('post->author == $', 'Bob').del();
    rv.Post.where('author == $', 'Bob').del();
-
-
-File Storage
-============
-
-A file storage is intended for storing unstructured data in files
-grouped under directories. It has the same semantics as a common file
-system on your local hard drive; so in this section you don't have to
-learn anything.
-
-File and directory names can contain any Unicode symbol except
-``'\0'``, ``'\n'``, and ``'/'``; path separator is the slash
-(``'/'``).
-
-Here is an example of file storage usage:
-
-   >>> fs.list('').forEach(fs.remove)
-   >>> fs.write('greeting', 'Hello, world!')
-   >>> fs.createDir('dir')
-   >>> fs.createDir('dir/subdir')
-   >>> fs.write('dir/subdir/answer', 42)
-   >>> repr(fs.list(''))
-   ["dir", "greeting"]
-   >>> repr(fs.list('dir/subdir'))
-   ["answer"]
-   >>> fs.read('greeting')
-   Hello, world!
-   >>> fs.isFile('greeting')
-   true
-   >>> fs.isFile('dir/subdir')
-   false
-   >>> fs.isDir('dir/subdir')
-   true
-   >>> fs.exists('dir/subdir/answer')
-   true
-   >>> fs.exists('no-such-entry')
-   false
-   >>> fs.isFile('no-such-entry')
-   false
-   >>> fs.read('no-such-entry')
-   NoSuchEntryError: ...
-
-See the :doc:`file storage API reference </ref/core/fs>` for details.
-
-
-Quotas
-======
-
-Akshell sets quotas on code storage, database, and file storage sizes:
-
-===================  ============  ========  ============
-Application Version  Code storage  Database  File storage
-===================  ============  ========  ============
-Release              10M           32M       32M
-Spot                 10M           2M        2M
-===================  ============  ========  ============
-
-If your application needs more, just write me to support@akshell.com.

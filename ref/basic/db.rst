@@ -156,29 +156,29 @@ Types
 
 Akshell database supports eight types:
 
-``'number'``
+``number``
    The double precision number type.
 
-``'integer'``
+``integer``
    The integer number type.
 
-``'serial'``
+``serial``
    The integer number type with values generated from a sequence 0, 1,
    2, etc.
 
-``'string'``
+``string``
    The string type.
 
-``'boolean'``
+``boolean``
    The boolean type.
 
-``'date'``
+``date``
    The date type; represented by ``Date`` objects.
 
-``'json'``
+``json``
    The JSON type; can hold any serializable JavaScript object.
 
-``'binary'``
+``binary``
    The binary type; represented by :class:`Binary` objects.
 
 

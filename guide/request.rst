@@ -44,7 +44,7 @@ The MVC framework splits an application into three parts:
 Models
    are the representation of the data upon which the application
    operates. In Akshell the database and the files store the data;
-   they are described in the :doc:`next chapter <db-and-fs>`.
+   they are described in the :doc:`next chapter <db>`.
 
 Views
    render models into a form suitable for interaction; for web

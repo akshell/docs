@@ -9,6 +9,6 @@ Introductions to all the key parts of Akshell you'll need to know:
 
    using
    request
-   db-and-fs
+   db
    template
    testing
