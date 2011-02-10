@@ -57,6 +57,8 @@ Akshell developer, ``akshell/ak:0.3`` is the identifier of the ``0.3``
 version of his ``ak`` library.
 
 
+.. _environments:
+
 Environments
 ============
 
