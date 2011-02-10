@@ -109,13 +109,11 @@ For example::
      {
        setUp: function () {
          this._client = new TestClient();
-         this._client.login('Bob');
        },
 
        testIndex: function () {
          var response = this._client.get()
          assertSame(response.handler, IndexHandler);
-         assertSame(response.context.user, 'Bob');
        },
 
        testSomePage: function () {
@@ -125,16 +123,14 @@ For example::
            this._client.get({path: '/some/page/'}).context.parameter,
            'value');
          assertSame(
-           this._client.get({path: '/some/page/', user: 'Alice'}).status,
-           http.FORBIDDEN);
+           this._client.put({path: '/some/page/'}).status,
+           http.METHOD_NOT_ALLOWED);
        }
      });
 
 Use the :meth:`~TestClient.get`, :meth:`~TestClient.post`,
 :meth:`~TestClient.head`, :meth:`~TestClient.put`, and
-:meth:`~TestClient.del` client methods to perform test requests. The
-:meth:`~TestClient.login` method sets the default user of test
-requests.
+:meth:`~TestClient.del` client methods to perform test requests.
 
 The template framework hacks the :class:`Handler` class on the fly; so
 each response has a ``handler`` property referencing the handler which
