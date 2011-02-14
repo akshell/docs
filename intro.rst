@@ -266,8 +266,8 @@ What's Next?
 
 So you've read the introduction to Akshell. I've only just scratched
 the surface with it (it's less than 10% of overall documentation), but
-at this point you should know enough to create an application and
-start fooling around. As you need to learn new tricks, come back to
-the documentation. To form a deeper understanding of Akshell, read the
+at this point you should know enough to create an app and start
+fooling around. As you need to learn new tricks, come back to the
+documentation. To form a deeper understanding of Akshell, read the
 :doc:`guide/index`; to look up a description of a particular function
 or class, consult the :doc:`ref/index`.
