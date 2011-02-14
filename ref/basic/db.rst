@@ -217,6 +217,7 @@ These functions constitute the low-level database interface. The
             ['text != "+1"'])
 
 .. function:: drop(names)
+   :noindex:
 
    Drop relation variables. Drop fails if any of them is referenced by
    a variable not being dropped. ::
@@ -306,7 +307,7 @@ These functions constitute the low-level database interface. The
 .. function:: rollback()
 
    Roll back the :term:`transaction` of the current request. See
-   :doc:`../ak/request` for details.
+   :doc:`/guide/request` for details.
 
 
 Exceptions
