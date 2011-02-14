@@ -193,7 +193,7 @@ the template engine. It must have three properties:
 
    For example, templates could be loaded from a relation variable::
 
-      db.create('Template', {name: 'unique string', value: 'string'});
+      rv.Template.create({name: 'unique string', value: 'string'});
 
       ...
 
