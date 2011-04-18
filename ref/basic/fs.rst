@@ -7,7 +7,9 @@ the basic Akshell lib.
 
 .. class:: FileStorage
 
-   A ``FileStorage`` object represents a file tree.
+   A ``FileStorage`` object represents a file tree. This class cannot
+   be instantiated directly; there are only two instances of it:
+   :data:`code` and :data:`lib`.
 
    .. method:: exists(path)
 
